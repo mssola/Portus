@@ -1,3 +1,9 @@
+## 2.0.5
+
+### Improvements
+
+- Be more clear on some errors. See [this](https://github.com/SUSE/Portus/commit/2cc3ea0803632c13ba49022f369d74dbb4e549c9) and [this](https://github.com/SUSE/Portus/commit/5e1f164bacca8119fd6f9d8ec0461281914a0ecd) commits.
+
 ## 2.0.4
 
 ### RPM

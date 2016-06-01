@@ -56,7 +56,7 @@
             | <span>Belongs to: </span>
             = link_to "#{@namespace.team.name}", @namespace.team
       .col-xs-6.text-right
-        - if can_manage_namespace?(@namespace) || contributor?(@namespace)
+        - if can_push?(@namespace)
           .circle-label.permissions-label.circle-label-sm[data-placement="left"
             data-toggle="popover"
             data-container=".panel-heading"

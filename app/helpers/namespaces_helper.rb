@@ -16,6 +16,10 @@ module NamespacesHelper
   end
 
   def can_pull?(namespace)
-    namespace.team.member_ids.include?(current_user.id)
+    NamespacePolicy.new(current_user, namespace).pull?
+  end
+
+  def can_push?(namespace)
+    NamespacePolicy.new(current_user, namespace).push?
   end
 end

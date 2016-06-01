@@ -33,7 +33,7 @@
           | /
           = @repository.name
       .col-xs-6.text-right
-        - if can_manage_namespace?(@repository.namespace) || contributor?(@repository.namespace)
+        - if can_push?(@repository.namespace)
           .circle-label.permissions-label.circle-label-sm[data-placement="left"
             data-toggle="popover"
             data-container=".panel-heading"

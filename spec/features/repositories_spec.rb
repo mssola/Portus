@@ -3,7 +3,9 @@ require "rails_helper"
 feature "Repositories support" do
   let!(:registry) { create(:registry) }
   let!(:user) { create(:admin) }
-  let!(:team) { create(:team, owners: [user]) }
+  let!(:user2) { create(:user) }
+  let!(:user3) { create(:user) }
+  let!(:team) { create(:team, owners: [user], contributors: [user2], viewers: [user3]) }
   let!(:namespace) { create(:namespace, team: team) }
   let!(:repository) { create(:repository, namespace: namespace) }
   let!(:starred_repo) { create(:repository, namespace: namespace) }
@@ -58,6 +60,19 @@ feature "Repositories support" do
 
         expectations[idx - 1].each { |tag| expect(row.text.include?(tag)).to be_truthy }
       end
+    end
+
+    scenario "Visual aid for each role is shown properly", js: true do
+      visit repository_path(repository)
+      expect(page).to have_content("Push Pull Owner")
+
+      login_as user2, scope: :user
+      visit repository_path(repository)
+      expect(page).to have_content("Push Pull Contr.")
+
+      login_as user3, scope: :user
+      visit repository_path(repository)
+      expect(page).to have_content("Pull Viewer")
     end
   end
 end

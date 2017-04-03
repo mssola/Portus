@@ -1,3 +1,5 @@
+import { setTypeahead, openCloseIcon } from '~/utils/effects';
+
 jQuery(function ($) {
   $('#add_team_user_btn').on('click', function () {
     var team_id;
@@ -16,14 +18,14 @@ jQuery(function ($) {
       layout_resizer();
     });
     team_id = $('.remote').attr('id');
-    set_typeahead(team_id + '/typeahead/%QUERY');
+    setTypeahead(team_id + '/typeahead/%QUERY');
   });
 
   $('body').on('click', '.btn-edit-role', function (event) {
     var el = $(this).find('i.fa');
 
     if ($(this).hasClass('add')) {
-      open_close_icon(el);
+      openCloseIcon(el);
       $('#team_user_' + event.currentTarget.value + ' td .role').toggle();
       $('#change_role_team_user_' + event.currentTarget.value).toggle();
     } else if ($(this).hasClass('button_edit_team')) {

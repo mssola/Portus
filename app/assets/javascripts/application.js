@@ -16,16 +16,19 @@ require('vendor/bootstrap-typeahead');
 
 // Require tree.
 // NOTE: This should be moved into proper modules.
-require('./alert');
 require('./bootstrap');
-require('./dashboard');
-require('./includes/open_close_icon');
-require('./includes/set_typehead');
 require('./namespaces');
-require('./open_search');
 require('./repositories');
 require('./teams');
 
 // new modules structure
 require('./modules/users');
+require('./modules/dashboard');
 
+const effects = require('./utils/effects');
+
+// Actions to be done to initialize any page.
+$(function () {
+  effects.setTimeOutAlertDelay();
+  effects.refreshFloatAlertPosition();
+});

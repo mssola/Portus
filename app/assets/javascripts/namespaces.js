@@ -1,6 +1,8 @@
+import { setTypeahead, openCloseIcon } from '~/utils/effects';
+
 jQuery(function ($) {
   $('#edit_namespace').on('click', function (_event) {
-    set_typeahead('/teams/typeahead/%QUERY');
+    setTypeahead('/teams/typeahead/%QUERY');
   });
 
   $('#add_namespace_btn').unbind('click').on('click', function (_event) {
@@ -22,13 +24,13 @@ jQuery(function ($) {
       }
       layout_resizer();
     });
-    set_typeahead('/namespaces/typeahead/%QUERY');
+    setTypeahead('/namespaces/typeahead/%QUERY');
   });
 
   $('body').on('click', '.btn-edit-role', function (event) {
     var el = $(this).find('i.fa');
     if ($(this).hasClass('button_namespace_description')) {
-      open_close_icon(el);
+      openCloseIcon(el);
       $('.description').toggle();
       $('#change_description_namespace_' + event.currentTarget.value).toggle();
     }

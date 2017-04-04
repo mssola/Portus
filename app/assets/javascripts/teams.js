@@ -1,4 +1,5 @@
-import { setTypeahead, openCloseIcon } from '~/utils/effects';
+import openCloseIcon from '~/utils/effects';
+import setTypeahead from '~/utils/set_typeahead';
 
 jQuery(function ($) {
   $('#add_team_user_btn').on('click', function () {

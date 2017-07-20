@@ -1,0 +1,8 @@
+# A remote host running libvirt
+#libvirt_uri = "qemu+ssh://root@somewhere/overtherainbow"
+
+# A custom pool defined on the libvirt host
+#pool = "home_libvirtd"
+
+# The latest version of the CaaSP image:
+#img_source_url = "http://download.suse.de/ibs/SUSE:/SLE-12-SP2:/Update:/Products:/CASP10/images/SUSE-CaaS-Platform-1.0-KVM-and-Xen.x86_64-1.0.0-Build20.4.qcow2"

@@ -22,7 +22,7 @@ services:
 
   crono:
     image: opensuse/portus:development
-    command: ./bin/crono
+    command: bash bin/crono
     depends_on:
       - portus
     environment:

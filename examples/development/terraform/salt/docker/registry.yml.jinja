@@ -1,0 +1,28 @@
+version: 0.1
+log:
+  level: debug
+storage:
+  filesystem:
+    rootdirectory: /opt/data
+  delete:
+    enabled: true
+http:
+  addr: :5000
+  debug:
+    addr: :5001
+  tls:
+    certificate: /etc/nginx/ssl/registry.mssola.cat.crt
+    key: /etc/nginx/ssl/registry.mssola.cat.key
+auth:
+  token:
+    realm: https://registry.mssola.cat/v2/token
+    service: registry.mssola.cat:5000
+    issuer: registry.mssola.cat
+    rootcertbundle: /etc/nginx/ssl/registry.mssola.cat.crt
+notifications:
+  endpoints:
+    - name: portus
+      url: https://registry.mssola.cat/v2/webhooks/events
+      timeout: 500ms
+      threshold: 5
+      backoff: 1s

@@ -37,7 +37,7 @@ source-rvm:
 
 ruby21:
   cmd.run:
-    - name: bash -c "source /etc/profile.d/rvm.sh && rvm install ruby 2.1"
+    - name: bash -c "source /etc/profile.d/rvm.sh && rvm install ruby 2.1.2"
     - require:
       - cmd: source-rvm
 

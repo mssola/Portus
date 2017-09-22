@@ -35,14 +35,8 @@ source-rvm:
 
 # Install rubies with RVM
 
-ruby21:
+ruby23:
   cmd.run:
-    - name: bash -c "source /etc/profile.d/rvm.sh && rvm install ruby 2.1.2"
-    - require:
-      - cmd: source-rvm
-
-ruby24:
-  cmd.run:
-    - name: bash -c "source /etc/profile.d/rvm.sh && rvm install ruby 2.4"
+    - name: bash -c "source /etc/profile.d/rvm.sh && rvm install ruby 2.3.3"
     - require:
       - cmd: source-rvm

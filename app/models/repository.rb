@@ -11,7 +11,6 @@
 #
 # Indexes
 #
-#  fulltext_index_repositories_on_name          (name)
 #  index_repositories_on_name_and_namespace_id  (name,namespace_id) UNIQUE
 #  index_repositories_on_namespace_id           (namespace_id)
 #
@@ -33,12 +32,6 @@ class Repository < ActiveRecord::Base
   search_scope :search do
     attributes :name
     attributes namespace_name: "namespace.name"
-
-    # TODO: (mssola): we are experiencing some issues with MariaDB's fulltext
-    # support. Because of that, the following two options have been disabled
-    # until we find a solution for it.
-    # options :name, type: :fulltext
-    # options :namespace_name, type: :fulltext
   end
 
   # Returns the full name for this repository. What this means is that it

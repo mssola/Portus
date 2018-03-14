@@ -12,7 +12,7 @@ from the 2.2 branch.
 For now we have:
 
 - An example that uses `docker-compose`. This is a good way to setup a
-  production-ready Portus deployment within a single host. It's also a minimal
+  production-like Portus deployment within a single host. It's also a minimal
   example that only requires docker and docker-compose in order to
   work. Moreover, this same example could be extended to make it work in
   multiple hosts through Docker Swarm.
@@ -21,6 +21,19 @@ For now we have:
   cluster. Note that we assume that you already have a *working* and reliable
   Kubernetes cluster (setting up a Kubernetes cluster is beyond the scope of
   this project: please refer to the Kubernetes documentation for this).
+
+## Security notes
+
+Note that these examples are just that: examples. We make sure that they work
+reliably, but we do not guarantee that they work flawlessly for your specific
+environment (but we try that they work well for any kind of
+environment). Moreover, we do not guarantee that they are free of bugs (e.g. an
+NGinx configuration that takes unsafe defaults), even if we try to keep it as
+clean as possible. Thus, when using these examples you should review them again
+before actually deploying to production as you would do with any other software.
+
+Last but not least, do not take the `.env` file blindly when deploying: make
+sure to modify the values in it to fit your secrets.
 
 ## Other deployments
 

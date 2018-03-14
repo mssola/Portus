@@ -3,7 +3,7 @@
 This example is two-folded, as it contains the same example deployed in two
 ways:
 
-- A production-ready setup where all communication is encrypted.
+- A setup where all communication is encrypted.
 - A version which doesn't use encryption for simplicity.
 
 As explained in the [README file](../README.md) above, this example uses

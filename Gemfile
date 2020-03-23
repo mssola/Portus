@@ -56,7 +56,7 @@ gem "ice_nine"
 gem "minitest"
 gem "multi_json"
 gem "rails-dom-testing"
-gem "sprockets"
+gem "sprockets", "~> 3"
 gem "sprockets-rails"
 gem "temple"
 
@@ -102,7 +102,6 @@ end
 group :test do
   gem "capybara"
   gem "capybara-screenshot"
-  gem "chromedriver-helper"
   gem "docker-api"
   gem "json-schema"
   gem "poltergeist", require: false
@@ -112,5 +111,6 @@ group :test do
   gem "simplecov", require: false
   gem "timecop"
   gem "vcr"
+  gem "webdrivers", "~> 4.2"
   gem "webmock", require: false
 end

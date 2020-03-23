@@ -31,5 +31,8 @@ if [ "$PORTUS_CI" = "integration" ] || [ "$PORTUS_CI" = "all" ]; then
   cd .. && rm -rf bats
 fi
 
-# And finally install ruby gems.
+# Install ruby gems.
 bundle install --jobs=3 --retry=3
+
+# Update the Chrome driver, needed for feature tests.
+RAILS_ENV=test bin/rails webdrivers:chromedriver:update

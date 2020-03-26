@@ -6,7 +6,7 @@ gem "active_record_union"
 gem "base32"
 gem "devise"
 gem "font-awesome-rails"
-gem "grape"
+gem "grape", "~> 1.3"
 gem "grape-entity"
 gem "grape-swagger"
 gem "grape-swagger-entity"
@@ -23,7 +23,9 @@ gem "omniauth-rails_csrf_protection", "~> 0.1.2"
 gem "omniauth_openid_connect"
 gem "public_activity", "~> 1.6.3"
 gem "pundit"
-gem "rails", "~> 5.2.0"
+# TODO
+# gem "rails", "~> 6.0"
+gem "rails", git: "https://github.com/rails/rails.git", branch: "6-0-stable"
 gem "redcarpet"
 gem "ruby-openid", "~> 2.9.2"
 gem "sassc-rails"
@@ -48,7 +50,7 @@ gem "bcrypt"
 gem "puma"
 
 # Configuration management
-gem "cconfig", "~> 1.2.0"
+gem "cconfig", "~> 1.3.0"
 
 # Pinning some versions
 gem "i18n"

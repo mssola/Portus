@@ -2,7 +2,7 @@
 
 require "portus/auth_from_token"
 
-module API
+module Api
   module Helpers
     # Errors implements helper methods for API error responses.
     module Errors

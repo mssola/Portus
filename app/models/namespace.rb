@@ -47,7 +47,7 @@ class Namespace < ApplicationRecord
   validate :global_namespace_cannot_be_private
   validates :name,
             presence:   true,
-            uniqueness: { scope: "registry_id" },
+            uniqueness: { scope: "registry_id", case_sensitive: true },
             length:     { maximum: MAX_NAME_LENGTH },
             namespace:  true
 

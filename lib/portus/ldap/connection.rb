@@ -3,7 +3,7 @@
 require "portus/ldap/adapter"
 
 module Portus
-  module LDAP
+  module Ldap
     # Connection holds a set of methods which are responsible for binding to the
     # LDAP server by considering the given configuration.
     module Connection
@@ -15,13 +15,13 @@ module Portus
       # failure, it will log the error, call `fail!` and return only a falsey
       # value.
       #
-      # It will raise a ::Portus::LDAP::Error exception if the given
+      # It will raise a ::Portus::Ldap::Error exception if the given
       # configuration is incomplete (e.g. missing parameters) or LDAP is
       # disabled. It might also raise a Net::LDAP::Error since in the end this
       # method calls `#bind_as` from Net::LDAP.
       def bind_as(connection, cfg)
-        raise ::Portus::LDAP::Error, "LDAP is disabled" unless cfg.enabled?
-        raise ::Portus::LDAP::Error, "Some parameters are missing" unless cfg.initialized?
+        raise ::Portus::Ldap::Error, "LDAP is disabled" unless cfg.enabled?
+        raise ::Portus::Ldap::Error, "Some parameters are missing" unless cfg.initialized?
 
         res, admin = bind_admin_or_user(connection, cfg)
         binding_failed!(connection, cfg.username) unless res

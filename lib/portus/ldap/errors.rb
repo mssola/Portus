@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Portus
-  module LDAP
+  module Ldap
     # Error to be raised when there's something wrong around the library (not
     # the LDAP server itself, that should be already handled by Net::LDAP).
     class Error < StandardError; end

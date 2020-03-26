@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Tags, type: :request do
+describe Api::V1::Tags, type: :request do
   let!(:admin) { create(:admin) }
   let!(:token) { create(:application_token, user: admin) }
   let!(:public_namespace) do

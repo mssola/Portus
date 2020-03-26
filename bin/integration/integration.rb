@@ -22,7 +22,7 @@ end
 ##
 # Configurable variables.
 
-SOURCE_DIR    = Rails.root.join("examples", "compose")
+SOURCE_DIR    = Rails.root.join("examples/compose")
 SOURCE_CONFIG = SOURCE_DIR.join(compose_file)
 
 ##
@@ -69,7 +69,7 @@ end
 
 # Returns the CN value for certificates.
 def cn
-  File.open(Rails.root.join("build", ".env")).each do |line|
+  File.open(Rails.root.join("build/.env")).each do |line|
     k, v = line.chomp.split("=")
     return v if k == "MACHINE_FQDN" && v
   end
@@ -136,7 +136,7 @@ puts yml.to_yaml if ENV["CI"]
 ##
 # Create build directory if needed and spit the output there.
 
-FileUtils.mkdir_p(Rails.root.join("build", "secrets", "ldap"), mode: 0o755)
+FileUtils.mkdir_p(Rails.root.join("build/secrets/ldap"), mode: 0o755)
 
 dst = Rails.root.join("build", compose_file)
 log :info, "File to be used: #{dst}"
@@ -150,8 +150,8 @@ log :info, "For normal execution remember to kill all processes using relevant p
 FileUtils.cp(Rails.root.join(SOURCE_DIR, ".env"), Rails.root.join("build"))
 FileUtils.cp_r(Rails.root.join(SOURCE_DIR, "registry"), Rails.root.join("build"))
 FileUtils.cp_r(Rails.root.join(SOURCE_DIR, "clair"), Rails.root.join("build"))
-FileUtils.cp_r(Rails.root.join("spec", "integration", "profiles"), Rails.root.join("build"))
-FileUtils.cp_r(Rails.root.join("spec", "integration", "helpers"), Rails.root.join("build"))
+FileUtils.cp_r(Rails.root.join("spec/integration/profiles"), Rails.root.join("build"))
+FileUtils.cp_r(Rails.root.join("spec/integration/helpers"), Rails.root.join("build"))
 
 ##
 # Generate secrets. Code taken from https://gist.github.com/nickyp/886884.
@@ -181,7 +181,7 @@ cert.add_extension ef.create_extension("authorityKeyIdentifier",
 
 cert.sign key, OpenSSL::Digest::SHA1.new
 
-secrets = Rails.root.join("build", "secrets")
+secrets = Rails.root.join("build/secrets")
 File.open(secrets.join("portus.key"), "w+") { |f| f.write(key.to_pem) }
 File.open(secrets.join("portus.crt"), "w+") { |f| f.write(cert.to_pem) }
 
@@ -207,7 +207,7 @@ root_ca.add_extension(ef.create_extension("keyUsage", "keyCertSign, cRLSign", tr
 root_ca.add_extension(ef.create_extension("subjectKeyIdentifier", "hash", false))
 root_ca.add_extension(ef.create_extension("authorityKeyIdentifier", "keyid:always", false))
 root_ca.sign(root_key, OpenSSL::Digest::SHA256.new)
-ldap_secrets = Rails.root.join("build", "secrets", "ldap")
+ldap_secrets = Rails.root.join("build/secrets/ldap")
 File.open(ldap_secrets.join("ca.crt"), "wb") { |f| f.print root_ca.to_pem }
 File.open(ldap_secrets.join("ca.key"), "wb") { |f| f.print root_key.to_s }
 File.open(ldap_secrets.join("ca.pem"), "wb") { |f| f.print(root_ca.to_pem + root_key.to_s) }

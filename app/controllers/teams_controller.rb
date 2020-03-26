@@ -7,12 +7,12 @@ class TeamsController < ApplicationController
   # GET /teams
   def index
     @teams = policy_scope(Team)
-    @teams_serialized = API::Entities::Teams.represent(
+    @teams_serialized = Api::Entities::Teams.represent(
       @teams,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @owners_serialized = API::Entities::Users.represent(
+    @owners_serialized = Api::Entities::Users.represent(
       User.enabled,
       current_user: current_user,
       type:         :internal
@@ -28,22 +28,22 @@ class TeamsController < ApplicationController
 
     authorize @team
     @available_roles = TeamUser.roles.keys.map(&:titleize).to_json
-    @team_serialized = API::Entities::Teams.represent(
+    @team_serialized = Api::Entities::Teams.represent(
       @team,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @team_users_serialized = API::Entities::TeamMembers.represent(
+    @team_users_serialized = Api::Entities::TeamMembers.represent(
       @team.team_users.enabled,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @team_namespaces_serialized = API::Entities::Namespaces.represent(
+    @team_namespaces_serialized = Api::Entities::Namespaces.represent(
       @team.namespaces,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @current_member_serialized = API::Entities::TeamMembers.represent(
+    @current_member_serialized = Api::Entities::TeamMembers.represent(
       @team.team_users.find_by(user_id: current_user.id),
       current_user: current_user,
       type:         :internal

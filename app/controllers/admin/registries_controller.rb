@@ -48,7 +48,7 @@ class Admin::RegistriesController < Admin::BaseController
   def edit
     @can_change_hostname = Repository.none?
     @registry            = Registry.find(params[:id])
-    @registry_serialized = API::Entities::Registries.represent(
+    @registry_serialized = Api::Entities::Registries.represent(
       @registry,
       current_user: current_user
     ).to_json

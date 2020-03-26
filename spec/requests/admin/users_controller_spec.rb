@@ -94,7 +94,7 @@ RSpec.describe Admin::UsersController do
     end
 
     it "fails to create new user if check_ldap_user! fails" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:with_error_message).and_return("error message")
       )
 

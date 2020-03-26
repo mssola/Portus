@@ -13,7 +13,7 @@ def db_helper_msg
   data["database"]["msg"]
 end
 
-describe API::V1::Health, type: :request do
+describe Api::V1::Health, type: :request do
   describe "GET /_ping" do
     it "gets an 200 response" do
       get "/api/v1/_ping"
@@ -56,22 +56,22 @@ describe API::V1::Health, type: :request do
       end
 
       it "returns empty when the database is initializing" do
-        allow(::Portus::DB).to receive(:migrations?).and_return(false)
+        allow(::Portus::Db).to receive(:migrations?).and_return(false)
         expect(db_helper_msg).to eq "database is initializing"
       end
 
       it "returns missing when the database does not exist" do
-        allow(::Portus::DB).to receive(:migrations?).and_raise(ActiveRecord::NoDatabaseError, "a")
+        allow(::Portus::Db).to receive(:migrations?).and_raise(ActiveRecord::NoDatabaseError, "a")
         expect(db_helper_msg).to eq "database has not been created"
       end
 
       it "returns down if the DB is down" do
-        allow(::Portus::DB).to receive(:migrations?).and_raise(Mysql2::Error, "a")
+        allow(::Portus::Db).to receive(:migrations?).and_raise(Mysql2::Error, "a")
         expect(db_helper_msg).to eq "cannot connect to database"
       end
 
       it "returns unknown for unexpected errors" do
-        allow(::Portus::DB).to receive(:migrations?).and_raise(StandardError, "a")
+        allow(::Portus::Db).to receive(:migrations?).and_raise(StandardError, "a")
         expect(db_helper_msg).to eq "unknown error"
       end
     end

@@ -4,7 +4,7 @@
 class Auth::RegistrationsController < Devise::RegistrationsController
   layout "authentication", except: :edit
 
-  include CheckLDAP
+  include CheckLdap
   include SessionFlash
 
   before_action :check_signup, only: %i[new create]
@@ -38,12 +38,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def edit
     @admin_count = User.admins.count
-    @user_serialized = API::Entities::Users.represent(
+    @user_serialized = Api::Entities::Users.represent(
       current_user,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @app_tokens_serialized = API::Entities::ApplicationTokens.represent(
+    @app_tokens_serialized = Api::Entities::ApplicationTokens.represent(
       current_user.application_tokens,
       current_user: current_user,
       type:         :internal

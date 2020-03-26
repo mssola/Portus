@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module Helpers
     # Helpers regarding the management of authentication tokens. This module
     # mostly contains methods that are shared across different paths.

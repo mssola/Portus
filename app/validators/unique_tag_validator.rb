@@ -14,7 +14,7 @@ class UniqueTagValidator < ActiveModel::EachValidator
     end
 
     # Perform the select query with the proper collation on Mysql's case.
-    collate = ::Portus::DB.mysql? ? "COLLATE utf8_bin " : ""
+    collate = ::Portus::Db.mysql? ? "COLLATE utf8_bin " : ""
     tag = Tag.where("name #{collate}= ? AND repository_id = ?", value, record.repository_id)
     return unless tag.any?
 

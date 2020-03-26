@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Namespaces, type: :request do
+describe Api::V1::Namespaces, type: :request do
   let!(:admin) { create(:admin) }
   let!(:owner) { create(:user) }
   let!(:contributor) { create(:user) }

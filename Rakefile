@@ -7,6 +7,7 @@ require File.expand_path("config/application", __dir__)
 
 Rails.application.load_tasks
 
-require "grape-swagger/rake/oapi_tasks"
-require "api/root_api"
-GrapeSwagger::Rake::OapiTasks.new(API::RootAPI)
+# TODO
+# require "grape-swagger/rake/oapi_tasks"
+# require "api/root_api"
+# GrapeSwagger::Rake::OapiTasks.new(API::RootAPI)

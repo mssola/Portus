@@ -14,7 +14,7 @@ namespace :portus do
       connection = ActiveRecord::Base.connection
 
       # If MySQL, turn off foreign key checks
-      connection.execute("SET FOREIGN_KEY_CHECKS=0") if ::Portus::DB.mysql?
+      connection.execute("SET FOREIGN_KEY_CHECKS=0") if ::Portus::Db.mysql?
 
       tables = connection.data_sources
       tables.delete "schema_migrations"
@@ -30,7 +30,7 @@ namespace :portus do
       end
 
       # If MySQL, re-enable foreign key checks
-      connection.execute("SET FOREIGN_KEY_CHECKS=1") if ::Portus::DB.mysql?
+      connection.execute("SET FOREIGN_KEY_CHECKS=1") if ::Portus::Db.mysql?
     rescue ActiveRecord::NoDatabaseError
       Rails.logger.info "Not dropping tables because database is not available..."
     end

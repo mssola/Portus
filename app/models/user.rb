@@ -63,7 +63,7 @@ class User < ApplicationRecord
   APPLICATION_TOKENS_MAX = 5
 
   # Actions performed before/after create.
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: { case_sensitive: true }
   validates :password, confirmation: true
   validate :private_namespace_and_team_available, on: :create
   validate :portus_user_validation, on: :update
@@ -345,7 +345,7 @@ class User < ApplicationRecord
 
     portus_user = User.portus
 
-    ::Portus::LDAP::Search.new.user_groups(username).each do |group|
+    ::Portus::Ldap::Search.new.user_groups(username).each do |group|
       t = Team.find_by(name: group)
       next if t.nil?
       next if t.ldap_group_checked == Team.ldap_statuses[:disabled]

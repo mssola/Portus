@@ -2,7 +2,7 @@
 
 if Rails.env.development?
   desc "Run Brakeman security checks"
-  task :brakeman do
+  task brakeman: :environment do
     require "brakeman"
 
     Brakeman.run(

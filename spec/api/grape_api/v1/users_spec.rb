@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Users, type: :request do
+describe Api::V1::Users, type: :request do
   let(:user_data) do
     {
       username:     "solomon",
@@ -105,7 +105,7 @@ describe API::V1::Users, type: :request do
   describe "POST /api/v1/users" do
     context "with valid params" do
       it "creates new user" do
-        allow_any_instance_of(::Portus::LDAP::Search).to(
+        allow_any_instance_of(::Portus::Ldap::Search).to(
           receive(:with_error_message).and_return(nil)
         )
 
@@ -115,7 +115,7 @@ describe API::V1::Users, type: :request do
       end
 
       it "creates a new bot" do
-        allow_any_instance_of(::Portus::LDAP::Search).to(
+        allow_any_instance_of(::Portus::Ldap::Search).to(
           receive(:with_error_message).and_return(nil)
         )
 
@@ -125,7 +125,7 @@ describe API::V1::Users, type: :request do
       end
 
       it "refuses to create existing LDAP user" do
-        allow_any_instance_of(::Portus::LDAP::Search).to(
+        allow_any_instance_of(::Portus::Ldap::Search).to(
           receive(:with_error_message).and_return("error message")
         )
 
@@ -137,7 +137,7 @@ describe API::V1::Users, type: :request do
 
     context "with invalid params" do
       it "returns errors" do
-        allow_any_instance_of(::Portus::LDAP::Search).to(
+        allow_any_instance_of(::Portus::Ldap::Search).to(
           receive(:with_error_message).and_return(nil)
         )
 
@@ -149,7 +149,7 @@ describe API::V1::Users, type: :request do
       end
 
       it "returns user error" do
-        allow_any_instance_of(::Portus::LDAP::Search).to(
+        allow_any_instance_of(::Portus::Ldap::Search).to(
           receive(:with_error_message).and_return(nil)
         )
 
@@ -159,7 +159,7 @@ describe API::V1::Users, type: :request do
     end
 
     it "with invalid JSON returns error" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:with_error_message).and_return(nil)
       )
 

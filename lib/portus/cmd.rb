@@ -12,15 +12,15 @@ module ::Portus
       success = true
 
       ::PTY.spawn(cmd) do |stdout, _, pid|
-        # rubocop:disable Lint/HandleExceptions
         # rubocop:disable Rails/Output
+        # rubocop:disable Lint/SuppressedException
         begin
           stdout.each { |line| print line }
         rescue Errno::EIO
           # End of output
         end
-        # rubocop:enable Lint/HandleExceptions
         # rubocop:enable Rails/Output
+        # rubocop:enable Lint/SuppressedException
 
         Process.wait(pid)
         success = $CHILD_STATUS.exitstatus.zero?

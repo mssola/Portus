@@ -11,12 +11,12 @@ class TestAPI < Grape::API
   end
 end
 
-# Re-opening ::API::RootAPI to mount the TestAPI endpoints.
-class ::API::RootAPI
+# Re-opening ::Api::RootApi to mount the TestAPI endpoints.
+class ::Api::RootApi
   mount ::TestAPI
 end
 
-describe API::RootAPI, type: :request do
+describe Api::RootApi, type: :request do
   it "handles unknown routes" do
     get "/api/lala"
     expect(response).to have_http_status(:not_found)

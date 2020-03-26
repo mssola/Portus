@@ -10,7 +10,7 @@ require "api/helpers/repositories"
 require "api/helpers/pagination"
 require "api/helpers/ordering"
 
-module API
+module Api
   module Helpers
     extend ActiveSupport::Concern
 

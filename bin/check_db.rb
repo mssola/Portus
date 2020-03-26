@@ -11,7 +11,7 @@
 
 require "portus/db"
 
-puts case Portus::DB.ping
+puts case Portus::Db.ping
      when :ready
        "DB_READY"
      when :empty

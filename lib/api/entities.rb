@@ -2,7 +2,7 @@
 
 require "api/helpers"
 
-module API
+module Api
   # Entities is a module that groups all the classes to be used as Grape
   # entities.
   module Entities
@@ -143,7 +143,7 @@ module API
     end
 
     class Repositories < Grape::Entity
-      include ::API::Helpers
+      include ::Api::Helpers
 
       expose :id, documentation: { type: Integer, desc: "Repository ID" }
       expose :name, documentation: { type: String, desc: "Repository name" }
@@ -190,7 +190,7 @@ module API
         hidden:   true
       }, if: { type: :search } do |repository|
         repository.groupped_tags.map do |k1|
-          API::Entities::Tags.represent(k1)
+          Api::Entities::Tags.represent(k1)
         end
       end
       expose :starred, documentation: {
@@ -207,7 +207,7 @@ module API
     end
 
     class Comments < Grape::Entity
-      include ::API::Helpers
+      include ::Api::Helpers
 
       expose :id, documentation: { type: Integer, desc: "Comment ID" }
       expose :repository_id, documentation: { type: Integer, desc: "Repository ID" }
@@ -239,7 +239,7 @@ module API
     # Teams & members
 
     class Teams < Grape::Entity
-      include ::API::Helpers
+      include ::Api::Helpers
 
       expose :id, documentation: { type: Integer, desc: "Team ID" }
       expose :name, documentation: { type: String, desc: "Team name" }
@@ -330,7 +330,7 @@ module API
     # Namespaces
 
     class Namespaces < Grape::Entity
-      include ::API::Helpers
+      include ::Api::Helpers
 
       expose :id, documentation: { type: Integer, desc: "Namespace ID" }
       expose :clean_name, as: :name, documentation: { type: String, desc: "Namespace name" }
@@ -412,7 +412,7 @@ module API
     end
 
     class Webhooks < Grape::Entity
-      include ::API::Helpers
+      include ::Api::Helpers
 
       expose :id, documentation: { type: Integer, desc: "Webhook ID" }
       expose :name, documentation: { type: String, desc: "Webhook name" }

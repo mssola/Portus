@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# CheckLDAP redirects the user to the new_user_session_path if LDAP support is
+# CheckLdap redirects the user to the new_user_session_path if LDAP support is
 # enabled. A `before_action` will be created for the :new and the :create
 # methods.
-module CheckLDAP
+module CheckLdap
   extend ActiveSupport::Concern
 
   included do

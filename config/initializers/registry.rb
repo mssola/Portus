@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: move this out, so the autoloader doesn't complain.
+
 # Creates a new registry with the given parameters. This method assumes that the
 # database is ready and that there is no registry setup already.
 def create_registry!(params)

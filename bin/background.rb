@@ -5,7 +5,7 @@
 # containerized scenarios.
 #
 
-::Portus::DB.wait_until(:ready)
+::Portus::Db.wait_until(:ready)
 
 #
 # The DB is up, now let's define the different background jobs as classes.

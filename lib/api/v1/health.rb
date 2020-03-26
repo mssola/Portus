@@ -2,7 +2,7 @@
 
 require "portus/health"
 
-module API
+module Api
   module V1
     # Health implements endpoints that report on the health status of the API or
     # other components.
@@ -14,7 +14,7 @@ module API
 
       resource :health do
         desc "Returns hash of metrics",
-             entity:  API::Entities::Health,
+             entity:  Api::Entities::Health,
              tags:    ["health"],
              detail:  "Returns general metrics on the health of the system",
              failure: [[503, "Some of the required services are unhealthy"]]

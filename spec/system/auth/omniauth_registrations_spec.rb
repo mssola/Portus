@@ -87,7 +87,7 @@ describe Auth::OmniauthRegistrationsController do
         visit root_path
         click_link("Google")
         click_button("Create account")
-        expect(page).to have_current_path(users_oauth_url)
+        expect(page).to have_current_path(users_oauth_path)
       end
     end
 
@@ -210,7 +210,7 @@ describe Auth::OmniauthRegistrationsController do
       click_link "Open Id Connect"
       click_button "Create account"
 
-      expect(page).to have_current_path(users_oauth_url)
+      expect(page).to have_current_path(users_oauth_path)
     end
   end
 

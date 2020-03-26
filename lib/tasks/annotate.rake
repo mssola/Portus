@@ -4,8 +4,8 @@ if Rails.env.development? && ENV["CI"].blank?
   require "annotate"
   require "portus/db"
 
-  if Portus::DB.mysql?
-    task :set_annotation_options do
+  if Portus::Db.mysql?
+    task set_annotation_options: :environment do
       ::Annotate.set_defaults(
         position_in_routes:   "before",
         position_in_class:    "before",
@@ -38,7 +38,7 @@ if Rails.env.development? && ENV["CI"].blank?
   namespace :portus do
     desc "Annotate models with a proper exit code"
     task annotate_and_exit: :environment do
-      exit 0 if ENV["TRAVIS"] && !Portus::DB.mysql?
+      exit 0 if ENV["TRAVIS"] && !Portus::Db.mysql?
 
       output = `bundle exec rake annotate_models`
       print output

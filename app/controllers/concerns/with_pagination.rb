@@ -4,7 +4,7 @@
 module WithPagination
   extend ActiveSupport::Concern
 
-  include ::API::Helpers::Pagination
+  include ::Api::Helpers::Pagination
 
   included do
     before_action :default_pagination_params

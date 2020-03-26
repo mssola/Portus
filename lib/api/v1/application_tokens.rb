@@ -2,13 +2,13 @@
 
 require "api/helpers/application_tokens"
 
-module API
+module Api
   module V1
     # ApplicationTokens implements all the endpoints regarding application tokens.
     class ApplicationTokens < Grape::API
       version "v1", using: :path
 
-      helpers ::API::Helpers::ApplicationTokens
+      helpers ::Api::Helpers::ApplicationTokens
 
       resource :users do
         namespace do
@@ -20,9 +20,9 @@ module API
             resource :application_tokens do
               # List application tokens beloged to user with given :id.
               desc "Returns list of user's tokens",
-                   params:   API::Entities::Users.documentation.slice(:id),
+                   params:   Api::Entities::Users.documentation.slice(:id),
                    is_array: true,
-                   entity:   API::Entities::ApplicationTokens,
+                   entity:   Api::Entities::ApplicationTokens,
                    failure:  [
                      [401, "Authentication fails"],
                      [403, "Authorization fails"],
@@ -32,19 +32,19 @@ module API
               get do
                 user = User.find params[:id]
                 present user.application_tokens,
-                        with: API::Entities::ApplicationTokens
+                        with: Api::Entities::ApplicationTokens
               end
 
               # Create application token for user with given :id.
               desc "Create user's token",
-                   params:   API::Entities::Users.documentation.slice(:id),
+                   params:   Api::Entities::Users.documentation.slice(:id),
                    success:  { code: 200 },
-                   entity:   API::Entities::ApplicationTokens,
+                   entity:   Api::Entities::ApplicationTokens,
                    failure:  [
-                     [400, "Bad request", API::Entities::ApiErrors],
+                     [400, "Bad request", Api::Entities::ApiErrors],
                      [401, "Authentication fails"],
                      [403, "Authorization fails"],
-                     [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+                     [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
                    ],
                    consumes: ["application/x-www-form-urlencoded", "application/json"]
 

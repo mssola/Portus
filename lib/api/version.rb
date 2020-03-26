@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   # Version implements the main "/version" endpoint. It's not versioned because
   # this is meant to be stable throughout any version of the API.
   class Version < Grape::API
@@ -9,7 +9,7 @@ module API
     end
 
     desc "Fetch the version of Portus",
-         entity: API::Entities::Version,
+         entity: Api::Entities::Version,
          tags:   ["version"],
          detail: "Returns the version of Portus and the supported API versions"
 
@@ -24,7 +24,7 @@ module API
             end
 
       obj = { "api-versions": ["v1"], git: git, version: version }
-      present obj, with: API::Entities::Version, type: current_type
+      present obj, with: Api::Entities::Version, type: current_type
     end
   end
 end

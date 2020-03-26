@@ -10,9 +10,9 @@ module Portus
   class Security
     # Supported backends.
     BACKENDS = [
-      ::Portus::SecurityBackend::Clair,
-      ::Portus::SecurityBackend::Dummy,
-      ::Portus::SecurityBackend::Zypper
+      ::Portus::SecurityBackends::Clair,
+      ::Portus::SecurityBackends::Dummy,
+      ::Portus::SecurityBackends::Zypper
     ].freeze
 
     def initialize(repo, tag)

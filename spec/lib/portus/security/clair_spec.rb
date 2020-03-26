@@ -12,7 +12,7 @@ def expect_cve_match(cves, given, expected)
   end
 end
 
-describe ::Portus::SecurityBackend::Clair do
+describe ::Portus::SecurityBackends::Clair do
   before do
     APP_CONFIG["security"] = {
       "clair" => {

@@ -6,7 +6,7 @@ class AddFulltextIndexesOnRepositoriesNamespaces < ActiveRecord::Migration[4.2]
     # created. Modifying migrations is generally a *bad* idea but this will only
     # apply to PostgreSQL deployments that start from scratch, which haven't
     # been supported until now.
-    if ::Portus::DB.mysql?
+    if ::Portus::Db.mysql?
       add_index :namespaces, :name, type: :fulltext, name: 'fulltext_index_namespaces_on_name'
       add_index :repositories, :name, type: :fulltext, name: 'fulltext_index_repositories_on_name'
     end

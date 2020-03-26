@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        @comment_serialized = API::Entities::Comments.represent(
+        @comment_serialized = Api::Entities::Comments.represent(
           @comment,
           current_user: current_user,
           type:         :internal

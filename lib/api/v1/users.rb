@@ -2,7 +2,7 @@
 
 require "api/helpers/application_tokens"
 
-module API
+module Api
   module V1
     # Users implements all the endpoints regarding users
     class Users < Grape::API
@@ -11,7 +11,7 @@ module API
 
       version "v1", using: :path
 
-      helpers ::API::Helpers::ApplicationTokens
+      helpers ::Api::Helpers::ApplicationTokens
 
       resource :users do
         namespace do
@@ -21,34 +21,34 @@ module API
 
           desc "Create new user",
                failure:  [
-                 [400, "Bad request", API::Entities::ApiErrors],
+                 [400, "Bad request", Api::Entities::ApiErrors],
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
-                 [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+                 [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
                ],
-               entity:   API::Entities::Users,
+               entity:   Api::Entities::Users,
                consumes: ["application/x-www-form-urlencoded", "application/json"]
 
           params do
             requires :user, type: Hash do
               requires :all,
                        only:  %i[username email],
-                       using: API::Entities::Users.documentation.slice(:username, :email)
+                       using: Api::Entities::Users.documentation.slice(:username, :email)
               requires :password, type: String, documentation: { desc: "Password" }
               optional :all,
                        only:  %i[display_name bot],
-                       using: API::Entities::Users.documentation.slice(:display_name, :bot)
+                       using: Api::Entities::Users.documentation.slice(:display_name, :bot)
             end
           end
 
           post do
             attrs = declared(params)[:user]
-            msg = ::Portus::LDAP::Search.new.with_error_message(attrs[:username])
+            msg = ::Portus::Ldap::Search.new.with_error_message(attrs[:username])
 
             if msg.nil?
               user = User.create attrs
               if user.valid?
-                present user, with: API::Entities::Users
+                present user, with: Api::Entities::Users
               else
                 unprocessable_entity!(user.errors)
               end
@@ -59,26 +59,26 @@ module API
 
           # Update user with given :id.
           desc "Update user",
-               params:   API::Entities::Users.documentation.slice(:id),
+               params:   Api::Entities::Users.documentation.slice(:id),
                failure:  [
-                 [400, "Bad request", API::Entities::ApiErrors],
+                 [400, "Bad request", Api::Entities::ApiErrors],
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
                  [404, "Not found"],
-                 [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+                 [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
                ],
-               entity:   API::Entities::Users,
+               entity:   Api::Entities::Users,
                consumes: ["application/x-www-form-urlencoded", "application/json"]
 
           params do
             requires :user, type: Hash do
               optional :all,
                        only:  %i[username email],
-                       using: API::Entities::Users.documentation.slice(:username, :email)
+                       using: Api::Entities::Users.documentation.slice(:username, :email)
               optional :password, type: String, desc: "Password"
               optional :all,
                        only:  [:display_name],
-                       using: API::Entities::Users.documentation.slice(:display_name)
+                       using: Api::Entities::Users.documentation.slice(:display_name)
             end
           end
 
@@ -86,7 +86,7 @@ module API
             attrs = declared(params, include_missing: false)[:user]
             user = User.update(params[:id], attrs)
             if user.valid?
-              present user, with: API::Entities::Users
+              present user, with: Api::Entities::Users
             else
               unprocessable_entity!(user.errors)
             end
@@ -94,7 +94,7 @@ module API
 
           # Delete user with given :id.
           desc "Delete user",
-               params:  API::Entities::Users.documentation.slice(:id),
+               params:  Api::Entities::Users.documentation.slice(:id),
                failure: [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
@@ -112,7 +112,7 @@ module API
                tags:     ["users"],
                detail:   "This will expose all users",
                is_array: true,
-               entity:   API::Entities::Users,
+               entity:   Api::Entities::Users,
                failure:  [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"]
@@ -125,13 +125,13 @@ module API
 
           get do
             users = paginate(order(User.all))
-            present users, with: API::Entities::Users
+            present users, with: Api::Entities::Users
           end
 
           route_param :id, type: String, requirements: { id: /.*/ } do
             # Find user by id or email and return.
             desc "Show user by id or email",
-                 entity:  API::Entities::Users,
+                 entity:  Api::Entities::Users,
                  failure: [
                    [401, "Authentication fails"],
                    [403, "Authorization fails"],
@@ -151,7 +151,7 @@ module API
               user ||= User.find_by(email: params[:id])
               raise ActiveRecord::RecordNotFound unless user
 
-              present user, with: API::Entities::Users
+              present user, with: Api::Entities::Users
             end
           end
         end
@@ -159,11 +159,11 @@ module API
         namespace do
           desc "Create the first admin user",
                failure:  [
-                 [400, "Bad request", API::Entities::ApiErrors],
+                 [400, "Bad request", Api::Entities::ApiErrors],
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
-                 [405, "Method Not Allowed", API::Entities::ApiErrors],
-                 [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+                 [405, "Method Not Allowed", Api::Entities::ApiErrors],
+                 [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
                ],
                detail:   "Use this method to create the first admin user. The" \
                          " response will include an application token so you can use this user" \
@@ -172,18 +172,18 @@ module API
                          " respond with a 405 if the `first_user_admin` configuration value" \
                          " has been disabled",
                tags:     ["users"],
-               entity:   API::Entities::ApplicationTokens,
+               entity:   Api::Entities::ApplicationTokens,
                consumes: ["application/x-www-form-urlencoded", "application/json"]
 
           params do
             requires :user, type: Hash do
               requires :all,
                        only:  %i[username email],
-                       using: API::Entities::Users.documentation.slice(:username, :email)
+                       using: Api::Entities::Users.documentation.slice(:username, :email)
               requires :password, type: String, documentation: { desc: "Password" }
               optional :all,
                        only:  [:display_name],
-                       using: API::Entities::Users.documentation.slice(:display_name)
+                       using: Api::Entities::Users.documentation.slice(:display_name)
             end
           end
 

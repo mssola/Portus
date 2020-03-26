@@ -2,8 +2,8 @@
 
 db = /version: ([\d\_]+)/
 
-mysql      = IO.read(Rails.root.join("db", "schema.mysql.rb")).scan(db).first.first
-postgresql = IO.read(Rails.root.join("db", "schema.postgresql.rb")).scan(db).first.first
+mysql      = IO.read(Rails.root.join("db/schema.mysql.rb")).scan(db).first.first
+postgresql = IO.read(Rails.root.join("db/schema.postgresql.rb")).scan(db).first.first
 
 if mysql == postgresql
   Rails.logger.tagged(:schema_check) { Rails.logger.info "All fine" }

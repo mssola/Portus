@@ -71,7 +71,7 @@ describe Team do
 
   describe "#ldap_add_members!" do
     it "marks the team as checked" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:find_group_and_members).and_return(["user"])
       )
       t = create(:team, owners: [create(:user, username: "user")])
@@ -86,7 +86,7 @@ describe Team do
     end
 
     it "skips users that already exist" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:find_group_and_members).and_return(["user"])
       )
       t = create(:team, owners: [create(:user, username: "user")])
@@ -96,7 +96,7 @@ describe Team do
     end
 
     it "skips users which are not available on the DB" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:find_group_and_members).and_return(["another"])
       )
       t = create(:team, owners: [create(:user, username: "user")])
@@ -106,7 +106,7 @@ describe Team do
     end
 
     it "adds a regular user with the default given role" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:find_group_and_members).and_return(["user"])
       )
       create(:user, username: "user")
@@ -117,7 +117,7 @@ describe Team do
     end
 
     it "adds an admin user as owner" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:find_group_and_members).and_return(["user"])
       )
       create(:admin, username: "user")

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module V1
     # Repositories implements all the endpoints regarding repositories and some
     # endpoints regarding tags that might be convenient to use as a
@@ -20,7 +20,7 @@ module API
              tags:     ["repositories"],
              detail:   "This will expose all repositories",
              is_array: true,
-             entity:   API::Entities::Repositories,
+             entity:   Api::Entities::Repositories,
              failure:  [
                [401, "Authentication fails"],
                [403, "Authorization fails"]
@@ -33,18 +33,18 @@ module API
 
         get do
           repositories = paginate(order(policy_scope(Repository)))
-          present repositories, with: API::Entities::Repositories, type: current_type
+          present repositories, with: Api::Entities::Repositories, type: current_type
         end
 
         # Update team with given :id.
         desc "Update team",
-             params:   API::Entities::Teams.documentation.slice(:id),
+             params:   Api::Entities::Teams.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", API::Entities::ApiErrors],
+               [400, "Bad request", Api::Entities::ApiErrors],
                [401, "Authentication fails"],
                [403, "Authorization fails"],
                [404, "Not found"],
-               [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
              ],
              consumes: ["application/x-www-form-urlencoded", "application/json"]
 
@@ -52,7 +52,7 @@ module API
           requires :repository, type: Hash do
             optional :all,
                      only:  [:description],
-                     using: API::Entities::Teams.documentation.slice(:description)
+                     using: Api::Entities::Teams.documentation.slice(:description)
           end
         end
 
@@ -64,7 +64,7 @@ module API
 
           if svc.execute
             present repository.reload,
-                    with:         API::Entities::Repositories,
+                    with:         Api::Entities::Repositories,
                     current_user: current_user,
                     type:         current_type
           else
@@ -75,9 +75,9 @@ module API
         route_param :id, type: String, requirements: { id: /.*/ } do
           resource :tags do
             desc "Returns the list of the tags for the given repository",
-                 params:   API::Entities::Repositories.documentation.slice(:id),
+                 params:   Api::Entities::Repositories.documentation.slice(:id),
                  is_array: true,
-                 entity:   API::Entities::Tags,
+                 entity:   Api::Entities::Tags,
                  failure:  [
                    [401, "Authentication fails"],
                    [403, "Authorization fails"],
@@ -87,13 +87,13 @@ module API
             get do
               repo = Repository.find params[:id]
               authorize repo, :show?
-              present repo.tags, with: API::Entities::Tags
+              present repo.tags, with: Api::Entities::Tags
             end
 
             desc "Returns the list of the tags for the given repository groupped by digest",
-                 params:   API::Entities::Repositories.documentation.slice(:id),
+                 params:   Api::Entities::Repositories.documentation.slice(:id),
                  is_array: true,
-                 entity:   API::Entities::Tags,
+                 entity:   Api::Entities::Tags,
                  failure:  [
                    [401, "Authentication fails"],
                    [403, "Authorization fails"],
@@ -105,7 +105,7 @@ module API
               authorize repo, :show?
 
               grouped_tags = repo.groupped_tags.map do |k1|
-                API::Entities::Tags.represent(k1, type: current_type)
+                Api::Entities::Tags.represent(k1, type: current_type)
               end
               present grouped_tags
             end
@@ -113,7 +113,7 @@ module API
             # NOTE: (for v2 ?) the repository ID is ignored...
             route_param :tag_id, type: String, requirements: { tag_id: /.*/ } do
               desc "Show tag by id",
-                   entity:  API::Entities::Tags,
+                   entity:  Api::Entities::Tags,
                    failure: [
                      [401, "Authentication fails"],
                      [403, "Authorization fails"],
@@ -121,20 +121,20 @@ module API
                    ]
 
               params do
-                requires :id, using: API::Entities::Repositories.documentation.slice(:id)
+                requires :id, using: Api::Entities::Repositories.documentation.slice(:id)
                 requires :tag_id, type: String, documentation: { desc: "Tag ID" }
               end
 
               get do
                 tag = Tag.find(params[:tag_id])
                 authorize tag, :show?
-                present tag, with: API::Entities::Tags
+                present tag, with: Api::Entities::Tags
               end
             end
           end
 
           desc "Show repositories by id",
-               entity:  API::Entities::Repositories,
+               entity:  Api::Entities::Repositories,
                failure: [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
@@ -142,25 +142,25 @@ module API
                ]
 
           params do
-            requires :id, using: API::Entities::Repositories.documentation.slice(:id)
+            requires :id, using: Api::Entities::Repositories.documentation.slice(:id)
           end
 
           get do
             repo = Repository.find(params[:id])
             authorize repo, :show?
             present repo,
-                    with:         API::Entities::Repositories,
+                    with:         Api::Entities::Repositories,
                     current_user: current_user,
                     type:         current_type
           end
 
           desc "Delete repository",
-               params:  API::Entities::Repositories.documentation.slice(:id),
+               params:  Api::Entities::Repositories.documentation.slice(:id),
                failure: [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
                  [404, "Not found"],
-                 [422, "Unprocessable Entity", API::Entities::ApiErrors]
+                 [422, "Unprocessable Entity", Api::Entities::ApiErrors]
                ]
 
           delete do

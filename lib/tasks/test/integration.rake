@@ -51,7 +51,7 @@ namespace :test do
       ENV["PORTUS_TEST_INTEGRATION"] = str if str.present?
       ENV["TEARDOWN_TESTS"] = "true"
 
-      script = Rails.root.join("bin", "test-integration.sh")
+      script = Rails.root.join("bin/test-integration.sh")
       success = ::Portus::Cmd.spawn("/bin/bash #{script}")
 
       unless success

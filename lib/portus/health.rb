@@ -10,9 +10,9 @@ module Portus
   # components.
   class Health
     CHECKS = [
-      ::Portus::HealthChecks::DB,
+      ::Portus::HealthChecks::Db,
       ::Portus::HealthChecks::Clair,
-      ::Portus::HealthChecks::LDAP,
+      ::Portus::HealthChecks::Ldap,
       ::Portus::HealthChecks::Registry
     ].freeze
 

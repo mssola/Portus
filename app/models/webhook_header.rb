@@ -22,5 +22,5 @@
 class WebhookHeader < ApplicationRecord
   belongs_to :webhook, inverse_of: "headers"
 
-  validates :name, uniqueness: { scope: :webhook_id }
+  validates :name, uniqueness: { scope: :webhook_id, case_sensitive: true }
 end

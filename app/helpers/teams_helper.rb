@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module TeamsHelper
-  include ::API::Helpers::Teams
+  include ::Api::Helpers::Teams
 
   def manage_teams_enabled?
     APP_CONFIG.enabled?("user_permission.manage_team")

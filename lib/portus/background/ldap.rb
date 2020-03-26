@@ -6,7 +6,7 @@ module Portus
   module Background
     # LDAP keeps track of some tasks to be done on the background for LDAP
     # maintenance.
-    class LDAP
+    class Ldap
       # The number of days in which we should force a recheck.
       FORCE_CHECK_IN_DAYS = 7
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module V1
     # Tags implements all the endpoints regarding tags that have not been
     # addressed in other classes.
@@ -19,7 +19,7 @@ module API
              tags:     ["tags"],
              detail:   "This will expose all tags",
              is_array: true,
-             entity:   API::Entities::Tags,
+             entity:   Api::Entities::Tags,
              failure:  [
                [401, "Authentication fails"],
                [403, "Authorization fails"]
@@ -33,12 +33,12 @@ module API
         get do
           raise Pundit::NotAuthorizedError unless @user.admin?
 
-          present paginate(order(Tag.all)), with: API::Entities::Tags
+          present paginate(order(Tag.all)), with: Api::Entities::Tags
         end
 
         route_param :id, type: Integer, requirements: { id: /.*/ } do
           desc "Show tag by id",
-               entity:  API::Entities::Tags,
+               entity:  Api::Entities::Tags,
                failure: [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
@@ -52,16 +52,16 @@ module API
           get do
             tag = Tag.find(params[:id])
             authorize tag, :show?
-            present tag, with: API::Entities::Tags
+            present tag, with: Api::Entities::Tags
           end
 
           desc "Delete tag",
-               params:  API::Entities::Tags.documentation.slice(:id),
+               params:  Api::Entities::Tags.documentation.slice(:id),
                failure: [
                  [401, "Authentication fails"],
                  [403, "Authorization fails"],
                  [404, "Not found"],
-                 [422, "Unprocessable Entity", API::Entities::ApiErrors]
+                 [422, "Unprocessable Entity", Api::Entities::ApiErrors]
                ]
 
           delete do

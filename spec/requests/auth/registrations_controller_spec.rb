@@ -135,7 +135,7 @@ describe Auth::RegistrationsController do
   end
 
   # Make sure that https://nvd.nist.gov/vuln/detail/CVE-2015-9284 is mitigated
-  describe "CVE-2015-9284", type: :request, focus: true do
+  describe "CVE-2015-9284", type: :request do
     describe "POST /users/auth/:provider without CSRF token" do
       before do
         @allow_forgery_protection = ActionController::Base.allow_forgery_protection

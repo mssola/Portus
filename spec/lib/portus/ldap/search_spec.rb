@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe ::Portus::LDAP::Search do
+describe ::Portus::Ldap::Search do
   let(:success) { OpenStruct.new(code: 0) }
   let(:failure) { OpenStruct.new(code: 1) }
 
@@ -139,14 +139,14 @@ describe ::Portus::LDAP::Search do
     end
 
     it "returns an empty array if the user could not be found" do
-      allow_any_instance_of(::Portus::LDAP::Search).to receive(:find_user).and_return([])
+      allow_any_instance_of(::Portus::Ldap::Search).to receive(:find_user).and_return([])
       allow_any_instance_of(Net::LDAP).to receive(:get_operation_result).and_return(success)
 
       expect(subject.user_groups("whatever")).to be_empty
     end
 
     it "returns an empty array if no groups were found" do
-      allow_any_instance_of(::Portus::LDAP::Search).to receive(:find_user).and_return(user_entries)
+      allow_any_instance_of(::Portus::Ldap::Search).to receive(:find_user).and_return(user_entries)
       allow_any_instance_of(Net::LDAP).to receive(:search).and_return([])
       allow_any_instance_of(Net::LDAP).to receive(:get_operation_result).and_return(success)
 
@@ -155,7 +155,7 @@ describe ::Portus::LDAP::Search do
 
     it "returns an empty array if calling #search raised an LDAP::Error" do
       APP_CONFIG["ldap"]["enabled"] = true
-      allow_any_instance_of(::Portus::LDAP::Search).to receive(:find_user) do
+      allow_any_instance_of(::Portus::Ldap::Search).to receive(:find_user) do
         raise ::Net::LDAP::Error.new, "error"
       end
 
@@ -164,7 +164,7 @@ describe ::Portus::LDAP::Search do
 
     it "returns an empty array if calling #search on #groups_from returned an error" do
       APP_CONFIG["ldap"]["enabled"] = true
-      allow_any_instance_of(::Portus::LDAP::Search).to receive(:find_user).and_return(user_entries)
+      allow_any_instance_of(::Portus::Ldap::Search).to receive(:find_user).and_return(user_entries)
       allow_any_instance_of(Net::LDAP).to receive(:search).and_return([])
       allow_any_instance_of(Net::LDAP).to receive(:get_operation_result).and_return(failure)
 
@@ -172,7 +172,7 @@ describe ::Portus::LDAP::Search do
     end
 
     it "returns a list of groups" do
-      allow_any_instance_of(::Portus::LDAP::Search).to receive(:find_user).and_return(user_entries)
+      allow_any_instance_of(::Portus::Ldap::Search).to receive(:find_user).and_return(user_entries)
       allow_any_instance_of(Net::LDAP).to receive(:search).and_return(group_entries)
       allow_any_instance_of(Net::LDAP).to receive(:get_operation_result).and_return(success)
 

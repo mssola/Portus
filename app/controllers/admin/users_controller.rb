@@ -7,7 +7,7 @@ class Admin::UsersController < Admin::BaseController
   def index
     @admin_count = User.admins.count
     @users = User.not_portus.order(:username)
-    @users_serialized = API::Entities::Users.represent(
+    @users_serialized = Api::Entities::Users.represent(
       @users,
       current_user: current_user,
       type:         :internal
@@ -19,7 +19,7 @@ class Admin::UsersController < Admin::BaseController
 
     respond_to do |format|
       if @user.persisted?
-        @user_serialized = API::Entities::Users.represent(
+        @user_serialized = Api::Entities::Users.represent(
           @user,
           current_user: current_user,
           type:         :internal
@@ -40,12 +40,12 @@ class Admin::UsersController < Admin::BaseController
 
   # GET /admin/user/1/edit
   def edit
-    @user_serialized = API::Entities::Users.represent(
+    @user_serialized = Api::Entities::Users.represent(
       @user,
       current_user: current_user,
       type:         :internal
     ).to_json
-    @app_tokens_serialized = API::Entities::ApplicationTokens.represent(
+    @app_tokens_serialized = Api::Entities::ApplicationTokens.represent(
       @user.application_tokens,
       current_user: current_user,
       type:         :internal
@@ -95,7 +95,7 @@ class Admin::UsersController < Admin::BaseController
   # If LDAP is enabled, it checks that the user to be created does not collide
   # with the username of an LDAP existing user.
   def check_ldap_user!
-    msg = ::Portus::LDAP::Search.new.with_error_message(user_create_params[:username])
+    msg = ::Portus::Ldap::Search.new.with_error_message(user_create_params[:username])
     return if msg.nil?
 
     Rails.logger.tagged(:ldap) { Rails.logger.debug msg }

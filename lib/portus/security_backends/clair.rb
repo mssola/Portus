@@ -7,10 +7,10 @@ require "portus/security_backends/base"
 EMPTY_LAYER_SHA = "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
 
 module Portus
-  module SecurityBackend
+  module SecurityBackends
     # Clair implements all security-related methods by using CoreOS' Clair
     # (https://github.com/coreos/clair)
-    class Clair < ::Portus::SecurityBackend::Base
+    class Clair < ::Portus::SecurityBackends::Base
       # Returns the vulnerabilities that can be found for the given layers. In
       # order to do so, this method needs an authentication token that will be
       # used to post this images into Clair. Moreover, this method also needs

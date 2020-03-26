@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Teams, type: :request do
+describe Api::V1::Teams, type: :request do
   let!(:admin) { create(:admin) }
   let!(:user) { create(:user) }
   let!(:token) { create(:application_token, user: admin) }

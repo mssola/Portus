@@ -2,7 +2,7 @@
 
 module Portus
   # The DB module has useful methods for DB purposes.
-  module DB
+  module Db
     WAIT_TIMEOUT  = 90
     WAIT_INTERVAL = 5
 
@@ -13,7 +13,7 @@ module Portus
     #   * down: cannot connect to the database.
     #   * unknown: there has been an unexpected error.
     def self.ping
-      ::Portus::DB.migrations? ? :ready : :empty
+      ::Portus::Db.migrations? ? :ready : :empty
     rescue ActiveRecord::NoDatabaseError
       :missing
     rescue Mysql2::Error
@@ -31,13 +31,13 @@ module Portus
     def self.wait_until(status)
       count = 0
 
-      while (current_status = ::Portus::DB.ping) != status
+      while (current_status = ::Portus::Db.ping) != status
         if count >= WAIT_TIMEOUT
           Rails.logger.tagged("Database") do
             Rails.logger.error "Timeout reached, exiting with error. Check the logs..."
           end
 
-          raise ::Portus::DB::TimeoutReachedError, "Timeout reached for '#{status}' status"
+          raise ::Portus::Db::TimeoutReachedError, "Timeout reached for '#{status}' status"
         end
 
         Rails.logger.tagged("Database") { Rails.logger.error "Not ready yet. Waiting..." }

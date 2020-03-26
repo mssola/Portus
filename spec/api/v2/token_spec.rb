@@ -171,7 +171,7 @@ describe "/v2/token", type: :request do
       before do
         APP_CONFIG["ldap"]["enabled"] = true
         APP_CONFIG["ldap"]["base"] = ""
-        allow_any_instance_of(Portus::LDAP::Authenticatable).to(
+        allow_any_instance_of(Portus::Ldap::Authenticatable).to(
           receive(:authenticate!)
             .and_call_original
         )

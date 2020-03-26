@@ -2,6 +2,7 @@
 
 # ExploreController exposes a search interface for non-logged in (anonymous)
 # users. It allows these users to search for public repositories.
+# rubocop:disable Rails/ApplicationController
 class ExploreController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -19,7 +20,7 @@ class ExploreController < ActionController::Base
     if @current
       repository    = @current.split(":").first
       repositories  = policy_scope(Repository).includes(:stars).search(repository)
-      @repositories = API::Entities::Repositories.represent(repositories, type: :search).to_json
+      @repositories = Api::Entities::Repositories.represent(repositories, type: :search).to_json
     else
       @repositories = []
     end
@@ -40,3 +41,4 @@ class ExploreController < ActionController::Base
     redirect_to root_path unless APP_CONFIG.enabled?("anonymous_browsing")
   end
 end
+# rubocop:enable Rails/ApplicationController

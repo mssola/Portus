@@ -43,7 +43,7 @@ describe "Login feature" do
     # Use a clean room to guard against side effects
     module CleanRoom
       # rubocop:disable Security/Eval
-      eval File.read(Rails.root.join("app", "models", "user.rb"))
+      eval File.read(Rails.root.join("app/models/user.rb"))
       # rubocop:enable Security/Eval
     end
 

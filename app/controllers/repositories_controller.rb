@@ -34,7 +34,7 @@ class RepositoriesController < ApplicationController
     @repository_comments = @repository.comments.all
 
     @repository_serialized = serialize_repositories(@repository).to_json
-    @comments_serialized = API::Entities::Comments.represent(
+    @comments_serialized = Api::Entities::Comments.represent(
       @repository.comments.all,
       current_user: current_user,
       type:         :internal
@@ -61,7 +61,7 @@ class RepositoriesController < ApplicationController
   end
 
   def serialize_repositories(repositories)
-    API::Entities::Repositories.represent(
+    Api::Entities::Repositories.represent(
       repositories,
       current_user: current_user,
       type:         :internal

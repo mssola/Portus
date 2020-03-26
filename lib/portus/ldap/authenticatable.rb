@@ -9,7 +9,7 @@ require "portus/ldap/errors"
 require "portus/ldap/login"
 
 module Portus
-  module LDAP
+  module Ldap
     # Authenticatable implements Devise's authenticatable for LDAP servers. This
     # class will fallback to other strategies if LDAP support is not enabled.
     #
@@ -30,17 +30,17 @@ module Portus
     # file. Take a look at this file in order to read more on the different
     # configurable values.
     class Authenticatable < Devise::Strategies::Authenticatable
-      include ::Portus::LDAP::Adapter
-      include ::Portus::LDAP::Connection
-      include ::Portus::LDAP::Errors
-      include ::Portus::LDAP::Login
+      include ::Portus::Ldap::Adapter
+      include ::Portus::Ldap::Connection
+      include ::Portus::Ldap::Errors
+      include ::Portus::Ldap::Login
 
       # Re-implemented from Devise::Strategies::Authenticatable to authenticate
       # the user.
       def authenticate!
         fill_user_params!
 
-        cfg = ::Portus::LDAP::Configuration.new(params)
+        cfg = ::Portus::Ldap::Configuration.new(params)
         if cfg.enabled?
           connection = initialized_adapter
           entry, admin = bind_as(connection, cfg)
@@ -52,7 +52,7 @@ module Portus
         else
           fail! cfg.reason_message
         end
-      rescue ::Portus::LDAP::Error, Net::LDAP::Error => e
+      rescue ::Portus::Ldap::Error, Net::LDAP::Error => e
         logged_failure!(e.message)
       end
 

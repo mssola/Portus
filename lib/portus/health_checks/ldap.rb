@@ -7,9 +7,9 @@ require "portus/ldap/errors"
 module Portus
   module HealthChecks
     # LDAP offers health check support for LDAP servers.
-    class LDAP
-      extend ::Portus::LDAP::Adapter
-      extend ::Portus::LDAP::Errors
+    class Ldap
+      extend ::Portus::Ldap::Adapter
+      extend ::Portus::Ldap::Errors
 
       def self.name
         "ldap"

@@ -16,13 +16,13 @@ class WebhooksController < ApplicationController
   def index
     authorize @namespace
 
-    @namespace_serialized = API::Entities::Namespaces.represent(
+    @namespace_serialized = Api::Entities::Namespaces.represent(
       @namespace,
       current_user: current_user,
       type:         :internal
     ).to_json
     @webhooks = policy_scope(Webhook).where(namespace: @namespace)
-    @webhooks_serialized = API::Entities::Webhooks.represent(
+    @webhooks_serialized = Api::Entities::Webhooks.represent(
       @webhooks,
       current_user: current_user,
       type:         :internal
@@ -39,7 +39,7 @@ class WebhooksController < ApplicationController
     respond_to do |format|
       if @webhook.save
         @webhook.create_activity :create, owner: current_user
-        @webhook_serialized = API::Entities::Webhooks.represent(
+        @webhook_serialized = Api::Entities::Webhooks.represent(
           @webhook,
           current_user: current_user,
           type:         :internal
@@ -60,7 +60,7 @@ class WebhooksController < ApplicationController
     respond_to do |format|
       if @webhook.update(webhook_params)
         @webhook.create_activity :update, owner: current_user
-        @webhook_serialized = API::Entities::Webhooks.represent(
+        @webhook_serialized = Api::Entities::Webhooks.represent(
           @webhook,
           current_user: current_user,
           type:         :internal
@@ -78,15 +78,15 @@ class WebhooksController < ApplicationController
   def show
     authorize @webhook
 
-    @webhook_serialized = API::Entities::Webhooks.represent(
+    @webhook_serialized = Api::Entities::Webhooks.represent(
       @webhook,
       current_user: current_user,
       type:         :internal
     ).to_json
     @webhook_headers = @webhook.headers
-    @webhook_headers_serialized = API::Entities::WebhookHeaders.represent(@webhook_headers).to_json
+    @webhook_headers_serialized = Api::Entities::WebhookHeaders.represent(@webhook_headers).to_json
     @deliveries = @webhook.deliveries
-    @deliveries_serialized = API::Entities::WebhookDeliveries.represent(@deliveries).to_json
+    @deliveries_serialized = Api::Entities::WebhookDeliveries.represent(@deliveries).to_json
 
     respond_with(@namespace, @webhook)
   end
@@ -110,7 +110,7 @@ class WebhooksController < ApplicationController
     @webhook.create_activity new_state, owner: current_user
 
     respond_to do |format|
-      @webhook_serialized = API::Entities::Webhooks.represent(
+      @webhook_serialized = Api::Entities::Webhooks.represent(
         @webhook,
         current_user: current_user,
         type:         :internal

@@ -3,6 +3,8 @@
 # This file updates the password of the portus hidden user if this
 # exists and the secret is given.
 
+# TODO: move this out, so the autoloader doesn't complain.
+
 portus_exists = false
 begin
   portus_exists = User.exists?(username: "portus")

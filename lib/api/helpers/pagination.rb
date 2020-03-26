@@ -2,7 +2,7 @@
 
 # Extracted and adapted from https://gitlab.com/gitlab-org/gitlab-ce/blob/master/lib/api/helpers/pagination.rb
 
-module API
+module Api
   module Helpers
     # Pagination implements a helper responsible for the resource entries pagination
     # that can be customized through request parameters like `all`, `page` and `per_page`.

@@ -31,7 +31,8 @@ class Repository < ApplicationRecord
   delegate :registry, to: :namespace
   # We don't validate the format because we get that from the registry, and
   # it's guaranteed to be well-formatted there.
-  validates :name, presence: true, uniqueness: { scope: "namespace_id" }
+  validates :name, presence: true, uniqueness:
+                                     { scope: "namespace_id", case_sensitive: true }
 
   search_scope :search do
     attributes :name

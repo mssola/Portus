@@ -11,13 +11,14 @@ def spawn_cmd(cmd:, output: true)
 
   PTY.spawn(cmd) do |stdout, _, pid|
     if output
-      # rubocop:disable Lint/HandleExceptions
+      # rubocop:disable Lint/SuppressedException
       begin
         stdout.each { |line| print line }
       rescue Errno::EIO
         # End of output
       end
-      # rubocop:enable Lint/HandleExceptions
+      # rubocop:enable Lint/SuppressedException
+
     end
 
     Process.wait(pid)

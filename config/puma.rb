@@ -30,6 +30,9 @@ else
   bind "unix://#{File.join(Dir.pwd, "tmp/sockets/puma.sock")}"
 end
 
+# Specifies the `environment` that Puma will run in.
+environment ENV.fetch("RAILS_ENV") { "development" }
+
 # Daemon config. It will save the pid to tmp/pids/puma.pid. All the output
 # from both stdout and stderr will be redirected to logs/puma.log.
 #
@@ -43,6 +46,9 @@ end
 
 # Copy on write.
 preload_app!
+
+# Allow puma to be restarted by `rails restart` command.
+plugin :tmp_restart
 
 on_worker_boot do
   ActiveSupport.on_load(:active_record) do

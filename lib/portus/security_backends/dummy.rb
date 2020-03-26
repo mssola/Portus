@@ -4,10 +4,10 @@
 require "portus/security_backends/base"
 
 module Portus
-  module SecurityBackend
+  module SecurityBackends
     # Dummy implements a backend that simply returns fixture data. This backend
     # is meant to be used only for development/testing purposes.
-    class Dummy < ::Portus::SecurityBackend::Base
+    class Dummy < ::Portus::SecurityBackends::Base
       # Files stored in `lib/portus/security_backends/fixtures`.
       DUMMY_FIXTURE = "dummy.json"
 

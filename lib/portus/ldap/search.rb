@@ -5,12 +5,12 @@ require "portus/ldap/configuration"
 require "portus/ldap/connection"
 
 module Portus
-  module LDAP
+  module Ldap
     # Search implements methods that only perform search actions towards the
     # configured LDAP server.
     class Search
-      include ::Portus::LDAP::Adapter
-      include ::Portus::LDAP::Connection
+      include ::Portus::Ldap::Adapter
+      include ::Portus::Ldap::Connection
 
       # Returns true if the given name exists on the LDAP server, false
       # otherwise.
@@ -22,7 +22,7 @@ module Portus
       def find_user(name)
         return [] if APP_CONFIG.disabled?("ldap")
 
-        configuration = ::Portus::LDAP::Configuration.new(user: { username: name })
+        configuration = ::Portus::Ldap::Configuration.new(user: { username: name })
         connection = initialized_adapter
         search_admin_or_user(connection, configuration)
       rescue ::Net::LDAP::Error => e

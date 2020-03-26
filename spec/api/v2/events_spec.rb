@@ -8,7 +8,8 @@ describe "/v2/token" do
 
     it "handles the notification and accepts it" do
       expect(Portus::RegistryNotification).to receive(:process!)
-      post v2_webhooks_events_url, params: data.to_json, headers: { format: :json }
+      post v2_webhooks_events_path, params: data.to_json, headers: { format: :json }
+      puts response.body
       expect(response).to be_successful
     end
   end

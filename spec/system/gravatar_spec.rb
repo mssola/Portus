@@ -7,7 +7,7 @@ describe "Gravatar support" do
   let!(:user) { create(:user) }
 
   before do
-    login user
+    login_as user, scope: :user
   end
 
   it "If gravatar support is on, there should be an image" do

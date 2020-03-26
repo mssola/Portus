@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module Helpers
     # Ordering implements a helper responsible for the resource entries ordering that
     # can be customized through request parameters like `sort_attr` and `sort_order`.

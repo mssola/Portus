@@ -15,7 +15,7 @@ class WebhookHeadersController < ApplicationController
 
     respond_to do |format|
       if @webhook_header.save
-        @webhook_header_serialized = API::Entities::WebhookHeaders.represent(
+        @webhook_header_serialized = Api::Entities::WebhookHeaders.represent(
           @webhook_header,
           current_user: current_user,
           type:         :internal

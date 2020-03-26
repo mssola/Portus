@@ -3,7 +3,7 @@
 require "portus/http_helpers"
 
 module Portus
-  module SecurityBackend
+  module SecurityBackends
     # Base implements basic functionality that each security backend should
     # have. All security backends should subclass this one.
     class Base

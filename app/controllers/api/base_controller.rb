@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Rails/ApplicationController
 class Api::BaseController < ActionController::Base
   class ScopeNotHandled < StandardError; end
   class RegistryNotHandled < StandardError; end
@@ -21,3 +22,4 @@ class Api::BaseController < ActionController::Base
     head :unauthorized
   end
 end
+# rubocop:enable Rails/ApplicationController

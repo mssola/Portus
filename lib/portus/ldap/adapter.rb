@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Portus
-  module LDAP
+  module Ldap
     # Adapter implements a set of methods relevant for the LDAP adapter. That
     # is, it contains a method that returns the adapter to be used, and another
     # one containing the options to be used within this adapter.

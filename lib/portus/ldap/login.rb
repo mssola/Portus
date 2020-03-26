@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Portus
-  module LDAP
+  module Ldap
     # Login contains a set of methods for logging the given user into Portus. At
     # this point, we assume that LDAP binding worked, and so we want to
     # register/login this user into Portus.

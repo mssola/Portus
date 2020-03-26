@@ -27,7 +27,7 @@
 class WebhookDelivery < ApplicationRecord
   belongs_to :webhook, inverse_of: "deliveries"
 
-  validates :uuid, uniqueness: { scope: :webhook_id }
+  validates :uuid, uniqueness: { scope: :webhook_id, case_sensitive: true }
 
   # success? returns whether or not the request was successful (status 200).
   def success?

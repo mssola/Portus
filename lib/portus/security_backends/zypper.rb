@@ -4,10 +4,10 @@
 require "portus/security_backends/base"
 
 module Portus
-  module SecurityBackend
+  module SecurityBackends
     # NOTE: support for this is experimental since this functionality has not
     # been merged into master yet in zypper-docker.
-    class Zypper < ::Portus::SecurityBackend::Base
+    class Zypper < ::Portus::SecurityBackends::Base
       # Returns the vulnerabilities as given by a zypper-docker server. It can
       # return two different types:
       #   - An array containing the vulnerabilities found.

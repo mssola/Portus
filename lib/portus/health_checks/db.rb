@@ -5,13 +5,13 @@ require "portus/db"
 module Portus
   module HealthChecks
     # DB offers health check support for the database.
-    class DB
+    class Db
       def self.name
         "database"
       end
 
       def self.ready
-        case ::Portus::DB.ping
+        case ::Portus::Db.ping
         when :ready
           ["database is up-to-date", true]
         when :empty

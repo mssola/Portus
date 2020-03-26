@@ -17,8 +17,8 @@ require "api/v1/users"
 require "api/v1/vulnerabilities"
 require "api/version"
 
-module API
-  class RootAPI < Grape::API
+module Api
+  class RootApi < Grape::API
     format :json
     prefix :api
 
@@ -75,18 +75,18 @@ module API
     error_formatter :json, ->(message, *_ignored) { { message: message }.to_json }
 
     helpers Pundit
-    helpers ::API::Helpers
+    helpers ::Api::Helpers
 
-    mount ::API::V1::ApplicationTokens
-    mount ::API::V1::Health
-    mount ::API::V1::Namespaces
-    mount ::API::V1::Registries
-    mount ::API::V1::Repositories
-    mount ::API::V1::Tags
-    mount ::API::V1::Teams
-    mount ::API::V1::Users
-    mount ::API::V1::Vulnerabilities
-    mount ::API::Version
+    mount ::Api::V1::ApplicationTokens
+    mount ::Api::V1::Health
+    mount ::Api::V1::Namespaces
+    mount ::Api::V1::Registries
+    mount ::Api::V1::Repositories
+    mount ::Api::V1::Tags
+    mount ::Api::V1::Teams
+    mount ::Api::V1::Users
+    mount ::Api::V1::Vulnerabilities
+    mount ::Api::Version
 
     route :any, "*path" do
       not_found!

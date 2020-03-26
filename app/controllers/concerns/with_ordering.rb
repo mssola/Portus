@@ -4,7 +4,7 @@
 module WithOrdering
   extend ActiveSupport::Concern
 
-  include ::API::Helpers::Ordering
+  include ::Api::Helpers::Ordering
 
   included do
     before_action :default_ordering_params

@@ -36,7 +36,7 @@ class Team < ApplicationRecord
   # Right now, all the special namespaces are simply marked as hidden.
   scope :all_non_special, -> { where(hidden: false) }
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: true }
   validates :owners, presence: true
   has_many :namespaces, dependent: :destroy
 
@@ -110,7 +110,7 @@ class Team < ApplicationRecord
     portus_user = User.portus
     usernames   = users.map(&:username)
 
-    ::Portus::LDAP::Search.new.find_group_and_members(name).each do |member|
+    ::Portus::Ldap::Search.new.find_group_and_members(name).each do |member|
       next if usernames.include?(member)
       next unless User.exists?(username: member)
 

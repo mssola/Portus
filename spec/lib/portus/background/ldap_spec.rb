@@ -3,7 +3,7 @@
 require "rails_helper"
 require "portus/background/ldap"
 
-describe ::Portus::Background::LDAP do
+describe ::Portus::Background::Ldap do
   describe "#sleep_value" do
     it "returns always 10" do
       expect(subject.sleep_value).to eq 10

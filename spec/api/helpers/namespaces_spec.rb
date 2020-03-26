@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ::API::Helpers::Namespaces, type: :helper do
+RSpec.describe ::Api::Helpers::Namespaces, type: :helper do
   let!(:registry)  { create(:registry) }
   let!(:user)      { create(:admin) }
   let!(:loser)     { create(:user) }

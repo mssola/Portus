@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module Helpers
     # Helpers of repositories
     module Repositories

@@ -7,7 +7,7 @@ class TagsController < ApplicationController
     @namespace = @tag.repository.namespace
     authorize @tag
 
-    @tag_serialized = API::Entities::Tags.represent(
+    @tag_serialized = Api::Entities::Tags.represent(
       @tag,
       current_user: current_user,
       type:         :internal

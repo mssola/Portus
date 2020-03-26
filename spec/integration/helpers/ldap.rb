@@ -5,7 +5,7 @@ require "portus/ldap/authenticatable"
 ##
 # Define a class that mocks stuff like `params` and exit methods.
 
-class IntegrationLDAP < Portus::LDAP::Authenticatable
+class IntegrationLDAP < Portus::Ldap::Authenticatable
   attr_reader :params
   attr_accessor :session
 

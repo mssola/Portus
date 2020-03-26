@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module V1
     # Registries implements all the endpoints regarding registries.
     class Registries < Grape::API
@@ -15,39 +15,39 @@ module API
              tags:     ["registries"],
              detail:   "This will expose all accessible registries",
              is_array: true,
-             entity:   API::Entities::Registries,
+             entity:   Api::Entities::Registries,
              failure:  [
                [401, "Authentication fails"],
                [403, "Authorization fails"]
              ]
 
         get do
-          present Registry.all, with: API::Entities::Registries
+          present Registry.all, with: Api::Entities::Registries
         end
 
         desc "Create a registry",
              tags:     ["registries"],
              detail:   "Allow users to create a registry. " \
                        "This will only work if no registry works yet",
-             entity:   API::Entities::Registries,
+             entity:   Api::Entities::Registries,
              consumes: ["application/x-www-form-urlencoded", "application/json"],
              failure:  [
-               [400, "Bad request", API::Entities::ApiErrors],
+               [400, "Bad request", Api::Entities::ApiErrors],
                [401, "Authentication fails"],
                [403, "Authorization fails"],
-               [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
              ]
 
         params do
           requires :registry, type: Hash do
             requires :all,
                      only:  %i[name hostname use_ssl],
-                     using: API::Entities::Registries.documentation.slice(
+                     using: Api::Entities::Registries.documentation.slice(
                        :name, :hostname, :use_ssl
                      )
             optional :all,
                      only:  %i[use_ssl external_hostname],
-                     using: API::Entities::Registries.documentation.slice(:external_hostname)
+                     using: Api::Entities::Registries.documentation.slice(:external_hostname)
           end
         end
 
@@ -56,29 +56,29 @@ module API
           obj = svc.execute
 
           if svc.valid?
-            present obj, with: API::Entities::Registries
+            present obj, with: Api::Entities::Registries
           else
             unprocessable_entity!(svc.messages)
           end
         end
 
         desc "Update registry",
-             params:   API::Entities::Registries.documentation.slice(:id),
+             params:   Api::Entities::Registries.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", API::Entities::ApiErrors],
+               [400, "Bad request", Api::Entities::ApiErrors],
                [401, "Authentication fails"],
                [403, "Authorization fails"],
                [404, "Not found"],
-               [422, "Unprocessable Entity", API::Entities::FullApiErrors]
+               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
              ],
-             entity:   API::Entities::Registries,
+             entity:   Api::Entities::Registries,
              consumes: ["application/x-www-form-urlencoded", "application/json"]
 
         params do
           requires :registry, type: Hash do
             optional :all,
                      only:  %i[name hostname use_ssl external_hostname],
-                     using: API::Entities::Registries.documentation.slice(
+                     using: Api::Entities::Registries.documentation.slice(
                        :name, :hostname, :use_ssl, :external_hostname
                      )
           end
@@ -90,7 +90,7 @@ module API
           obj = svc.execute
 
           if svc.valid?
-            present obj, with: API::Entities::Registries
+            present obj, with: Api::Entities::Registries
           else
             unprocessable_entity!(svc.messages)
           end
@@ -102,7 +102,7 @@ module API
                        "validation to the `hostname` field in the `messages` hash. This " \
                        "validation returns a string containing the error as given by the " \
                        "registry. If empty then everything went well",
-             entity:   API::Entities::Status,
+             entity:   Api::Entities::Status,
              consumes: ["application/x-www-form-urlencoded", "application/json"],
              failure:  [
                [401, "Authentication fails"],
@@ -111,13 +111,13 @@ module API
 
         params do
           requires :name,
-                   using: API::Entities::Registries.documentation.slice(:name)
+                   using: Api::Entities::Registries.documentation.slice(:name)
           requires :hostname,
-                   using: API::Entities::Registries.documentation.slice(:hostname)
+                   using: Api::Entities::Registries.documentation.slice(:hostname)
           optional :external_hostname,
-                   using: API::Entities::Registries.documentation.slice(:external_hostname)
+                   using: Api::Entities::Registries.documentation.slice(:external_hostname)
           requires :use_ssl,
-                   using: API::Entities::Registries.documentation.slice(:use_ssl)
+                   using: Api::Entities::Registries.documentation.slice(:use_ssl)
           optional :only,
                    documentation: { desc: "Restrict which parameters are to be validated" },
                    type:          Array[String]
@@ -125,7 +125,7 @@ module API
 
         get "/validate" do
           validation = ::Registries::ValidateService.new(permitted_params).execute
-          present validation, with: API::Entities::Status
+          present validation, with: Api::Entities::Status
         end
       end
     end

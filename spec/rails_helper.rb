@@ -15,7 +15,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 # All the configuration that is specific for a gem (or set of related gems) has
 # been pushed into individual files inside the `spec/support` directory.
-Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 # Keep the original value of the PORTUS_DB_ADAPTER env. variable.
 CONFIGURED_DB_ADAPTER = ENV["PORTUS_DB_ADAPTER"]
@@ -30,14 +30,14 @@ Shoulda::Matchers.configure do |config|
 end
 
 # To avoid problems, the LDAP authenticatable is enabled always. Since this
-# means trouble for regular logins, we mock Portus::LDAP to implement a fake
+# means trouble for regular logins, we mock Portus::Ldap to implement a fake
 # authenticate method. This method will be used by everyone. Tests that really
 # want to interface with the real LDAP support, have to call the following in a
 # before(:each) block:
 #
-#   allow_any_instance_of(Portus::LDAP).to receive(:authenticate!).and_call_original
+#   allow_any_instance_of(Portus::Ldap).to receive(:authenticate!).and_call_original
 #
-Portus::LDAP::Authenticatable.class_eval do
+Portus::Ldap::Authenticatable.class_eval do
   def fake_authenticate!
     # rubocop:disable Style/SignalException
     fail(:invalid_login)
@@ -55,7 +55,7 @@ RSpec.configure do |config|
 
   # By default, LDAP will be faked away.
   config.before do
-    allow_any_instance_of(Portus::LDAP::Authenticatable).to(
+    allow_any_instance_of(Portus::Ldap::Authenticatable).to(
       receive(:authenticate!)
         .and_return(:fake_authenticate!)
     )

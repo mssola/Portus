@@ -59,6 +59,18 @@ fi
 # The actual run
 
 if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
+    # Run zeitwerk:check to check whether Rails can eager load the whole
+    # application (thus ensuring that there are no loading surprises).
+    #
+    # Furthermore, it may happen that the check exited with an exit code that is
+    # not zero but it's still not perfect (a warning). Let's fail on that too.
+    out=$(bundle exec bin/rails zeitwerk:check | tail -n1)
+    if [ "$out" != "All is good!" ]; then
+        echo "Zeitwerk is failing. Running again to see the output:"
+        bundle exec bin/rails zeitwerk:check
+        exit 1
+    fi
+
     # Test commit messages
     bundle exec rake test:git
 

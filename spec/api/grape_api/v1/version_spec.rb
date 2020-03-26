@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::Version, type: :request do
+describe Api::Version, type: :request do
   let!(:admin) { create(:admin) }
   let!(:token) { create(:application_token, user: admin) }
 

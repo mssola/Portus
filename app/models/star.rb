@@ -21,5 +21,8 @@ class Star < ApplicationRecord
   belongs_to :user
 
   validates :repository, presence: true
+  # TODO
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :user, presence: true, uniqueness: { scope: :repository }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
 end

@@ -17,7 +17,7 @@ class WebhookDeliveriesController < ApplicationController
     webhook_delivery.retrigger
 
     respond_to do |format|
-      @webhook_delivery_serialized = API::Entities::WebhookDeliveries.represent(
+      @webhook_delivery_serialized = Api::Entities::WebhookDeliveries.represent(
         webhook_delivery,
         current_user: current_user,
         type:         :internal

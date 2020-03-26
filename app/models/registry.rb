@@ -28,8 +28,8 @@ class Registry < ApplicationRecord
 
   has_many :namespaces, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
-  validates :hostname, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: true }
+  validates :hostname, presence: true, uniqueness: { case_sensitive: true }
   validates :external_hostname, presence: false
   validates :use_ssl, inclusion: [true, false]
 

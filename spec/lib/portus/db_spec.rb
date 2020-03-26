@@ -2,24 +2,24 @@
 
 require "rails_helper"
 
-describe Portus::DB do
+describe Portus::Db do
   describe "ping" do
     it "returns :ready on the usual case" do
       expect(described_class.ping).to eq :ready
     end
 
     it "returns :empty if the DB is still initializing" do
-      allow(::Portus::DB).to receive(:migrations?).and_return(false)
+      allow(::Portus::Db).to receive(:migrations?).and_return(false)
       expect(described_class.ping).to eq :empty
     end
 
     it "returns :missing if the DB is missing" do
-      allow(::Portus::DB).to receive(:migrations?).and_raise(ActiveRecord::NoDatabaseError, "a")
+      allow(::Portus::Db).to receive(:migrations?).and_raise(ActiveRecord::NoDatabaseError, "a")
       expect(described_class.ping).to eq :missing
     end
 
     it "returns :down if the DB is down" do
-      allow(::Portus::DB).to receive(:migrations?).and_raise(Mysql2::Error, "a")
+      allow(::Portus::Db).to receive(:migrations?).and_raise(Mysql2::Error, "a")
       expect(described_class.ping).to eq :down
     end
   end
@@ -27,11 +27,11 @@ describe Portus::DB do
   describe "wait_until" do
     before do
       # Avoid warning when changing constant value
-      ::Portus::DB.send(:remove_const, "WAIT_TIMEOUT")
-      ::Portus::DB.send(:remove_const, "WAIT_INTERVAL")
+      ::Portus::Db.send(:remove_const, "WAIT_TIMEOUT")
+      ::Portus::Db.send(:remove_const, "WAIT_INTERVAL")
       # Optimizes duration of the tests
-      ::Portus::DB::WAIT_TIMEOUT  = 1
-      ::Portus::DB::WAIT_INTERVAL = 1
+      ::Portus::Db::WAIT_TIMEOUT  = 1
+      ::Portus::Db::WAIT_INTERVAL = 1
     end
 
     it "doesn't the given block if status is reached right away" do
@@ -41,7 +41,7 @@ describe Portus::DB do
     end
 
     it "calls the given block with current status until it reaches the expected status" do
-      allow(::Portus::DB).to receive(:migrations?).and_return(false, true)
+      allow(::Portus::Db).to receive(:migrations?).and_return(false, true)
 
       described_class.wait_until(:ready) do |status|
         expect(status).to eq(:empty)
@@ -49,7 +49,7 @@ describe Portus::DB do
     end
 
     it "raises an exception if timeout has been reached" do
-      error = ::Portus::DB::TimeoutReachedError
+      error = ::Portus::Db::TimeoutReachedError
       expect { described_class.wait_until(:inexistent) }.to raise_error(error)
     end
   end

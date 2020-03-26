@@ -405,7 +405,7 @@ describe User do
 
   describe "#ldap_add_as_member!" do
     it "adds a member" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:user_groups).and_return(["newteam"])
       )
 
@@ -421,7 +421,7 @@ describe User do
     end
 
     it "doesn't do anything if the team doesn't exist" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:user_groups).and_return(["newteam"])
       )
       received = 0
@@ -436,7 +436,7 @@ describe User do
     end
 
     it "doesn't do anything if the team is marked as disabled" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:user_groups).and_return(["newteam"])
       )
       received = 0
@@ -456,7 +456,7 @@ describe User do
     end
 
     it "doesn't do anything if the user is already a member" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(
+      allow_any_instance_of(::Portus::Ldap::Search).to(
         receive(:user_groups).and_return(["newteam"])
       )
 
@@ -469,7 +469,7 @@ describe User do
     end
 
     it "doesn't do anything when no groups have been returned" do
-      allow_any_instance_of(::Portus::LDAP::Search).to(receive(:user_groups).and_return([]))
+      allow_any_instance_of(::Portus::Ldap::Search).to(receive(:user_groups).and_return([]))
       received = 0
       allow_any_instance_of(Team).to receive(:add_team_member!) do
         received += 1

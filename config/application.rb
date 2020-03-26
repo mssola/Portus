@@ -13,6 +13,14 @@ Bundler.require(*bundler_groups)
 module Portus
   # Application implements the Rails application base for Portus.
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    # TODO: see new_framework_defaults_6_0.rb
+    # TODO: use the defaults from 6.0.
+    config.load_defaults 6.0
+
+    # TODO: remove this.
+    Rails.application.config.active_record.belongs_to_required_by_default = false
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -26,9 +34,7 @@ module Portus
     # config.i18n.default_locale = :de
 
     config.autoload_paths << Rails.root.join("lib")
-    config.autoload_paths << Rails.root.join("app", "validators")
     config.eager_load_paths << Rails.root.join("lib")
-    config.eager_load_paths << Rails.root.join("app", "validators")
     config.exceptions_app = routes
 
     config.generators do |g|

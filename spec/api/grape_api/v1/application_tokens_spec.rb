@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Users, type: :request do
+describe Api::V1::Users, type: :request do
   before do
     @admin = create :admin
     token = create :application_token, user: @admin

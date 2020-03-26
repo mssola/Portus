@@ -20,11 +20,11 @@ class ConnectionMock
   end
 end
 
-# AuthenticatableMock is a thin layer on top of ::Portus::LDAP::Authenticatable,
+# AuthenticatableMock is a thin layer on top of ::Portus::Ldap::Authenticatable,
 # that allows you to define the request parameters. It also allows you to access
 # the `session` object. Therefore, this class is designed to mock as least as
 # possible.
-class AuthenticatableMock < ::Portus::LDAP::Authenticatable
+class AuthenticatableMock < ::Portus::Ldap::Authenticatable
   attr_accessor :params, :session, :fail_message, :soft
 
   # Sets the request parameters and initializes the session.
@@ -40,7 +40,7 @@ class AuthenticatableMock < ::Portus::LDAP::Authenticatable
   # Calls the protected `bind_options`. The parameter to be used is guessed from
   # the `params` instance variable.
   def bind_options_test(admin:)
-    cfg = ::Portus::LDAP::Configuration.new(@params)
+    cfg = ::Portus::Ldap::Configuration.new(@params)
     bind_options(cfg, admin: admin)
   end
 
@@ -76,7 +76,7 @@ def assert_guess_email(params, email, attr = "")
   email.nil? ? expect(User.first.email).to(be_nil) : expect(User.first.email).to(eq(email))
 end
 
-describe ::Portus::LDAP::Authenticatable do
+describe ::Portus::Ldap::Authenticatable do
   before do
     APP_CONFIG["ldap"]["enabled"] = true
     allow_any_instance_of(described_class).to receive(:authenticate!).and_call_original
@@ -85,14 +85,14 @@ describe ::Portus::LDAP::Authenticatable do
   context "#adapter" do
     # Let's make code coverage happy
     it "calls the right adapter" do
-      ldap = ::Portus::LDAP::Authenticatable.new(nil)
+      ldap = ::Portus::Ldap::Authenticatable.new(nil)
       expect(ldap.adapter.to_s).to eq "Net::LDAP"
     end
   end
 
   it "loads the configuration properly" do
     params = { user: { username: "name", password: "1234" } }
-    ldap   = ::Portus::LDAP::Authenticatable.new(params)
+    ldap   = ::Portus::Ldap::Authenticatable.new(params)
     cfg    = ldap.adapter_options
 
     expect(cfg[:host]).to eq "hostname"
@@ -104,7 +104,7 @@ describe ::Portus::LDAP::Authenticatable do
   context "encryption" do
     it "returns the proper value for each method" do
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
 
       [["starttls", :start_tls], ["simple_tls", :simple_tls]].each do |e|
         APP_CONFIG["ldap"]["encryption"]["method"] = e[0]
@@ -117,7 +117,7 @@ describe ::Portus::LDAP::Authenticatable do
       APP_CONFIG["ldap"]["encryption"] = { "method" => "plain" }
 
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
       cfg    = ldap.adapter_options
 
       expect(cfg[:encryption]).to be_nil
@@ -127,7 +127,7 @@ describe ::Portus::LDAP::Authenticatable do
       APP_CONFIG["ldap"]["encryption"] = { "method" => "lala" }
 
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
       cfg    = ldap.adapter_options
 
       expect(cfg[:encryption]).to be_nil
@@ -137,7 +137,7 @@ describe ::Portus::LDAP::Authenticatable do
       APP_CONFIG["ldap"]["encryption"] = { "method" => "start_tls" }
 
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
       cfg    = ldap.adapter_options
 
       expect(cfg[:encryption][:method]).to eq :start_tls
@@ -151,7 +151,7 @@ describe ::Portus::LDAP::Authenticatable do
       }
 
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
       cfg    = ldap.adapter_options
 
       expect(cfg[:encryption][:method]).to eq :start_tls
@@ -166,7 +166,7 @@ describe ::Portus::LDAP::Authenticatable do
       }
 
       params = { user: { username: "name", password: "1234" } }
-      ldap   = ::Portus::LDAP::Authenticatable.new(params)
+      ldap   = ::Portus::Ldap::Authenticatable.new(params)
       cfg    = ldap.adapter_options
 
       expect(cfg[:encryption][:method]).to eq :start_tls
@@ -181,7 +181,7 @@ describe ::Portus::LDAP::Authenticatable do
     APP_CONFIG["ldap"]["authentication"] = auth
 
     params = { user: { username: "name", password: "1234" } }
-    ldap   = ::Portus::LDAP::Authenticatable.new(params)
+    ldap   = ::Portus::Ldap::Authenticatable.new(params)
     cfg    = ldap.adapter_options
     expect(cfg).not_to have_key(:auth)
 
@@ -189,7 +189,7 @@ describe ::Portus::LDAP::Authenticatable do
     auth = { "enabled" => true, "bind_dn" => "foo", "password" => "pass" }
     APP_CONFIG["ldap"]["authentication"] = auth
 
-    ldap = ::Portus::LDAP::Authenticatable.new(params)
+    ldap = ::Portus::Ldap::Authenticatable.new(params)
     cfg = ldap.adapter_options
     expect(cfg[:auth][:username]).to eq "foo"
     expect(cfg[:auth][:password]).to eq "pass"

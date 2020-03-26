@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe API::V1::Repositories, type: :request do
+describe Api::V1::Repositories, type: :request do
   let!(:admin) { create(:admin) }
   let!(:user)  { create(:user) }
   let!(:owner) { create(:user) }

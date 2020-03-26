@@ -7,7 +7,7 @@ class PasswordsController < Devise::PasswordsController
 
   before_action :check_portus, only: %i[create]
 
-  include CheckLDAP
+  include CheckLdap
 
   # Re-implemented from Devise to respond with a proper message on error.
   def create

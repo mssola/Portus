@@ -246,7 +246,7 @@ Devise.setup do |config|
   #
   # The LDAP authenticatable strategy is enabled by default on tests. This is
   # to avoid some trouble with tests actually requiring LDAP support to be
-  # enabled. By default, the test suite mocks the Portus::LDAP class to make
+  # enabled. By default, the test suite mocks the Portus::Ldap class to make
   # the authenticate! method to fail directly. See the `spec/rails_helper.rb`
   # file.
   if APP_CONFIG.enabled?("ldap") || Rails.env.test?

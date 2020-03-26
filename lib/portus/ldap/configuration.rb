@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Portus
-  module LDAP
+  module Ldap
     # Configuration holds the parameters that are passed between the different
     # components of LDAP support.
     class Configuration

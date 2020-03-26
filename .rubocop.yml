@@ -20,9 +20,14 @@ AllCops:
 
 # This is a remnant of old SUSE-style alignment for hashes, The table format
 # looks more human readable.
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+# The default is just too small. A limit of 100 looks reasonable and many other
+# projects (including inside of SUSE) are also using this value.
+Layout/LineLength:
+  Max: 100
 
 #
 # Metrics
@@ -46,11 +51,6 @@ Metrics/ClassLength:
   Exclude:
     - app/models/**/*
     - lib/api/**/*
-
-# The default is just too small. A limit of 100 looks reasonable and many other
-# projects (including inside of SUSE) are also using this value.
-Metrics/LineLength:
-  Max: 100
 
 # NOTE: this could be further trimmed down but some refactorings will have to be
 # done.
@@ -102,6 +102,18 @@ Style/ClassAndModuleChildren:
 # The default minimum length is 3, which is too long for good names like
 # "js". Variables with only one letter are usually disallowed, but there are
 # some names which are easy to understand (e.g. convention).
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   MinNameLength: 2
   AllowedNames: [_, n]
+
+##
+# Newly added stuff.
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module V1
     # Tags implements all the endpoints regarding tags that have not been
     # addressed in other classes.

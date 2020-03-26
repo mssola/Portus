@@ -5,7 +5,7 @@
 namespace :portus do
   namespace :yarn do
     desc "Ensure Yarn is installed"
-    task :available do
+    task available: :environment do
       unless system("yarn --version", out: File::NULL)
         warn(
           "Error: Yarn executable was not detected in the system.",

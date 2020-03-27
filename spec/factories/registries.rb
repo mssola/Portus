@@ -26,10 +26,7 @@ FactoryBot.define do
       "registry.hostname:#{n}"
     end
 
-    sequence :name do |n|
-      "registry name #{n}"
-    end
-
+    name { hostname }
     use_ssl { false }
   end
 end

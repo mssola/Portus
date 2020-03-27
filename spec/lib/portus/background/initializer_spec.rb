@@ -27,6 +27,11 @@ describe ::Portus::Background::Initializer do
       initializer.execute!
     end
 
+    it "does nothing if DB raises an error somehow" do
+      allow(::User).to receive(:exists?).and_raise(StandardError, "so grumpy, such error")
+      initializer.execute!
+    end
+
     it "executes everything if the portus user exists" do
       expect(initializer).to receive(:update_portus_user_password!)
       create(:user, username: "portus")

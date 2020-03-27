@@ -16,7 +16,6 @@ RSpec.configure do |config|
       factories_to_lint = FactoryBot.factories.reject do |factory|
         factory.name =~ /raw_.*_event/
       end
-      # TODO: improve factories, by using email with the username, and such
       FactoryBot.lint factories_to_lint
     end
   end

@@ -20,9 +20,7 @@ class ApplicationToken < ApplicationRecord
 
   belongs_to :user
 
-  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :application, uniqueness: { scope: "user_id", case_sensitive: true }
-  # rubocop:enable Rails/UniqueValidationWithoutIndex
   validate :limit_number_of_tokens_per_user, on: :create
 
   def limit_number_of_tokens_per_user

@@ -1,4 +1,4 @@
-- Create unique index in :uniqueness for ApplicationToken, TeamUser and Star
+- The ruby initializer is not working properly
 - Update JS packages
 - webpacker and sprockets
 - packaging

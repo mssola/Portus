@@ -11,6 +11,7 @@
 # The DB is up, now let's define the different background jobs as classes.
 #
 
+require "portus/background/initializer"
 require "portus/background/garbage_collector"
 require "portus/background/ldap"
 require "portus/background/registry"
@@ -46,6 +47,9 @@ they.each do |v|
   exit 1
 end
 slept = 0
+
+# Execute any initialization code that might be needed before doing anything at all.
+::Portus::Background::Initializer.new.execute!
 
 #
 # Finally, we will loop infinitely like this:

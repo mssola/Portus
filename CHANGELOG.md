@@ -1,5 +1,8 @@
 ## Upcoming Version
 
+- Note on the removal of some config/initializers that might be relevant for
+  environment variables and containers
+
 ## 2.4.3
 
 - f4d6914850a4 Upgraded the omniauth-google-oauth2 gem

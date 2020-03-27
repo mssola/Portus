@@ -30,5 +30,7 @@ FactoryBot.define do
     enabled { true }
     username { "" }
     password { "" }
+
+    association :namespace
   end
 end

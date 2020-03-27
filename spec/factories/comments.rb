@@ -24,5 +24,6 @@ FactoryBot.define do
     end
 
     association :author, factory: :user
+    association :namespace
   end
 end

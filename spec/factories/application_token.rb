@@ -10,6 +10,7 @@ FactoryBot.define do
     token_salt { BCrypt::Engine.generate_salt }
     token_hash { BCrypt::Engine.hash_secret(application, token_salt) }
 
-    association :user, factory: :user
+    association :user
+    association :namespace
   end
 end

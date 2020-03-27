@@ -16,7 +16,8 @@ module Portus
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    # TODO: remove this.
+    # There is no way to cleanly get this to true, since
+    # ::PublicActivity::Activity is out of reach and we'd need to monkey patch it.
     Rails.application.config.active_record.belongs_to_required_by_default = false
 
     # Settings in config/environments/* take precedence over those specified here.

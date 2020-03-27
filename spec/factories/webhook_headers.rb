@@ -19,5 +19,6 @@
 
 FactoryBot.define do
   factory :webhook_header do
+    association :webhook
   end
 end

@@ -6,7 +6,6 @@ describe "/v2 ping" do
   let(:auth_mech) { ActionController::HttpAuthentication::Basic }
   let(:password) { "this is a test" }
   let(:user) { create(:user, password: password) }
-  # TODO: de-dup with tokens api spec
   let(:valid_auth_header) do
     { "HTTP_AUTHORIZATION" => auth_mech.encode_credentials(user.username, password) }
   end

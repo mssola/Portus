@@ -32,7 +32,6 @@ class TeamUser < ApplicationRecord
   scope :viewer, -> { where(role: roles[:viewer]) }
 
   validates :team, presence: true
-  # TODO
   # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :user, presence: true, uniqueness: { scope: :team }
   # rubocop:enable Rails/UniqueValidationWithoutIndex

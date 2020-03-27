@@ -15,7 +15,6 @@ describe Portus::JwtToken do
   end
 
   describe ".jwt_kid" do
-    # TODO: @eotchi add more keys to test against
     it "returns known by libtrust kid of a given key" do
       kid = described_class.kid(mock.private_key)
       expect(kid).to eq "PTWT:FNJE:7TW7:ULI7:DZQA:JJJI:RDJQ:2M76:HD6G:ZRSC:VPIF:O5BU"

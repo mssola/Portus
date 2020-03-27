@@ -14,8 +14,6 @@ module Portus
   # Application implements the Rails application base for Portus.
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    # TODO: see new_framework_defaults_6_0.rb
-    # TODO: use the defaults from 6.0.
     config.load_defaults 6.0
 
     # TODO: remove this.

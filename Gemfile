@@ -2,6 +2,10 @@
 
 source "https://rubygems.org"
 
+# TODO(mssola): use 6.1.x whenever that is released. We are using the branch
+# directly to avoid a bug on zeitwerk that will be released with 6.1.0.
+gem "rails", git: "https://github.com/rails/rails.git", branch: "6-0-stable"
+
 gem "active_record_union"
 gem "base32"
 gem "devise"
@@ -23,9 +27,6 @@ gem "omniauth-rails_csrf_protection", "~> 0.1.2"
 gem "omniauth_openid_connect"
 gem "public_activity", "~> 1.6.3"
 gem "pundit"
-# TODO
-# gem "rails", "~> 6.0"
-gem "rails", git: "https://github.com/rails/rails.git", branch: "6-0-stable"
 gem "redcarpet"
 gem "ruby-openid", "~> 2.9.2"
 gem "sassc-rails"

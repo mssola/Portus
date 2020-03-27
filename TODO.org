@@ -1,6 +1,8 @@
-- All the TODOs
+- Remove the Rails.application.config.active_record.belongs_to_required_by_default = false config
+- Improve factories, by using email with the username, and such
+- Create unique index in :uniqueness for ApplicationToken, TeamUser and Star
 - Update JS packages
 - Check multiple databases setups
-- webpacker
+- webpacker and sprockets
 - packaging
   - This also includes Dockerfile, docker/Dockerfile, etc.

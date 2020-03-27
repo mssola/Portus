@@ -35,6 +35,22 @@ default: &default
   socket:  <%= ENV['PORTUS_DB_SOCKET'] %>
   <% end %>
 
-<%= Rails.env.downcase %>:
+# The <%= Rails.env.downcase %>: trick is no longer possible because then Ruby
+# on Rails will issue an annoying warning on $stderr as of Rails 6.x about not
+# being able to detect whether we are using multiple databases at once.
+
+production:
+  <<: *default
+  database: <%= ENV["PORTUS_DB_DATABASE"] || "portus_#{Rails.env.downcase}" %>
+
+development:
+  <<: *default
+  database: <%= ENV["PORTUS_DB_DATABASE"] || "portus_#{Rails.env.downcase}" %>
+
+test:
+  <<: *default
+  database: <%= ENV["PORTUS_DB_DATABASE"] || "portus_#{Rails.env.downcase}" %>
+
+staging:
   <<: *default
   database: <%= ENV["PORTUS_DB_DATABASE"] || "portus_#{Rails.env.downcase}" %>

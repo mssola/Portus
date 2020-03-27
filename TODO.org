@@ -1,5 +1,6 @@
 - All the TODOs
 - Update JS packages
+- Check multiple databases setups
 - webpacker
 - packaging
   - This also includes Dockerfile, docker/Dockerfile, etc.

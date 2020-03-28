@@ -1,6 +1,6 @@
 AllCops:
-  TargetRubyVersion: 2.5
-  TargetRailsVersion: 5.2
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
 
   DisplayCopNames: true
   DisplayStyleGuide: false
@@ -13,6 +13,12 @@ AllCops:
     - db/schema.postgresql.rb
     - db/migrate/*
     - vendor/**/*
+
+##
+# Plugins
+
+require:
+  - rubocop-rails
 
 #
 # Layout
@@ -60,8 +66,6 @@ Metrics/MethodLength:
 #
 # Rails
 #
-
-require: rubocop-rails
 
 Rails/SkipsModelValidations:
   Enabled: false

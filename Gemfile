@@ -53,6 +53,12 @@ gem "puma"
 # Configuration management
 gem "cconfig", "~> 1.3.0"
 
+# Check the version of ruby being used.
+gem "ruby_checker", "~> 1.0.0"
+
+# Check the version of ruby being used.
+gem "git_validation_task", "~> 1.1.0"
+
 # Pinning some versions
 gem "i18n"
 gem "ice_nine"

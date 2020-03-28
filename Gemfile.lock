@@ -186,6 +186,7 @@ GEM
       launchy
       octokit (~> 2.0.0)
       yajl-ruby
+    git_validation_task (1.1.0)
     gli (2.8.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -439,6 +440,7 @@ GEM
     ruby-openid (2.9.2)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
+    ruby_checker (1.0.0)
     rubyzip (2.3.0)
     safe_yaml (1.0.5)
     sassc (2.2.1)
@@ -559,6 +561,7 @@ DEPENDENCIES
   ffaker
   font-awesome-rails
   git-review
+  git_validation_task (~> 1.1.0)
   grape (~> 1.3)
   grape-entity
   grape-swagger
@@ -603,6 +606,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   ruby-openid (~> 2.9.2)
+  ruby_checker (~> 1.0.0)
   sassc-rails
   search_cop
   selenium-webdriver

@@ -13,9 +13,9 @@ PORTUS_DB_ADAPTER=${PORTUS_DB_ADAPTER:-mysql2}
 # We do this to abstract the fact that Travis CI does not use systemd and we do.
 function __daemon() {
     if [[ -z "$CI" ]]; then
-        sudo systemctl $1 $2
+        sudo systemctl "$1" "$2"
     else
-        sudo service $2 $1
+        sudo service "$2" "$1"
     fi
 }
 
@@ -27,15 +27,15 @@ function __database() {
     fi
 
     if [[ "$PORTUS_DB_ADAPTER" == "mysql2" ]]; then
-        __daemon $1 mysql
+        __daemon "$1" mysql
     else
-        __daemon $1 postgresql
+        __daemon "$1" postgresql
     fi
 }
 
 # Setup an insecure registry for the local docker.
 function __docker_insecure() {
-    if [[ ! -z "$CI" ]]; then
+    if [[ -n "$CI" ]]; then
         sudo tee /etc/docker/daemon.json > /dev/null <<EOF
 {
   "insecure-registries" : ["172.17.0.1:5000"]
@@ -72,7 +72,7 @@ if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
     fi
 
     # Test commit messages
-    bundle exec rake test:git
+    bundle exec rake git-validation
 
     # Style and security checks
     bundle exec rubocop -V

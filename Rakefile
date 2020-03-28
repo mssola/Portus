@@ -10,3 +10,9 @@ Rails.application.load_tasks
 require "grape-swagger/rake/oapi_tasks"
 require "api/root_api"
 GrapeSwagger::Rake::OapiTasks.new(Api::RootApi)
+
+require "git_validation/task"
+GitValidation::Task.new(:"git-validation") do |t|
+  t.from  = "bef0fe19d3a5d1e215a4fbadd496ad61699e63f9"
+  t.quiet = ENV["CI"].blank?
+end

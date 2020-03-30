@@ -118,6 +118,7 @@ var config = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
+      'window.$': 'jquery',
     }),
 
     new webpack.IgnorePlugin(/^\.\/jquery$/, /jquery-ujs$/),

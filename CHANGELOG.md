@@ -5,34 +5,34 @@
 
 ## 2.4.3
 
-- f4d6914850a4 Upgraded the omniauth-google-oauth2 gem
-- 67a0d4c0f54b Fix style inconsistencies on password reset pages
+- [f4d6914850a4](https://github.com/SUSE/Portus/commit/f4d6914850a4) Upgraded the omniauth-google-oauth2 gem
+- [67a0d4c0f54b](https://github.com/SUSE/Portus/commit/67a0d4c0f54b) Fix style inconsistencies on password reset pages
 
 ## 2.4.2
 
-- e960c96dc821 Fixed nil exceptions for activities
-- 627a990b9829 Fixed all? and delete? namespace policies
-- 56385ecf8bc6 Fixed deletion for registry 2.7
+- [e960c96dc821](https://github.com/SUSE/Portus/commit/e960c96dc821) Fixed nil exceptions for activities
+- [627a990b9829](https://github.com/SUSE/Portus/commit/627a990b9829) Fixed all? and delete? namespace policies
+- [56385ecf8bc6](https://github.com/SUSE/Portus/commit/56385ecf8bc6) Fixed deletion for registry 2.7
 
 ## 2.4.1
 
 This release consists mostly of bug fixes and upgrades from vulnerable
 gems. Thank you everyone involved!
 
-- af08f6211abb db: added index on scan_result
-- a282fff71bd4 Properly show tokens for bots
-- a55c0ec2f827 Upgraded cconfig to fix a configuration issue
-- d3be549af55f Fixed namespace duplication
-- 3591e04ba75c ui: fixed team creation for standard user
-- 52915908e36b ui: fixed repositories performance view issue
-- 69e41ece3f8a Reduced amount of rendered data for repository entity
-- 942f18113fa1 Fixed breaking changes from pagination commit
-- 762c9665bb11 policies: fixed destroy for repositories/tags
+- [af08f6211abb](https://github.com/SUSE/Portus/commit/af08f6211abb) db: added index on scan_result
+- [a282fff71bd4](https://github.com/SUSE/Portus/commit/a282fff71bd4) Properly show tokens for bots
+- [a55c0ec2f827](https://github.com/SUSE/Portus/commit/a55c0ec2f827) Upgraded cconfig to fix a configuration issue
+- [d3be549af55f](https://github.com/SUSE/Portus/commit/d3be549af55f) Fixed namespace duplication
+- [3591e04ba75c](https://github.com/SUSE/Portus/commit/3591e04ba75c) ui: fixed team creation for standard user
+- [52915908e36b](https://github.com/SUSE/Portus/commit/52915908e36b) ui: fixed repositories performance view issue
+- [69e41ece3f8a](https://github.com/SUSE/Portus/commit/69e41ece3f8a) Reduced amount of rendered data for repository entity
+- [942f18113fa1](https://github.com/SUSE/Portus/commit/942f18113fa1) Fixed breaking changes from pagination commit
+- [762c9665bb11](https://github.com/SUSE/Portus/commit/762c9665bb11) policies: fixed destroy for repositories/tags
 - Upgraded the following gems due to vulnerabilities:
-  - 5f90273e0b9a nokogiri
-  - 351fc7d27b3e loofah
-  - d3be549af55f rack
-  - ae62d4c4c0b7 rails
+  - [5f90273e0b9a](https://github.com/SUSE/Portus/commit/5f90273e0b9a) nokogiri
+  - [351fc7d27b3e](https://github.com/SUSE/Portus/commit/351fc7d27b3e) loofah
+  - [d3be549af55f](https://github.com/SUSE/Portus/commit/d3be549af55f) rack
+  - [ae62d4c4c0b7](https://github.com/SUSE/Portus/commit/ae62d4c4c0b7) rails
 
 ## 2.4.0
 
@@ -129,128 +129,128 @@ depends on the same `delete.enabled` configuration).
 
 ### Features
 
-- 20c7e04acdfb Local login form can be disabled (#1603)
-- 23e455516156 webhooks: added the name column (#1581)
-- 53ce8967395b Allow contributors to delete repositories/tags (#1696)
-- 0c0d46b67f6c config: added option to generally disable push access to non-admin users (#1705)
-- f0432d102b49 api: added bootstrap endpoint (#1681)
-- 2fcbeda7edbb api: added update methods for namespaces and teams (#1794)
-- c9e32324a848 Added permissions on webhooks (#1806)
-- bf4e913552b8 config: removed the deprecated `ldap.method` key (#1821)
-- 7f82a44078c3 Added the possibility to create bots (#1856)
-- 5ee93c4b1b96 background: implemented garbage collector (#1864)
-- 94f78377e699 Implemented namespace deletion (#1938)
+- [20c7e04acdfb](https://github.com/SUSE/Portus/commit/20c7e04acdfb) Local login form can be disabled (#1603)
+- [23e455516156](https://github.com/SUSE/Portus/commit/23e455516156) webhooks: added the name column (#1581)
+- [53ce8967395b](https://github.com/SUSE/Portus/commit/53ce8967395b) Allow contributors to delete repositories/tags (#1696)
+- [0c0d46b67f6c](https://github.com/SUSE/Portus/commit/0c0d46b67f6c) config: added option to generally disable push access to non-admin users (#1705)
+- [f0432d102b49](https://github.com/SUSE/Portus/commit/f0432d102b49) api: added bootstrap endpoint (#1681)
+- [2fcbeda7edbb](https://github.com/SUSE/Portus/commit/2fcbeda7edbb) api: added update methods for namespaces and teams (#1794)
+- [c9e32324a848](https://github.com/SUSE/Portus/commit/c9e32324a848) Added permissions on webhooks (#1806)
+- [bf4e913552b8](https://github.com/SUSE/Portus/commit/bf4e913552b8) config: removed the deprecated `ldap.method` key (#1821)
+- [7f82a44078c3](https://github.com/SUSE/Portus/commit/7f82a44078c3) Added the possibility to create bots (#1856)
+- [5ee93c4b1b96](https://github.com/SUSE/Portus/commit/5ee93c4b1b96) background: implemented garbage collector (#1864)
+- [94f78377e699](https://github.com/SUSE/Portus/commit/94f78377e699) Implemented namespace deletion (#1938)
 
 ### Fixes
 
-- 0b7a651e8114 api: take the relative url root into account (#1610)
-- 7b28926a34b8 api: removed slash duplication from ajax calls (#1628)
-- 57d1f93f9931 health: don't panic on malformed Clair URL (#1665)
-- e85ed519974d Increased the text storage for vulnerabilities (#1670)
-- 02d387363881 sync: rollback if events have happened (#1675)
-- 7e60b7155429 sync: added sync-strategy as a config value (#1675)
-- 459c1953a0f9 security: don't crash on clair timeouts (#1762)
-- 640e48c7b9a4 security: fetch the manifest more safely (#1768)
-- b97636183d0e sync: do not remove repositories on some errors (#1787)
-- 83b4b3a9fa97 ui: fixed hostname copied to clipboard on tags (#1792)
-- 4625761e8ede api: explicitly set 204 status instead of nothing (#1804)
-- ae80df228db8 ldap: fixed a couple of bugs around SSL support (#1817)
-- 4c25b2367349 health: catch all exceptions for registries (#1831)
-- 291b049e1e8d ldap: fixed a crash when search fails (#1834)
-- fc133a48787f user: do not allow the update of the portus user (#1896)
-- cef7f4c506bd passwords: don't allow the portus user to reset (#1896)
-- 67ba269d33ee user: skip validations when creating portus user (#1896)
-- 9af3f2277d7b Restrict deletes into the repository (#1973)
+- [0b7a651e8114](https://github.com/SUSE/Portus/commit/0b7a651e8114) api: take the relative url root into account (#1610)
+- [7b28926a34b8](https://github.com/SUSE/Portus/commit/7b28926a34b8) api: removed slash duplication from ajax calls (#1628)
+- [57d1f93f9931](https://github.com/SUSE/Portus/commit/57d1f93f9931) health: don't panic on malformed Clair URL (#1665)
+- [e85ed519974d](https://github.com/SUSE/Portus/commit/e85ed519974d) Increased the text storage for vulnerabilities (#1670)
+- [02d387363881](https://github.com/SUSE/Portus/commit/02d387363881) sync: rollback if events have happened (#1675)
+- [7e60b7155429](https://github.com/SUSE/Portus/commit/7e60b7155429) sync: added sync-strategy as a config value (#1675)
+- [459c1953a0f9](https://github.com/SUSE/Portus/commit/459c1953a0f9) security: don't crash on clair timeouts (#1762)
+- [640e48c7b9a4](https://github.com/SUSE/Portus/commit/640e48c7b9a4) security: fetch the manifest more safely (#1768)
+- [b97636183d0e](https://github.com/SUSE/Portus/commit/b97636183d0e) sync: do not remove repositories on some errors (#1787)
+- [83b4b3a9fa97](https://github.com/SUSE/Portus/commit/83b4b3a9fa97) ui: fixed hostname copied to clipboard on tags (#1792)
+- [4625761e8ede](https://github.com/SUSE/Portus/commit/4625761e8ede) api: explicitly set 204 status instead of nothing (#1804)
+- [ae80df228db8](https://github.com/SUSE/Portus/commit/ae80df228db8) ldap: fixed a couple of bugs around SSL support (#1817)
+- [4c25b2367349](https://github.com/SUSE/Portus/commit/4c25b2367349) health: catch all exceptions for registries (#1831)
+- [291b049e1e8d](https://github.com/SUSE/Portus/commit/291b049e1e8d) ldap: fixed a crash when search fails (#1834)
+- [fc133a48787f](https://github.com/SUSE/Portus/commit/fc133a48787f) user: do not allow the update of the portus user (#1896)
+- [cef7f4c506bd](https://github.com/SUSE/Portus/commit/cef7f4c506bd) passwords: don't allow the portus user to reset (#1896)
+- [67ba269d33ee](https://github.com/SUSE/Portus/commit/67ba269d33ee) user: skip validations when creating portus user (#1896)
+- [9af3f2277d7b](https://github.com/SUSE/Portus/commit/9af3f2277d7b) Restrict deletes into the repository (#1973)
 
 ### Improvements
 
-- 9aa3ee218ffd api: added create and update methods to registries (#1663)
-- aa3ccb19132e background: mark failed scans as re-schedulable (#1671)
-- 54dade970964 api: added endpoints for re-scheduling scanning (#1672)
-- cc6e5046a441 background: add the possibility to disable background tasks (#1679)
-- e6683066f3d8 config: make reply_to setting optional (#1699)
-- 07d33f4ad80b policies: added more fine-grained push policies (#1729)
-- 02fec6da7996 teams: improved team creation form with owner (#1776)
-- 10ab3456bc4d security: added a table for vulnerabilities (#1778)
-- ee295ee896e0 ui: added users and registries into the sidebar (#1784)
-- d2d90d424555 ui: splitted repositories into different panels (#1785)
-- 6482ed7522f5 ui: unified admin page with regular page (#1783)
-- 6cd886a4fad0 ui: show external hostname for registries (#1791)
-- 49c6aefd1e76 authentication: use a more fine-grained scope for Github (#1800)
-- c524f37461ff ui: added visibility to namespace edit form (#1826)
-- a80fbaa0e880 ui: added enabled toggle to webhooks edit form (#1827)
-- a6f6035d40b9 health: implemented check for LDAP (#1828)
-- ccdbd31bea78 js: replaced typeahead.js w/ vue-multiselect (#1811)
-- ec6adb71f521 ui: improved and refactored namespace#show page (#1837)
-- 6cd0af5f4b93 js: reduced bundle size (#1891)
-- f777a5effb16 oauth/gitlab: allow to use private gitlab server (#1903)
-- f1e8a103dfa4 oauth/gitlab: be sure to load all groups (#1903)
-- 10cb892b0b24 docker: allow Puma to bind to unix socket also in production (#1880)
-- 4b57ad666846 docker: make it possible to connect to a database socket (#1880)
-- 82199e9ade87 js: splitted into bundles and chunks (#1924)
-- 990a04e36116 config: raise the default puma workers number (#1938)
-- 688cb501f7cf config: expanded the mailer section (#1967)
-- bef0fe19d3a5 config: added pagination options (#1815)
-- 35ba42f2a4f1 config: added LDAP timeout option (#1821)
-- 648450748bed Remind users to login again after password update (#1969)
-- 914cc9ebfdee tasks: added portus:db:configure (#1970)
-- bc28c049bd10 config: raised the value for JWT expiration time (#1979)
+- [9aa3ee218ffd](https://github.com/SUSE/Portus/commit/9aa3ee218ffd) api: added create and update methods to registries (#1663)
+- [aa3ccb19132e](https://github.com/SUSE/Portus/commit/aa3ccb19132e) background: mark failed scans as re-schedulable (#1671)
+- [54dade970964](https://github.com/SUSE/Portus/commit/54dade970964) api: added endpoints for re-scheduling scanning (#1672)
+- [cc6e5046a441](https://github.com/SUSE/Portus/commit/cc6e5046a441) background: add the possibility to disable background tasks (#1679)
+- [e6683066f3d8](https://github.com/SUSE/Portus/commit/e6683066f3d8) config: make reply_to setting optional (#1699)
+- [07d33f4ad80b](https://github.com/SUSE/Portus/commit/07d33f4ad80b) policies: added more fine-grained push policies (#1729)
+- [02fec6da7996](https://github.com/SUSE/Portus/commit/02fec6da7996) teams: improved team creation form with owner (#1776)
+- [10ab3456bc4d](https://github.com/SUSE/Portus/commit/10ab3456bc4d) security: added a table for vulnerabilities (#1778)
+- [ee295ee896e0](https://github.com/SUSE/Portus/commit/ee295ee896e0) ui: added users and registries into the sidebar (#1784)
+- [d2d90d424555](https://github.com/SUSE/Portus/commit/d2d90d424555) ui: splitted repositories into different panels (#1785)
+- [6482ed7522f5](https://github.com/SUSE/Portus/commit/6482ed7522f5) ui: unified admin page with regular page (#1783)
+- [6cd886a4fad0](https://github.com/SUSE/Portus/commit/6cd886a4fad0) ui: show external hostname for registries (#1791)
+- [49c6aefd1e76](https://github.com/SUSE/Portus/commit/49c6aefd1e76) authentication: use a more fine-grained scope for Github (#1800)
+- [c524f37461ff](https://github.com/SUSE/Portus/commit/c524f37461ff) ui: added visibility to namespace edit form (#1826)
+- [a80fbaa0e880](https://github.com/SUSE/Portus/commit/a80fbaa0e880) ui: added enabled toggle to webhooks edit form (#1827)
+- [a6f6035d40b9](https://github.com/SUSE/Portus/commit/a6f6035d40b9) health: implemented check for LDAP (#1828)
+- [ccdbd31bea78](https://github.com/SUSE/Portus/commit/ccdbd31bea78) js: replaced typeahead.js w/ vue-multiselect (#1811)
+- [ec6adb71f521](https://github.com/SUSE/Portus/commit/ec6adb71f521) ui: improved and refactored namespace#show page (#1837)
+- [6cd0af5f4b93](https://github.com/SUSE/Portus/commit/6cd0af5f4b93) js: reduced bundle size (#1891)
+- [f777a5effb16](https://github.com/SUSE/Portus/commit/f777a5effb16) oauth/gitlab: allow to use private gitlab server (#1903)
+- [f1e8a103dfa4](https://github.com/SUSE/Portus/commit/f1e8a103dfa4) oauth/gitlab: be sure to load all groups (#1903)
+- [10cb892b0b24](https://github.com/SUSE/Portus/commit/10cb892b0b24) docker: allow Puma to bind to unix socket also in production (#1880)
+- [4b57ad666846](https://github.com/SUSE/Portus/commit/4b57ad666846) docker: make it possible to connect to a database socket (#1880)
+- [82199e9ade87](https://github.com/SUSE/Portus/commit/82199e9ade87) js: splitted into bundles and chunks (#1924)
+- [990a04e36116](https://github.com/SUSE/Portus/commit/990a04e36116) config: raise the default puma workers number (#1938)
+- [688cb501f7cf](https://github.com/SUSE/Portus/commit/688cb501f7cf) config: expanded the mailer section (#1967)
+- [bef0fe19d3a5](https://github.com/SUSE/Portus/commit/bef0fe19d3a5) config: added pagination options (#1815)
+- [35ba42f2a4f1](https://github.com/SUSE/Portus/commit/35ba42f2a4f1) config: added LDAP timeout option (#1821)
+- [648450748bed](https://github.com/SUSE/Portus/commit/648450748bed) Remind users to login again after password update (#1969)
+- [914cc9ebfdee](https://github.com/SUSE/Portus/commit/914cc9ebfdee) tasks: added portus:db:configure (#1970)
+- [bc28c049bd10](https://github.com/SUSE/Portus/commit/bc28c049bd10) config: raised the value for JWT expiration time (#1979)
 
 ### Packaging
 
-- 279de0a3762b Add "js()" to the bundled javascript libs (#1744)
-- 66bcd6a58b28 Including gems as sources (#1948)
-- e3ddaa042154 Require portusctl as a separate package (#1948)
-- a6a3a36b00c6 Add automatic generation of bundled js files (#1948)
-- 89566d7da334 Do not recommend mariadb (#1948)
-- e350e0cae365 Define rb\_suffix before its usage in fix\_sheb (#1948)
-- 556778b9f3aa Using the cpio strategy for adding/removing gems as sources (#1962)
+- [279de0a3762b](https://github.com/SUSE/Portus/commit/279de0a3762b) Add "js()" to the bundled javascript libs (#1744)
+- [66bcd6a58b28](https://github.com/SUSE/Portus/commit/66bcd6a58b28) Including gems as sources (#1948)
+- [e3ddaa042154](https://github.com/SUSE/Portus/commit/e3ddaa042154) Require portusctl as a separate package (#1948)
+- [a6a3a36b00c6](https://github.com/SUSE/Portus/commit/a6a3a36b00c6) Add automatic generation of bundled js files (#1948)
+- [89566d7da334](https://github.com/SUSE/Portus/commit/89566d7da334) Do not recommend mariadb (#1948)
+- [e350e0cae365](https://github.com/SUSE/Portus/commit/e350e0cae365) Define rb\_suffix before its usage in fix\_sheb (#1948)
+- [556778b9f3aa](https://github.com/SUSE/Portus/commit/556778b9f3aa) Using the cpio strategy for adding/removing gems as sources (#1962)
 
 ### Other
 
-- c97663be06cd Removed deprecated code from 2.3 (#1604)
-- 3b912ebd1684 help: point to the API documentation on production (#1647)
-- 190edbaea06c Introduced unit testing for Javascript components (#1592)
-- ecca2d9c6336 js: added unit tests for vue components and utils (#1661)
-- f297fd71618b Re-implemented from scratch integration tests (#1716)
-- d534723aa762 spec: added chrome headless as default js runner (#1866)
+- [c97663be06cd](https://github.com/SUSE/Portus/commit/c97663be06cd) Removed deprecated code from 2.3 (#1604)
+- [3b912ebd1684](https://github.com/SUSE/Portus/commit/3b912ebd1684) help: point to the API documentation on production (#1647)
+- [190edbaea06c](https://github.com/SUSE/Portus/commit/190edbaea06c) Introduced unit testing for Javascript components (#1592)
+- [ecca2d9c6336](https://github.com/SUSE/Portus/commit/ecca2d9c6336) js: added unit tests for vue components and utils (#1661)
+- [f297fd71618b](https://github.com/SUSE/Portus/commit/f297fd71618b) Re-implemented from scratch integration tests (#1716)
+- [d534723aa762](https://github.com/SUSE/Portus/commit/d534723aa762) spec: added chrome headless as default js runner (#1866)
 
 ## 2.3.7
 
-- ad5d649a3344 Upgraded some gems with known vulnerabilities.
+- [ad5d649a3344](https://github.com/SUSE/Portus/commit/ad5d649a3344) Upgraded some gems with known vulnerabilities.
 
 ## 2.3.6
 
-- 81179951f458 Restrict deletes into the repository (#1973)
-- 066f06f4e713 Remind users to login again after password update (#1969)
+- [81179951f458](https://github.com/SUSE/Portus/commit/81179951f458) Restrict deletes into the repository (#1973)
+- [066f06f4e713](https://github.com/SUSE/Portus/commit/066f06f4e713) Remind users to login again after password update (#1969)
 
 ## 2.3.5
 
-- 7755c7201d61 Update sprockets to fix cve-2018-3760
+- [7755c7201d61](https://github.com/SUSE/Portus/commit/7755c7201d61) Update sprockets to fix cve-2018-3760
 
 ## 2.3.4
 
-- ced82ca92149 oauth/gitlab: be sure to load all groups (#1903)
-- 23b7daef71e8 oauth/gitlab: fix for local servers (#1903)
-- f2a3ef0eee62 fixed regression on registries not being created (#1911)
-- 7da007a5e604 portusctl: improved the detection of containerized deployments (#1879)
-- b1c803a70146 user: do not allow the update of the portus user (#1896)
-- 1bd967039787 passwords: don't allow the portus user to reset (#1896)
-- 7b54698625d4 user: skip validations when creating portus user (#1896)
-- 58a2c3bd04dc config: allow Puma to bind to unix socket also in production (#1880)
-- 7ac882a6ebbc config: make it possible to connect to a database socket (#1880)
+- [ced82ca92149](https://github.com/SUSE/Portus/commit/ced82ca92149) oauth/gitlab: be sure to load all groups (#1903)
+- [23b7daef71e8](https://github.com/SUSE/Portus/commit/23b7daef71e8) oauth/gitlab: fix for local servers (#1903)
+- [f2a3ef0eee62](https://github.com/SUSE/Portus/commit/f2a3ef0eee62) fixed regression on registries not being created (#1911)
+- [7da007a5e604](https://github.com/SUSE/Portus/commit/7da007a5e604) portusctl: improved the detection of containerized deployments (#1879)
+- [b1c803a70146](https://github.com/SUSE/Portus/commit/b1c803a70146) user: do not allow the update of the portus user (#1896)
+- [1bd967039787](https://github.com/SUSE/Portus/commit/1bd967039787) passwords: don't allow the portus user to reset (#1896)
+- [7b54698625d4](https://github.com/SUSE/Portus/commit/7b54698625d4) user: skip validations when creating portus user (#1896)
+- [58a2c3bd04dc](https://github.com/SUSE/Portus/commit/58a2c3bd04dc) config: allow Puma to bind to unix socket also in production (#1880)
+- [7ac882a6ebbc](https://github.com/SUSE/Portus/commit/7ac882a6ebbc) config: make it possible to connect to a database socket (#1880)
 
 ## 2.3.3
 
-- 93df51cce0da ldap: don't crash on search when guessing an email (#1832)
-- 45814babef7e packaging: added new encryption options for LDAP
-- 4892eb1dc5ce ldap: fixed a couple of bugs around SSL support (#1746, #1774, bsc#1073232)
-- dc769adcddfe devise: use a more fine-grained scope for Github (#1790)
-- ae07ec4ca2cd sync: do not remove repositories on some errors (#1293, #1599)
-- 17e82c0791ba lib: be explicit on the exceptions to be rescued
-- 88553b817552 portusctl: added Clair timeout to the options
-- fed2818e8a96 security: fetch the manifest more safely (#1743)
-- 943c7627feab security: don't crash on clair timeouts (#1751)
+- [93df51cce0da](https://github.com/SUSE/Portus/commit/93df51cce0da) ldap: don't crash on search when guessing an email (#1832)
+- [45814babef7e](https://github.com/SUSE/Portus/commit/45814babef7e) packaging: added new encryption options for LDAP
+- [4892eb1dc5ce](https://github.com/SUSE/Portus/commit/4892eb1dc5ce) ldap: fixed a couple of bugs around SSL support (#1746, #1774, bsc#1073232)
+- [dc769adcddfe](https://github.com/SUSE/Portus/commit/dc769adcddfe) devise: use a more fine-grained scope for Github (#1790)
+- [ae07ec4ca2cd](https://github.com/SUSE/Portus/commit/ae07ec4ca2cd) sync: do not remove repositories on some errors (#1293, #1599)
+- [17e82c0791ba](https://github.com/SUSE/Portus/commit/17e82c0791ba) lib: be explicit on the exceptions to be rescued
+- [88553b817552](https://github.com/SUSE/Portus/commit/88553b817552) portusctl: added Clair timeout to the options
+- [fed2818e8a96](https://github.com/SUSE/Portus/commit/fed2818e8a96) security: fetch the manifest more safely (#1743)
+- [943c7627feab](https://github.com/SUSE/Portus/commit/943c7627feab) security: don't crash on clair timeouts (#1751)
 
 ### Words of warning
 

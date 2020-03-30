@@ -1,4 +1,6 @@
-require('jsdom-global')();
+require('jsdom-global')(undefined, {
+  url: "http://localhost",
+});
 
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');

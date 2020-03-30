@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const ROOT_PATH = path.resolve(__dirname, '..');
@@ -57,6 +57,9 @@ var config = {
         exclude: file => /node_modules|vendor[\\/]assets/.test(file) && !/\.vue\.js/.test(file),
         loader: 'babel-loader',
         options: {
+          presets: [
+            ['@babel/preset-env']
+          ],
           cacheDirectory: path.join(CACHE_PATH, 'babel-loader'),
         },
       },
@@ -131,11 +134,11 @@ var config = {
 
 if (IS_PRODUCTION) {
   config.optimization.minimizer = [
-    new UglifyJSPlugin({
+    new TerserPlugin({
       sourceMap: true,
       cache: true,
       parallel: true,
-      uglifyOptions: {
+      terserOptions: {
         output: {
           comments: false
         }

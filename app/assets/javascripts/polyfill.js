@@ -1,5 +1,5 @@
-import 'core-js/fn/array/some';
-import 'core-js/fn/array/from';
-import 'core-js/fn/array/find';
-import 'core-js/fn/array/find-index';
-import 'core-js/fn/object/assign';
+import 'core-js/stable/array/some';
+import 'core-js/stable/array/from';
+import 'core-js/stable/array/find';
+import 'core-js/stable/array/find-index';
+import 'core-js/stable/object/assign';

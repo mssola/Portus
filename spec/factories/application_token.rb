@@ -11,6 +11,5 @@ FactoryBot.define do
     token_hash { BCrypt::Engine.hash_secret(application, token_salt) }
 
     association :user
-    association :namespace
   end
 end

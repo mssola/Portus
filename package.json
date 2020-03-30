@@ -45,18 +45,18 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
-    "core-js": "^2.5.7",
-    "dayjs": "^1.7.4",
-    "jquery": "^3.3.1",
-    "keycode-js": "^1.0.3",
-    "lodash": "^4.17.10",
-    "query-string": "^5.1.1",
-    "vue": "^2.5.16",
-    "vue-loader": "^15.2.4",
-    "vue-multiselect": "shentao/vue-multiselect#496937bee",
+    "bootstrap-sass": "^3.4.1",
+    "core-js": "^3.6.4",
+    "dayjs": "^1.8.23",
+    "jquery": "^3.4.0",
+    "keycode-js": "^2.0.3",
+    "lodash": "^4.17.15",
+    "query-string": "^6.11.1",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.1",
+    "vue-multiselect": "^2.1.6",
     "vue-resource": "^1.5.1",
-    "vue-template-compiler": "^2.5.16",
-    "vuelidate": "^0.7.4"
+    "vue-template-compiler": "^2.6.11",
+    "vuelidate": "^0.7.5"
   }
 }

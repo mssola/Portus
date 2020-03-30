@@ -1,5 +1,83 @@
 # Contributing to Portus
 
+## Development
+
+There are multiple ways of setting up a [development
+environment](https://github.com/SUSE/Portus/wiki#developmentplayground-environments). We
+recommend using `docker-compose`, so you only need to perform:
+
+    $ docker-compose up
+
+You can read more about this environment
+[here](https://github.com/SUSE/Portus/wiki/Docker-Compose-Environment).
+
+### Testing
+
+#### Unit tests
+
+Unit tests are located in the `spec` directory. To run them, simply:
+
+    $ bundle exec rspec spec
+
+Make sure to install [phantomjs](http://phantomjs.org/) from your Linux
+distribution before running unit tests, since feature tests rely on PhantomJS
+being installed. All the other ruby dependencies are already covered by our
+`Gemfile`.
+
+We also have tests in the frontend. For this, you have to install
+[yarn](https://yarnpkg.com/) from your Linux distribution and run:
+
+    $ yarn test
+
+#### Integration tests
+
+Check [this
+document](https://github.com/SUSE/Portus/blob/master/spec/integration/README.md)
+in order to better understand how integration tests work. For development,
+though, if you have already installed Docker, docker-composer and
+[bats](https://github.com/sstephenson/bats), running the following should just
+work:
+
+```
+$ chmod +x bin/test-integration.sh
+$ ./bin/test-integration.sh
+```
+
+#### Other checks
+
+A common pitfall for developers is to forget about code style. For that, make
+sure to run [rubocop](https://github.com/bbatsov/rubocop):
+
+    $ bundle exec rubocop -a
+
+Note that the command above includes the `-a` flag. This flag will automatically
+fix small issues for you. We also run a code style check for the frontend code:
+
+    $ yarn eslint
+
+We also run [brakeman](https://brakemanscanner.org/) in order to detect security
+vulnerabilities:
+
+    $ bundle exec brakeman
+
+Last but not least, make sure that your git commit follows a proper style. To
+ensure this, you can run the following task:
+
+    $ bundle exec rake test:git
+
+#### Continuous Integration
+
+We use [Travis CI](https://travis-ci.org/) for continuous integration. You can
+run what we run in Travis locally:
+
+```
+$ chmod +x bin/ci/run.sh
+$ ./bin/ci/run.sh
+```
+
+This script simply executes all the tests and checks that we have presented
+above.
+
 ## Reporting issues
 
 Before reporting an issue, please check the

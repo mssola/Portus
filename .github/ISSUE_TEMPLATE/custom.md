@@ -1,7 +1,15 @@
+---
+name: Custom issue template
+about: General issues, both bugs and features.
+title: ''
+labels: ''
+assignees: mssola
+---
+
 ### Description
 
-Check out the `CONTRIBUTING.md` file for some considerations before submitting a
-new issue.
+Check out the [contribution guidelines](../CONTRIBUTING.md) file for some
+considerations before submitting a new issue.
 
 ### Steps to reproduce
 
@@ -12,9 +20,8 @@ new issue.
 - **Expected behavior**: I expected this to happen!
 - **Actual behavior**: But this happened...
 
-Providing logs of the moment when the issue has happened would also be
-useful. If you are in production, you might want to set the `PORTUS_LOG_LEVEL`
-to `debug` to get a more verbose log.
+Providing logs would also be useful. If you are in production, you might want to
+temporarily set the `PORTUS_LOG_LEVEL` to `debug` to get a more verbose log.
 
 ### Deployment information
 

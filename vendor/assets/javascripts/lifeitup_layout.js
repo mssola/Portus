@@ -13,7 +13,6 @@ window.layout_resizer = function layout_resizer() {
   var asideHeight = $('aside ul').outerHeight();
   var sectionHeight = $('section').outerHeight();
 
-
   if ((headerHeight + footerHeight + asideHeight) > screenHeight && asideHeight > sectionHeight) {
     $('.container-fluid').css({
       height: asideHeight + 'px',
@@ -39,11 +38,16 @@ $(window).on('resize', function () {
   layout_resizer();
 });
 
+/* TODO(mssola): this has been commented out because it was troublesome and
+ * commenting it didn't appear to make much of a difference. We should
+ * investigate more on this, but I'd also like to get rid of this whole thing,
+ * to be honest.
 $(document).bind('DOMSubtreeModified', function () {
   if (!alreadyResizing) {
     layout_resizer();
   }
 });
+ */
 
 // triger the function to resize and to get the images size when a panel has been displayed
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function () {

@@ -76,7 +76,7 @@ if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
 
     # Style and security checks
     bundle exec rubocop -V
-    bundle exec rubocop --extra-details --display-style-guide --display-cop-names
+    bundle exec rake rubocop
 
     # Check that MySQL and PostgreSQL have the same schema version
     bundle exec rails r bin/schema_check.rb

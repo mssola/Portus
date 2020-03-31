@@ -46,9 +46,10 @@ $ ./bin/test-integration.sh
 #### Other checks
 
 A common pitfall for developers is to forget about code style. For that, make
-sure to run [rubocop](https://github.com/bbatsov/rubocop):
+sure to run [rubocop](https://github.com/bbatsov/rubocop). We have integrated a
+rake task for this, so you can simply run:
 
-    $ bundle exec rubocop -a
+    $ bundle exec rake rubocop
 
 Note that the command above includes the `-a` flag. This flag will automatically
 fix small issues for you. We also run a code style check for the frontend code:

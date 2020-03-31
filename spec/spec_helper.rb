@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+# SimpleCov needs to be at the very top of the file.
 require "simplecov"
-require "webmock/rspec"
-require "vcr"
-
 SimpleCov.minimum_coverage 100
 SimpleCov.start "rails" do
   # TODO: remove this when this feature is merged in zypper-docker's master branch.
   add_filter "lib/portus/security_backends/zypper"
 end
+
+require "webmock/rspec"
+require "vcr"
 
 VCR.configure do |c|
   c.cassette_library_dir = "spec/vcr_cassettes"

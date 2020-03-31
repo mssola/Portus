@@ -1,18 +1,31 @@
-# Portus
+<p align="center"><a href="http://port.us.org" target="_blank" rel="noopener noreferrer"><img width="120" src="http://port.us.org/images/portus-logo.png" alt="Portus logo"></a></p>
 
-- [Website](http://port.us.org/) | [Documentation](http://port.us.org/documentation.html) | [Blog](http://port.us.org/blog/index.html) | [Supported versions](http://port.us.org/docs/versions.html) | [How to deploy](http://port.us.org/docs/deploy.html)
-- Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/portus-dev)
-- Last stable release: **2.4.3** (`2.4`, `2.4.3` and `latest` tags from the [official Docker image](https://hub.docker.com/r/opensuse/portus/))
+<p align="center">
+  <a href="http://port.us.org" title="Website">Website</a> |
+  <a href="http://port.us.org/documentation.html" title="Documentation">Documentation</a> |
+  <a href="http://port.us.org/blog/index.html" title="Blog">Blog</a> |
+  <a href="https://groups.google.com/forum/#!forum/portus-dev" title="Mailing list">Mailing list</a> |
+  <a href="http://port.us.org/docs/versions.html" title="Supported versions">Supported versions</a> |
+  <a href="http://port.us.org/docs/deploy.html" title="How to deploy">How to deploy</a>
+</p>
 
-Portus is an authorization server and a user interface for the next generation
+<p align="center">
+  <a href="https://travis-ci.org/SUSE/Portus" title="Travis CI status for the master branch"><img src="https://travis-ci.org/SUSE/Portus.svg?branch=master" alt="Build Status for master branch" /></a>
+  <a href="https://travis-ci.org/github/SUSE/Portus/branches" title="Travis CI status for the v2.4 branch"><img src="https://travis-ci.org/SUSE/Portus.svg?branch=v2.4" alt="Build Status for v2.4 branch" /></a>
+  <a href="https://codeclimate.com/github/SUSE/Portus" title="Codeclimate"><img src="https://codeclimate.com/github/SUSE/Portus/badges/gpa.svg" alt="Codeclimate status" /></a>
+  <a href="https://codeclimate.com/github/SUSE/Portus/coverage" title="Code coverage"><img src="https://codeclimate.com/github/SUSE/Portus/badges/coverage.svg" alt="Code coverage" /></a>
+  <a href="https://github.com/SUSE/Portus/blob/master/LICENSE" title="License"><img src="https://raw.githubusercontent.com/SUSE/Portus/site-source/images/license.png" alt="License" /></a>
+</p>
+
+---
+
+**Portus** is an authorization server and a user interface for the next generation
 of the Docker registry. Portus targets [version
 2](https://github.com/docker/distribution/blob/master/docs/spec/api.md) of the
 Docker Registry API. The minimum required version of Registry is 2.1, which is
 the first version supporting soft deletes of blobs.
 
-| master | v2.4 | Code Climate |
-|--------|------|--------------|
-| [![Build Status](https://travis-ci.org/SUSE/Portus.svg?branch=master)](https://travis-ci.org/SUSE/Portus) | [![Build Status](https://travis-ci.org/SUSE/Portus.svg?branch=v2.4)](https://travis-ci.org/SUSE/Portus) | [![Code Climate](https://codeclimate.com/github/SUSE/Portus/badges/gpa.svg)](https://codeclimate.com/github/SUSE/Portus) [![Test Coverage](https://codeclimate.com/github/SUSE/Portus/badges/coverage.svg)](https://codeclimate.com/github/SUSE/Portus/coverage) |
+**Current stable version**: **2.4.3** ([2.4](https://hub.docker.com/r/opensuse/portus/tags), [2.4.3](https://hub.docker.com/r/opensuse/portus/tags) and [latest](https://hub.docker.com/r/opensuse/portus/tags) Docker tags).
 
 ## Features
 

@@ -28,6 +28,8 @@ html
     meta content="/favicon/browserconfig.xml" name="msapplication-config"
     meta content="#205683" name="theme-color"
 
+    = javascript_pack_tag("errors")
+
   body.login
     .container-fluid
       .row-0
@@ -35,7 +37,7 @@ html
           .col-md-4.col-sm-2.col-xs-1
           .col-md-4.col-sm-8.col-xs-10
             .oops
-              = image_tag "layout/portus-error.png", class: "broken-lighthouse"
+              = image_pack_tag "layout/portus-error.png", class: "broken-lighthouse"
               h1
                 strong
                   | Oh no!

@@ -3,7 +3,7 @@ section.row-0
     .col-md-4.col-sm-2.col-xs-1
     .col-md-4.col-sm-8.col-xs-10.text-center
       = render 'shared/notifications'
-      = image_tag 'layout/portus-logo-login-page.png', class: 'login-picture'
+      = image_pack_tag 'layout/portus-logo-login-page.png', class: 'login-picture'
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         - if APP_CONFIG.enabled?("ldap") || APP_CONFIG.enabled?("oauth.local_login")
           = f.text_field :username, class: 'input form-control input-lg first', placeholder: 'Username', autofocus: true, required: true

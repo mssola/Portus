@@ -1,4 +1,4 @@
-import VulnerabilitiesParser from '~/modules/repositories/services/vulnerabilities-parser';
+import VulnerabilitiesParser from '@portus/modules/repositories/services/vulnerabilities-parser';
 
 describe('VulnerabilitiesParser', () => {
   describe('#countBySeverities', () => {

@@ -13,6 +13,7 @@ AllCops:
     - db/schema.postgresql.rb
     - db/migrate/*
     - vendor/**/*
+    - node_modules/**/*
 
 ##
 # Plugins

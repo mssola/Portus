@@ -1,7 +1,0 @@
-- Update JS packages
-- webpacker and sprockets
-- packaging
-  - This also includes Dockerfile, docker/Dockerfile, etc.
-- Submit PR
-- Check multiple databases setups
-- Check parallel testing

@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import Tag from '~/modules/repositories/components/tags/tag';
-
+import Tag from '@portus/modules/repositories/components/tags/tag';
 import sinon from 'sinon';
 
 describe('tag', () => {

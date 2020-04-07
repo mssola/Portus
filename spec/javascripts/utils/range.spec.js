@@ -1,4 +1,4 @@
-import range from '~/utils/range';
+import range from '@portus/utils/range';
 
 describe('Range', () => {
   it('returns throws exception if start > end', () => {

@@ -1,10 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "eslint": "eslint --max-warnings 0 --ext .js,.vue ./app/assets/javascripts",
-    "webpack": "webpack --watch --config config/webpack.js",
-    "test": "cross-env NODE_ENV=test mochapack --webpack-config ./config/webpack.js --require ./spec/javascripts/setup.js ./spec/javascripts/**/*.spec.js ./spec/javascripts/**/**/*.spec.js",
-    "cover": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html yarn test"
+    "clean": "rm -rf public/packs tmp/cache/webpacker",
+    "eslint": "eslint --max-warnings 0 --ext .js,.vue app/frontend",
+    "eslint-fix": "eslint --fix --max-warnings 0 --ext .js,.vue app/frontend",
+    "test": "cross-env NODE_ENV=test mochapack --require ./spec/javascripts/setup.js \"./spec/javascripts/**/*.spec.js\" --recursive",
+    "cover": "cross-env NODE_ENV=test nyc --reporter=text --reporter=html yarn test",
+    "bundle-analyzer": "BUNDLE_ANALYZER=true bundle exec ruby bin/webpack",
+    "webpack": "bundle exec ruby bin/webpack --watch"
   },
   "nyc": {
     "include": [
@@ -30,6 +33,7 @@
     "eslint-import-resolver-webpack": "^0.12.1",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^6.2.2",
     "expect": "^25.2.4",
     "jsdom": "^15.2.1",
     "jsdom-global": "^3.0.2",
@@ -42,9 +46,11 @@
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "@rails/webpacker": "4.2.2",
     "bootstrap-sass": "^3.4.1",
     "core-js": "^3.6.4",
     "dayjs": "^1.8.23",
@@ -58,5 +64,9 @@
     "vue-resource": "^1.5.1",
     "vue-template-compiler": "^2.6.11",
     "vuelidate": "^0.7.5"
+  },
+  "engines": {
+    "node": ">=10.19.0",
+    "yarn": "^1.22.4"
   }
 }

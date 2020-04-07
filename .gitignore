@@ -4,6 +4,7 @@
 /log/*
 /*.log
 /tmp
+/.tmp
 /.nyc_output
 /.vagrant
 /coverage
@@ -17,3 +18,10 @@
 /node_modules
 /webpack-report
 /db/schema.rb
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

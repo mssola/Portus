@@ -2,9 +2,9 @@ import { mount } from '@vue/test-utils';
 
 import sinon from 'sinon';
 
-import range from '~/utils/range';
+import range from '@portus/utils/range';
 
-import TagsTable from '~/modules/repositories/components/tags/tags-table';
+import TagsTable from '@portus/modules/repositories/components/tags/tags-table';
 
 describe('tags-table', () => {
   let wrapper;

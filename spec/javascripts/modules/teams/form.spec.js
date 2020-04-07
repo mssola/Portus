@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import sinon from 'sinon';
 
-import NewTeamForm from '~/modules/teams/components/new-form';
+import NewTeamForm from '@portus/modules/teams/components/new-form';
 
 Vue.use(Vuelidate);
 

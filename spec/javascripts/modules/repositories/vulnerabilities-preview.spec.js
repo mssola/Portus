@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import VulnerabilitiesPreview from '~/modules/vulnerabilities/components/preview';
+import VulnerabilitiesPreview from '@portus/modules/vulnerabilities/components/preview';
 
 describe('vulnerabilities-preview', () => {
   let wrapper;

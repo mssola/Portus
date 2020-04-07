@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import ToggleLink from '~/shared/components/toggle-link';
+import ToggleLink from '@portus/shared/components/toggle-link';
 
 describe('toggle-link', () => {
   let wrapper;

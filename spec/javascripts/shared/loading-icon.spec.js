@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import LoadingIcon from '~/shared/components/loading-icon';
+import LoadingIcon from '@portus/shared/components/loading-icon';
 
 describe('loading-icon', () => {
   let wrapper;

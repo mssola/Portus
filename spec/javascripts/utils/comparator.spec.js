@@ -1,4 +1,4 @@
-import Comparator from '~/utils/comparator';
+import Comparator from '@portus/utils/comparator';
 
 describe('Comparator', () => {
   it('returns string comparator function', () => {

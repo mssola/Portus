@@ -1,4 +1,4 @@
-import DateUtil from '~/utils/date';
+import DateUtil from '@portus/utils/date';
 
 describe('DateUtil', () => {
   it('returns false if it\'s not a valid date string/object', () => {

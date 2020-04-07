@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import TablePagination from '~/shared/components/table-pagination';
+import TablePagination from '@portus/shared/components/table-pagination';
 
 describe('table-pagination', () => {
   let wrapper;

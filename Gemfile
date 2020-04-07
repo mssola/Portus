@@ -32,7 +32,7 @@ gem "ruby-openid", "~> 2.9.2"
 gem "sassc-rails"
 gem "search_cop"
 gem "slim"
-gem "webpack-rails"
+gem "webpacker"
 
 gem "rack-cors"
 

@@ -18,8 +18,8 @@ module Portus
       end
 
       def enabled?
-        val = APP_CONFIG.enabled?("background.registry")
-        msg = "Registry integration has been disabled. This is highly discouraged!"
+        val = APP_CONFIG.enabled?('background.registry')
+        msg = 'Registry integration has been disabled. This is highly discouraged!'
         Rails.logger.warn(msg) unless val
         val
       end
@@ -36,7 +36,7 @@ module Portus
       end
 
       def to_s
-        "Registry events"
+        'Registry events'
       end
     end
   end

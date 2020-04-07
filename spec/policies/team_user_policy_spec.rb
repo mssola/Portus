@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 describe TeamUserPolicy do
   subject { described_class }
@@ -19,24 +19,24 @@ describe TeamUserPolicy do
   let(:team_user) { TeamUser.new(team: team) }
 
   permissions :owner? do
-    it "denies access to a member of the team with viewer role" do
+    it 'denies access to a member of the team with viewer role' do
       expect(subject).not_to permit(viewer, team_user)
     end
 
-    it "denies access to a member of the team with contributo role" do
+    it 'denies access to a member of the team with contributo role' do
       expect(subject).not_to permit(contributor, team_user)
     end
 
-    it "allows access to a member of the team with owner role" do
+    it 'allows access to a member of the team with owner role' do
       expect(subject).to permit(owner, team_user)
     end
 
-    it "denies access to an owner of another group" do
+    it 'denies access to an owner of another group' do
       create(:team, owners: [user])
       expect(subject).not_to permit(user, team_user)
     end
 
-    it "allows access to admin user even if he is not part of the team" do
+    it 'allows access to admin user even if he is not part of the team' do
       expect(subject).to permit(admin, team_user)
     end
   end

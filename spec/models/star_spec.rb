@@ -16,13 +16,13 @@
 #  index_stars_on_user_id        (user_id)
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 describe Star do
   it { is_expected.to belong_to(:repository) }
   it { is_expected.to belong_to(:user) }
 
-  it "validates that a user does not star the same repository twice" do
+  it 'validates that a user does not star the same repository twice' do
     author = create(:user)
     repository = create(:repository)
 

@@ -10,25 +10,25 @@ module Helpers
 
   # Returns a String containing the id of the currently active element.
   def focused_element_id
-    page.evaluate_script("document.activeElement.id")
+    page.evaluate_script('document.activeElement.id')
   end
 
   def enable_security_vulns_module!
-    APP_CONFIG["security"]["dummy"] = {
-      "server" => "dummy"
+    APP_CONFIG['security']['dummy'] = {
+      'server' => 'dummy'
     }
   end
 
   def build_token_header(token)
     {
-      "PORTUS-AUTH" => "#{token.user.username}:#{token.application}"
+      'PORTUS-AUTH' => "#{token.user.username}:#{token.application}"
     }
   end
 
   # Clears a field value. `fill_in` also does the job but
   # it doesn't trigger keyUp event, for example
   def clear_field(field)
-    find(field).native.send_keys([:control, "a"], :backspace)
+    find(field).native.send_keys([:control, 'a'], :backspace)
   end
 
   # Unfortunately vue-multiselect component is not very friendly regarding
@@ -57,39 +57,39 @@ module Helpers
   def click_confirm_popover(element)
     expect(page).to have_css(element)
     find(element).click
-    find(".popover-content .yes").click
+    find('.popover-content .yes').click
   end
 
   def toggle_new_namespace_form
-    find(".toggle-link-new-namespace").click
+    find('.toggle-link-new-namespace').click
   end
 
   def toggle_edit_namespace_form
-    find(".toggle-link-edit-namespace").click
+    find('.toggle-link-edit-namespace').click
   end
 
   def toggle_edit_team_form
-    find(".toggle-link-edit-team").click
+    find('.toggle-link-edit-team').click
   end
 
   def toggle_new_team_form
-    find(".toggle-link-new-team").click
+    find('.toggle-link-new-team').click
   end
 
   def toggle_new_member_form
-    find(".toggle-link-new-member").click
+    find('.toggle-link-new-member').click
   end
 
   def toggle_namespace_transfer_modal
-    find(".toggle-transfer-modal").click
+    find('.toggle-transfer-modal').click
   end
 
   def toggle_team_delete_modal
-    find(".toggle-delete-modal").click
+    find('.toggle-delete-modal').click
   end
 
   def toggle_user_deletion_modal
-    find(".toggle-deletion-modal").click
+    find('.toggle-deletion-modal').click
   end
 end
 

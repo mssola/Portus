@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/security"
+require 'portus/security'
 
 module Portus
   module Background
@@ -57,7 +57,7 @@ module Portus
       end
 
       def to_s
-        "Security scanning"
+        'Security scanning'
       end
 
       protected
@@ -98,9 +98,9 @@ module Portus
         tags = Tag.where.not(scanned: Tag.statuses[:scan_done])
         return if tags.empty?
 
-        Rails.logger.warn "Some tags were not marked as done. This may happen" \
-                          " either because the security scanner had a temporary problem, or" \
-                          " because there is a bug. They will be picked up in the next iteration."
+        Rails.logger.warn 'Some tags were not marked as done. This may happen' \
+                          ' either because the security scanner had a temporary problem, or' \
+                          ' because there is a bug. They will be picked up in the next iteration.'
         tags.update_all(scanned: Tag.statuses[:scan_none])
       end
     end

@@ -20,7 +20,7 @@ class ApplicationToken < ApplicationRecord
 
   belongs_to :user
 
-  validates :application, uniqueness: { scope: "user_id", case_sensitive: true }
+  validates :application, uniqueness: { scope: 'user_id', case_sensitive: true }
   validate :limit_number_of_tokens_per_user, on: :create
 
   def limit_number_of_tokens_per_user
@@ -28,7 +28,7 @@ class ApplicationToken < ApplicationRecord
     return unless max_reached
 
     errors.add(:base, "Users cannot have more than #{User::APPLICATION_TOKENS_MAX} " \
-      "application tokens")
+      'application tokens')
   end
 
   # Create the activity regarding this application token.

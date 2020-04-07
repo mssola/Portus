@@ -35,7 +35,7 @@ module TeamUsers
 
     # Returns true if a Portus admin is going to be set a role other than owner.
     def demoting_admin?(team_user)
-      team_user.user&.admin? && new_role != "owner"
+      team_user.user&.admin? && new_role != 'owner'
     end
   end
 end

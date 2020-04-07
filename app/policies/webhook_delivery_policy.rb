@@ -4,7 +4,7 @@ class WebhookDeliveryPolicy < WebhookPolicy
   attr_reader :webhook_delivery
 
   def initialize(user, webhook_delivery)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     @user = user
     @webhook_delivery = webhook_delivery

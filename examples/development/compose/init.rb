@@ -7,7 +7,7 @@
 
 begin
   ::Portus::Db.wait_until(:ready) do |status|
-    system("bundle exec rake db:setup") if status == :missing
+    system('bundle exec rake db:setup') if status == :missing
   end
 rescue ::Portus::Db::TimeoutReachedError => e
   Rails.logger.error "Exception: #{e.message}"
@@ -18,4 +18,4 @@ end
 # The DB is up, now let's run puma
 #
 
-system("pumactl -F /srv/Portus/config/puma.rb start")
+system('pumactl -F /srv/Portus/config/puma.rb start')

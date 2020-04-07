@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "webdrivers/chromedriver"
+require 'webdrivers/chromedriver'
 
 # Before running the test suite, make sure that the Chrome driver has been
 # downloaded into the `TMP_WEBDRIVERS_PATH` directory. This is cached for one
 # day.
 
-TMP_WEBDRIVERS_PATH = Rails.root.join("tmp/webdrivers")
+TMP_WEBDRIVERS_PATH = Rails.root.join('tmp/webdrivers')
 
 RSpec.configure do |config|
   config.before(:suite) do

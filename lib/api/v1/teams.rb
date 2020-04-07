@@ -6,15 +6,15 @@ module Api
       include PaginationParams
       include OrderingParams
 
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :teams do
         before do
           authorization!(force_admin: false)
         end
 
-        desc "Returns list of teams",
-             tags:     ["teams"],
+        desc 'Returns list of teams',
+             tags:     ['teams'],
              detail:   "This will expose all teams that the user is member of or has access to.
                         That mean if the user is an admin, this will return all the teams created by
                         all the users. If you want to check if the user is a member of a team, check
@@ -22,8 +22,8 @@ module Api
              is_array: true,
              entity:   Api::Entities::Teams,
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
@@ -36,20 +36,20 @@ module Api
           present teams, with: Api::Entities::Teams, type: current_type
         end
 
-        desc "Create a team",
+        desc 'Create a team',
              entity:   Api::Entities::Teams,
-             consumes: ["application/x-www-form-urlencoded", "application/json"],
+             consumes: ['application/x-www-form-urlencoded', 'application/json'],
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ]
 
         params do
-          requires :name, type: String, documentation: { desc: "Team name" }
-          optional :description, type: String, documentation: { desc: "Team description" }
-          optional :owner_id, type: Integer, documentation: { desc: "Team owner" }
+          requires :name, type: String, documentation: { desc: 'Team name' }
+          optional :description, type: String, documentation: { desc: 'Team description' }
+          optional :owner_id, type: Integer, documentation: { desc: 'Team owner' }
         end
 
         post do
@@ -68,16 +68,16 @@ module Api
         end
 
         # Update team with given :id.
-        desc "Update team",
+        desc 'Update team',
              params:   Api::Entities::Teams.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ],
-             consumes: ["application/x-www-form-urlencoded", "application/json"]
+             consumes: ['application/x-www-form-urlencoded', 'application/json']
 
         params do
           requires :team, type: Hash do
@@ -90,7 +90,7 @@ module Api
           end
         end
 
-        put ":id" do
+        put ':id' do
           attrs = permitted_params.merge(id: params[:id])
           ts = ::Teams::UpdateService.new(current_user, attrs)
           team = ts.build
@@ -106,23 +106,23 @@ module Api
           end
         end
 
-        desc "Deletes a team",
+        desc 'Deletes a team',
              entity:  Api::Entities::Teams,
              failure: [
-               [400, "Unprocessable Entity", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+               [400, 'Unprocessable Entity', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
              ]
 
         params do
-          requires :id, documentation: { desc: "Team id" }
+          requires :id, documentation: { desc: 'Team id' }
           optional :new_team, documentation: { desc: "Team that will get the original namespaces
             from the deleted team" }
         end
 
-        delete ":id" do
+        delete ':id' do
           team = Team.find_by!(id: params[:id])
           new_team = Team.find_by!(name: params[:new_team]) if params[:new_team].present?
           authorize team, :destroy?
@@ -137,24 +137,24 @@ module Api
           end
         end
 
-        desc "Disables any LDAP check for the team",
+        desc 'Disables any LDAP check for the team',
              params:   Api::Entities::Teams.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [405, "Method Not Allowed", Api::Entities::ApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [405, 'Method Not Allowed', Api::Entities::ApiErrors]
              ],
-             consumes: ["application/x-www-form-urlencoded", "application/json"]
+             consumes: ['application/x-www-form-urlencoded', 'application/json']
 
         params do
-          requires :id, documentation: { desc: "Team id" }
+          requires :id, documentation: { desc: 'Team id' }
         end
 
-        post ":id/ldap_check" do
-          if APP_CONFIG.disabled?("ldap") || APP_CONFIG.disabled?("ldap.group_sync")
-            method_not_allowed!("this instance has disabled this endpoint")
+        post ':id/ldap_check' do
+          if APP_CONFIG.disabled?('ldap') || APP_CONFIG.disabled?('ldap.group_sync')
+            method_not_allowed!('this instance has disabled this endpoint')
           else
             attrs = permitted_params.merge(id: params[:id])
             team = Team.find(attrs[:id])
@@ -167,14 +167,14 @@ module Api
 
         route_param :id, type: String, requirements: { id: /.*/ } do
           resource :namespaces do
-            desc "Returns the list of namespaces for the given team",
+            desc 'Returns the list of namespaces for the given team',
                  params:   Api::Entities::Teams.documentation.slice(:id),
                  is_array: true,
                  entity:   Api::Entities::Namespaces,
                  failure:  [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             get do
@@ -185,14 +185,14 @@ module Api
           end
 
           resource :members do
-            desc "Returns the list of team members",
+            desc 'Returns the list of team members',
                  params:   Api::Entities::Teams.documentation.slice(:id),
                  is_array: true,
                  entity:   Api::Entities::Users,
                  failure:  [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             get do
@@ -201,22 +201,22 @@ module Api
               present team.users, with: Api::Entities::Users
             end
 
-            desc "Deletes a member from a team",
+            desc 'Deletes a member from a team',
                  entity:  Api::Entities::TeamMembers,
                  failure: [
-                   [400, "Unprocessable Entity", Api::Entities::ApiErrors],
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"],
-                   [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+                   [400, 'Unprocessable Entity', Api::Entities::ApiErrors],
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found'],
+                   [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
                  ]
 
             params do
-              requires :id, documentation: { desc: "Team id" }
-              requires :member_id, documentation: { desc: "Team member id" }
+              requires :id, documentation: { desc: 'Team id' }
+              requires :member_id, documentation: { desc: 'Team member id' }
             end
 
-            delete ":member_id" do
+            delete ':member_id' do
               team_user = TeamUser.find_by!(id: params[:member_id], team_id: params[:id])
               authorize team_user, :destroy?
 
@@ -230,23 +230,23 @@ module Api
               end
             end
 
-            desc "Updates a member from a team",
+            desc 'Updates a member from a team',
                  entity:  Api::Entities::TeamMembers,
                  failure: [
-                   [400, "Unprocessable Entity", Api::Entities::ApiErrors],
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"],
-                   [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+                   [400, 'Unprocessable Entity', Api::Entities::ApiErrors],
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found'],
+                   [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
                  ]
 
             params do
-              requires :id, documentation: { desc: "Team id" }
-              requires :member_id, type: Integer, documentation: { desc: "Team member id" }
-              requires :role, type: String, documentation: { desc: "Team member role" }
+              requires :id, documentation: { desc: 'Team id' }
+              requires :member_id, type: Integer, documentation: { desc: 'Team member id' }
+              requires :role, type: String, documentation: { desc: 'Team member role' }
             end
 
-            put ":member_id" do
+            put ':member_id' do
               team_user = TeamUser.find_by!(id: params[:member_id], team_id: params[:id])
               authorize team_user, :update?
 
@@ -263,18 +263,18 @@ module Api
               end
             end
 
-            desc "Adds a user as member in a team",
+            desc 'Adds a user as member in a team',
                  entity:  Api::Entities::TeamMembers,
                  failure: [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             params do
-              requires :id, documentation: { desc: "Team id" }
-              requires :role, type: String, documentation: { desc: "Team member role" }
-              requires :user, type: String, documentation: { desc: "Team member username" }
+              requires :id, documentation: { desc: 'Team id' }
+              requires :role, type: String, documentation: { desc: 'Team member role' }
+              requires :user, type: String, documentation: { desc: 'Team member username' }
             end
 
             post do
@@ -294,16 +294,16 @@ module Api
             end
           end
 
-          desc "Show teams by id",
+          desc 'Show teams by id',
                entity:  Api::Entities::Teams,
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found']
                ]
 
           params do
-            requires :id, type: String, documentation: { desc: "Team ID" }
+            requires :id, type: String, documentation: { desc: 'Team ID' }
           end
 
           get do

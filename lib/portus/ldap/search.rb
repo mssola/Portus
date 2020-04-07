@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "portus/ldap/adapter"
-require "portus/ldap/configuration"
-require "portus/ldap/connection"
+require 'portus/ldap/adapter'
+require 'portus/ldap/configuration'
+require 'portus/ldap/connection'
 
 module Portus
   module Ldap
@@ -20,7 +20,7 @@ module Portus
 
       # Returns the entry matching the given user name.
       def find_user(name)
-        return [] if APP_CONFIG.disabled?("ldap")
+        return [] if APP_CONFIG.disabled?('ldap')
 
         configuration = ::Portus::Ldap::Configuration.new(user: { username: name })
         connection = initialized_adapter
@@ -32,7 +32,7 @@ module Portus
 
       # Returns the entry containing the group with the given name.
       def find_group(name)
-        return [] if APP_CONFIG.disabled?("ldap")
+        return [] if APP_CONFIG.disabled?('ldap')
 
         connection = initialized_adapter
         options    = search_options_for(filter: "(cn=#{name})", attributes: %w[member uniqueMember])
@@ -41,7 +41,7 @@ module Portus
         return results if o.code.to_i.zero?
 
         Rails.logger.tagged(:ldap) do
-          msg = o.extended_response ? " and message '#{o.extended_response}'" : ""
+          msg = o.extended_response ? " and message '#{o.extended_response}'" : ''
           Rails.logger.debug "LDAP group failed with code #{o.code}" + msg
         end
         []
@@ -63,7 +63,7 @@ module Portus
         return [] if record&.size != 1
 
         dn = record.first.dn
-        groups_from(dn, "uniqueMember") | groups_from(dn, "member")
+        groups_from(dn, 'uniqueMember') | groups_from(dn, 'member')
       rescue ::Net::LDAP::Error => e
         Rails.logger.tagged(:ldap) { Rails.logger.warn "Connection error: #{e.message}" }
         []
@@ -72,11 +72,11 @@ module Portus
       # Returns nil if the given user was not found, otherwise it returns an
       # error message.
       def with_error_message(name)
-        return if APP_CONFIG.disabled?("ldap")
+        return if APP_CONFIG.disabled?('ldap')
         return unless exists?(name)
 
         "The username '#{name}' already exists on the LDAP server. Use " \
-        "another name to avoid name collision"
+        'another name to avoid name collision'
       end
 
       protected
@@ -97,15 +97,15 @@ module Portus
         return [] if results.blank?
 
         results.map do |r|
-          cn = r.dn.split(",").first
-          cn.split("=", 2).last
+          cn = r.dn.split(',').first
+          cn.split('=', 2).last
         end
       end
 
       # Returns a hash with the search options given some parameters.
       def search_options_for(filter:, attributes:)
         {}.tap do |opts|
-          group_base        = APP_CONFIG["ldap"]["group_base"]
+          group_base        = APP_CONFIG['ldap']['group_base']
           opts[:base]       = group_base if group_base.present?
           opts[:filter]     = Net::LDAP::Filter.construct(filter)
           opts[:attributes] = attributes
@@ -120,8 +120,8 @@ module Portus
         members = results.first[:uniquemember]
         members = results.first[:member] if members.blank?
         members.map do |r|
-          uid = r.split(",").first
-          uid.split("=", 2).last
+          uid = r.split(',').first
+          uid.split('=', 2).last
         end
       end
     end

@@ -3,7 +3,7 @@
 # PasswordsController is a Devise controller that takes care of the "password
 # forgotten" mechanism.
 class PasswordsController < Devise::PasswordsController
-  layout "authentication"
+  layout 'authentication'
 
   before_action :check_portus, only: %i[create]
 
@@ -22,9 +22,9 @@ class PasswordsController < Devise::PasswordsController
   rescue *::Portus::Errors::NET, ::Net::SMTPAuthenticationError => e
     from = ::Portus::Errors.message_from_exception(e)
     msg  = "#{e}: #{from}"
-    Rails.logger.tagged("Mailer") { Rails.logger.info msg }
+    Rails.logger.tagged('Mailer') { Rails.logger.info msg }
     redirect_to new_user_password_path,
-                alert: "Something went wrong. Check the configuration of Portus",
+                alert: 'Something went wrong. Check the configuration of Portus',
                 float: true
   end
 
@@ -61,11 +61,11 @@ class PasswordsController < Devise::PasswordsController
 
   # Prevents the portus user from resetting the password.
   def check_portus
-    user = User.find_by(email: resource_params["email"])
+    user = User.find_by(email: resource_params['email'])
     return if user.nil? || !user.portus?
 
     redirect_to new_user_session_path,
-                alert: "Action not allowed on this user",
+                alert: 'Action not allowed on this user',
                 float: true
   end
 end

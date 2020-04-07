@@ -4,12 +4,12 @@
 module ActivitiesHelper
   # Returns a string containing the username of the owner of the activity.
   def activity_owner(activity)
-    activity_user(activity, :owner, :owner_name, "Someone")
+    activity_user(activity, :owner, :owner_name, 'Someone')
   end
 
   # Returns activity action based on activity owner
   def activity_action(owner, action)
-    if owner == "portus"
+    if owner == 'portus'
       "#{action} (sync)"
     else
       action
@@ -18,7 +18,7 @@ module ActivitiesHelper
 
   # Returns a string containing the username of the recipient of the activity.
   def activity_user_recipient(activity, param)
-    activity_user(activity, :recipient, param, "a user")
+    activity_user(activity, :recipient, param, 'a user')
   end
 
   # Returns a string containing the name of the team of the activity. If the

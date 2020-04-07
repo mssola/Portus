@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require "portus/health"
+require 'portus/health'
 
 module Api
   module V1
     # Health implements endpoints that report on the health status of the API or
     # other components.
     class Health < Grape::API
-      version "v1", using: :path
+      version 'v1', using: :path
 
-      desc "Ping this API", tags: ["health"], detail: "Returns 200 as a status code"
-      get("_ping") { status 200 }
+      desc 'Ping this API', tags: ['health'], detail: 'Returns 200 as a status code'
+      get('_ping') { status 200 }
 
       resource :health do
-        desc "Returns hash of metrics",
+        desc 'Returns hash of metrics',
              entity:  Api::Entities::Health,
-             tags:    ["health"],
-             detail:  "Returns general metrics on the health of the system",
-             failure: [[503, "Some of the required services are unhealthy"]]
+             tags:    ['health'],
+             detail:  'Returns general metrics on the health of the system',
+             failure: [[503, 'Some of the required services are unhealthy']]
 
         get do
           response, success = ::Portus::Health.check

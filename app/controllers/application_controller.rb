@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/auth_from_token"
+require 'portus/auth_from_token'
 
 class ApplicationController < ActionController::Base
   include ::Portus::Checks
@@ -42,10 +42,10 @@ class ApplicationController < ActionController::Base
 
   # Authenticate the user:token as provided in the "PORTUS-AUTH" header.
   def authenticate_user_from_authentication_token!
-    auth = request.headers["PORTUS-AUTH"].presence
+    auth = request.headers['PORTUS-AUTH'].presence
     return if auth.nil?
 
-    username, password = auth.split(":")
+    username, password = auth.split(':')
     user = User.find_by(username: username)
     sign_in(user, store: false) if user&.application_token_valid?(password)
   end
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
   def force_registry_config!
     return unless current_user&.admin?
     return if Registry.any?
-    return if protected_controllers?("admin/registries")
+    return if protected_controllers?('admin/registries')
 
     redirect_to new_admin_registry_path
   end
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   # Use this method to avoid infinite redirect loops in before_action filters.
   def protected_controllers?(*controllers)
     controller = params[:controller]
-    return true if controller == "auth/registrations" || controller == "auth/sessions"
+    return true if controller == 'auth/registrations' || controller == 'auth/sessions'
 
     controllers.each { |c| return true if c == controller }
     false
@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
   def deny_access
     @status = 401
     respond_to do |format|
-      format.html { render template: "errors/401", status: @status, layout: "errors" }
+      format.html { render template: 'errors/401', status: @status, layout: 'errors' }
       format.all { render body: nil, status: @status }
     end
   end

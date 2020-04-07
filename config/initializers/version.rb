@@ -8,11 +8,11 @@ module Version
   # otherwise.
   def self.git?
     # Check that the ".git" directory at least exists.
-    return false unless File.exist?(Rails.root.join(".git"))
+    return false unless File.exist?(Rails.root.join('.git'))
 
     # Check whether we have git in our system.
-    paths = ENV["PATH"].split(":")
-    paths.each { |p| return true if File.executable?(File.join(p, "git")) }
+    paths = ENV['PATH'].split(':')
+    paths.each { |p| return true if File.executable?(File.join(p, 'git')) }
     false
   end
 
@@ -22,12 +22,12 @@ module Version
 
   # Read the version from the file.
   def self.from_file
-    Version.read_from_root("VERSION")
+    Version.read_from_root('VERSION')
   end
 
   # Read the commit from a hidden file stored by the RPM.
   def self.from_hidden
-    Version.read_from_root(".gitcommit")
+    Version.read_from_root('.gitcommit')
   end
 
   # Reads the given file and returns its contents of possible, otherwise it

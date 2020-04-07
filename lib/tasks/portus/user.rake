@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../helpers"
+require_relative '../helpers'
 
 # Exits with a proper error message of there is no registry.
 def check_registry!
@@ -16,17 +16,17 @@ def check_registry!
 end
 
 namespace :portus do
-  desc "Create a user"
+  desc 'Create a user'
   task :create_user, %i[username email password admin] => :environment do |_, args|
     # Initial checks.
     ::Helpers.check_arguments!(args, 4)
     check_registry!
 
     u = User.create!(
-      username: args["username"],
-      password: args["password"],
-      email:    args["email"],
-      admin:    args["admin"]
+      username: args['username'],
+      password: args['password'],
+      email:    args['email'],
+      admin:    args['admin']
     )
 
     # Inform the user if the name of the namespace had to change.
@@ -42,8 +42,8 @@ namespace :portus do
     end
   end
 
-  desc "Clear out all the passwords from users which are not bots"
+  desc 'Clear out all the passwords from users which are not bots'
   task clear_passwords: :environment do
-    User.not_portus.where(bot: false).update_all(encrypted_password: "")
+    User.not_portus.where(bot: false).update_all(encrypted_password: '')
   end
 end

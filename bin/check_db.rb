@@ -9,17 +9,17 @@
 #   * `DB_DOWN`: cannot connect to the database.
 #   * `DB_UNKNOWN`: unknown error.
 
-require "portus/db"
+require 'portus/db'
 
 puts case Portus::Db.ping
      when :ready
-       "DB_READY"
+       'DB_READY'
      when :empty
-       "DB_EMPTY"
+       'DB_EMPTY'
      when :missing
-       "DB_MISSING"
+       'DB_MISSING'
      when :down
-       "DB_DOWN"
+       'DB_DOWN'
      else
-       "DB_UNKNOWN"
+       'DB_UNKNOWN'
      end

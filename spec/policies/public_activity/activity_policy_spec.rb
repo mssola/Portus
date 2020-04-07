@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 describe PublicActivity::ActivityPolicy do
   subject { described_class }
@@ -15,15 +15,15 @@ describe PublicActivity::ActivityPolicy do
   let(:team) { create(:team, owners: [user], contributors: [contributor], viewers: [viewer]) }
   let(:repository) { create(:repository, namespace: namespace) }
   let(:tag) { create(:tag, repository: repository) }
-  let(:webhook) { create(:webhook, namespace: namespace, url: "http://example.com") }
+  let(:webhook) { create(:webhook, namespace: namespace, url: 'http://example.com') }
 
-  describe "scope" do
-    it "returns pertinent team activities" do
+  describe 'scope' do
+    it 'returns pertinent team activities' do
       activities = [
         create_activity_team_create(team, activity_owner),
         create_activity_team_add_member(team, activity_owner, another_user),
         create_activity_team_change_member_role(
-          team, activity_owner, another_user, "viewer", "owner"
+          team, activity_owner, another_user, 'viewer', 'owner'
         ),
         create_activity_team_remove_member(team, activity_owner, another_user)
       ]
@@ -34,7 +34,7 @@ describe PublicActivity::ActivityPolicy do
       expect(Pundit.policy_scope(user, PublicActivity::Activity).to_a).to match_array(activities)
     end
 
-    it "returns pertinent namespace events" do
+    it 'returns pertinent namespace events' do
       namespace2 = create(:namespace,
                           registry:   registry,
                           team:       create(:team, owners: [another_user]),
@@ -67,7 +67,7 @@ describe PublicActivity::ActivityPolicy do
       expect(Pundit.policy_scope(user, PublicActivity::Activity).to_a).to match_array(activities)
     end
 
-    it "returns pertinent repository events" do
+    it 'returns pertinent repository events' do
       namespace2 = create(:namespace,
                           registry: registry,
                           team:     create(:team,
@@ -102,7 +102,7 @@ describe PublicActivity::ActivityPolicy do
       expect(Pundit.policy_scope(user, PublicActivity::Activity).to_a).to match_array(activities)
     end
 
-    it "mixes different types of activities" do
+    it 'mixes different types of activities' do
       activities = [
         create_activity_team_create(team, activity_owner),
         create(:activity_namespace_create,
@@ -118,7 +118,7 @@ describe PublicActivity::ActivityPolicy do
       expect(Pundit.policy_scope(user, PublicActivity::Activity).to_a).to match_array(activities)
     end
 
-    it "returns pertinent application token activities" do
+    it 'returns pertinent application token activities' do
       # application token owned by another user
       create_activity_application_token_created(create(:user))
 
@@ -129,7 +129,7 @@ describe PublicActivity::ActivityPolicy do
       expect(Pundit.policy_scope(user, PublicActivity::Activity).to_a).to match_array(activities)
     end
 
-    it "returns pertinent webhook activities" do
+    it 'returns pertinent webhook activities' do
       activities = [
         create_activity_webhook_create(webhook, activity_owner),
         create_activity_webhook_destroy(webhook, activity_owner, namespace)
@@ -151,7 +151,7 @@ describe PublicActivity::ActivityPolicy do
            owner_id:     activity_owner.id)
   end
 
-  def create_activity_team_add_member(team, event_owner, new_member, role = "viewer")
+  def create_activity_team_add_member(team, event_owner, new_member, role = 'viewer')
     create(:activity_team_add_member,
            trackable_id: team.id,
            owner_id:     event_owner.id,
@@ -159,7 +159,7 @@ describe PublicActivity::ActivityPolicy do
            parameters:   { role: role })
   end
 
-  def create_activity_team_remove_member(team, event_owner, old_member, role = "viewer")
+  def create_activity_team_remove_member(team, event_owner, old_member, role = 'viewer')
     create(:activity_team_remove_member,
            trackable_id: team.id,
            owner_id:     event_owner.id,

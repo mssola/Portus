@@ -17,13 +17,13 @@
 #  index_comments_on_user_id        (user_id)
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 describe Comment do
   it { is_expected.to belong_to(:repository) }
   it { is_expected.to belong_to(:author) }
 
-  it "has a valid factory" do
+  it 'has a valid factory' do
     expect { Factory.build(:comment).to be_valid }
   end
 end

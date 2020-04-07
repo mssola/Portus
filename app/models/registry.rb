@@ -67,7 +67,7 @@ class Registry < ApplicationRecord
 
   # Find the registry for the given push event.
   def self.find_from_event(event)
-    request_hostname = event["request"]["host"]
+    request_hostname = event['request']['host']
     registry = Registry.find_by(hostname: request_hostname)
     if registry.nil?
       logger.debug("No hostname matching #{request_hostname}, testing external_hostname")
@@ -85,9 +85,9 @@ class Registry < ApplicationRecord
   #   - A String containing the name of the tag or nil if the `fetch_tag`
   #     parameter has been set to false.
   def get_namespace_from_event(event, fetch_tag = true)
-    repo = event["target"]["repository"]
-    if repo.include?("/")
-      namespace_name, repo = repo.split("/", 2)
+    repo = event['target']['repository']
+    if repo.include?('/')
+      namespace_name, repo = repo.split('/', 2)
       namespace = namespaces.find_by(name: namespace_name)
     else
       namespace = global_namespace
@@ -99,7 +99,7 @@ class Registry < ApplicationRecord
     end
 
     if fetch_tag
-      tag_name = get_tag_from_target(namespace, repo, event["target"])
+      tag_name = get_tag_from_target(namespace, repo, event['target'])
       return if tag_name.nil?
     else
       tag_name = nil
@@ -129,7 +129,7 @@ class Registry < ApplicationRecord
     # All possible errors are already handled by the `reachable` method through
     # the `::Portus::Request` exception. If we are still facing an issue, the
     # assumption is that the given registry does not implement v2.
-    r ? "" : "Error: registry does not implement v2 of the API."
+    r ? '' : 'Error: registry does not implement v2 of the API.'
   rescue ::Portus::RequestError => e
     e.message
   end
@@ -147,21 +147,21 @@ class Registry < ApplicationRecord
   def get_tag_from_target(namespace, repo, target)
     # Since Docker Distribution 2.4 the registry finally sends the tag, so we
     # don't have to perform requests afterwards.
-    return target["tag"] if target["tag"].present?
+    return target['tag'] if target['tag'].present?
 
     # Tough luck, we should now perform requests to fetch the tag. Note that
     # depending on the Manifest version we have to do one thing or another
     # because they expose different information.
-    case target["mediaType"]
-    when "application/vnd.docker.distribution.manifest.v1+json",
-      "application/vnd.docker.distribution.manifest.v1+prettyjws"
+    case target['mediaType']
+    when 'application/vnd.docker.distribution.manifest.v1+json',
+      'application/vnd.docker.distribution.manifest.v1+prettyjws'
       get_tag_from_manifest(target)
-    when "application/vnd.docker.distribution.manifest.v2+json",
-      "application/vnd.docker.distribution.manifest.list.v2+json"
+    when 'application/vnd.docker.distribution.manifest.v2+json',
+      'application/vnd.docker.distribution.manifest.list.v2+json'
       get_tag_from_list(namespace, repo)
     else
       raise ::Portus::RegistryClient::UnsupportedMediaType,
-            "unsupported media type \"#{target["mediaType"]}\""
+            "unsupported media type \"#{target['mediaType']}\""
     end
   rescue ::Portus::RequestError, ::Portus::Errors::NotFoundError,
          ::Portus::RegistryClient::UnsupportedMediaType,
@@ -201,8 +201,8 @@ class Registry < ApplicationRecord
   #
   # Returns the name of the tag if found, nil otherwise.
   def get_tag_from_manifest(target)
-    manifest = client.manifest(target["repository"], target["digest"])
-    manifest.mf["tag"]
+    manifest = client.manifest(target['repository'], target['digest'])
+    manifest.mf['tag']
   end
 
   # Create the global namespace for this registry and create the personal

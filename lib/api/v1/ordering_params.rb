@@ -18,8 +18,8 @@ module Api
       included do
         helpers do
           params :ordering do
-            optional :sort_attr, type: String, default: :id, desc: "Current page number"
-            optional :sort_order, type: String, default: :asc, desc: "Number of items per page"
+            optional :sort_attr, type: String, default: :id, desc: 'Current page number'
+            optional :sort_order, type: String, default: :asc, desc: 'Number of items per page'
           end
         end
       end

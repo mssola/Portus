@@ -11,7 +11,7 @@ module Portus
         @username = params.fetch(:user, {})[:username]
         @password = params.fetch(:user, {})[:password]
         @soft     = true
-        @enabled  = check_account(params.fetch(:account, "")) && APP_CONFIG.enabled?("ldap")
+        @enabled  = check_account(params.fetch(:account, '')) && APP_CONFIG.enabled?('ldap')
       end
 
       # Returns true if LDAP is enabled given the passed parameters during
@@ -38,9 +38,9 @@ module Portus
       # Portus user is trying to authenticate and it never goes to
       # LDAP). Otherwise it returns an empty string.
       def reason_message
-        return "" if @enabled
+        return '' if @enabled
 
-        @reason.presence || "LDAP is not enabled"
+        @reason.presence || 'LDAP is not enabled'
       end
 
       protected
@@ -49,21 +49,21 @@ module Portus
       # something about the current accounts telling us to not go through LDAP
       # (e.g. portus user). Otherwise it returns true.
       def check_account(account)
-        if account == "portus"
-          @reason = "Portus user does not go through LDAP"
+        if account == 'portus'
+          @reason = 'Portus user does not go through LDAP'
           false
         elsif @username.present?
           user = User.find_by(username: @username)
 
           if user&.bot
-            @reason = "Bot user is not expected to be present on LDAP"
+            @reason = 'Bot user is not expected to be present on LDAP'
             false
           else
             # This case only makes sense if the LDAP authenticatable has been
             # added even when it shouldn't (i.e. the code on
             # config/initializers/devise.rb failed for whatever reason).
-            if user&.encrypted_password == ""
-              @reason = "This user can only authenticate if LDAP is enabled"
+            if user&.encrypted_password == ''
+              @reason = 'This user can only authenticate if LDAP is enabled'
               @soft   = false
             end
             true

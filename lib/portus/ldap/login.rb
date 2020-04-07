@@ -15,7 +15,7 @@ module Portus
           session[:first_login] = true if created
           success!(user)
         else
-          fail!(user.errors.full_messages.join(","))
+          fail!(user.errors.full_messages.join(','))
         end
       end
 
@@ -46,18 +46,18 @@ module Portus
       # the user as specified in the configuration. Returns nil if nothing could
       # be guessed.
       def guess_email(connection, configuration)
-        cfg = APP_CONFIG["ldap"]["guess_email"]
-        return if cfg.nil? || !cfg["enabled"]
+        cfg = APP_CONFIG['ldap']['guess_email']
+        return if cfg.nil? || !cfg['enabled']
 
         record = search_admin_or_user(connection, configuration)
         return if record&.size != 1
 
         record = record.first
 
-        if cfg["attr"].empty?
-          guess_from_dn(record["dn"], configuration.username)
+        if cfg['attr'].empty?
+          guess_from_dn(record['dn'], configuration.username)
         else
-          guess_from_attr(record, cfg["attr"])
+          guess_from_attr(record, cfg['attr'])
         end
       rescue ::Net::LDAP::Error => e
         Rails.logger.tagged(:ldap) { Rails.logger.warn "Connection error: #{e.message}" }
@@ -77,14 +77,14 @@ module Portus
       # nil.
       def guess_from_dn(dn, username)
         if dn.nil? || dn.size != 1
-          Rails.logger.tagged(:ldap) { Rails.logger.debug "Empty DN given, skipping..." }
+          Rails.logger.tagged(:ldap) { Rails.logger.debug 'Empty DN given, skipping...' }
           return nil
         end
 
         dc = []
-        dn.first.split(",").each do |value|
-          kv = value.split("=")
-          dc << kv.last if kv.first == "dc"
+        dn.first.split(',').each do |value|
+          kv = value.split('=')
+          dc << kv.last if kv.first == 'dc'
         end
 
         if dc.empty?
@@ -93,7 +93,7 @@ module Portus
           end
           nil
         else
-          "#{username}@#{dc.join(".")}"
+          "#{username}@#{dc.join('.')}"
         end
       end
     end

@@ -23,13 +23,13 @@
 
 FactoryBot.define do
   factory :webhook do
-    name { "webhook" }
-    url { "http://www.example.com" }
-    request_method { "POST" }
-    content_type { "application/json" }
+    name { 'webhook' }
+    url { 'http://www.example.com' }
+    request_method { 'POST' }
+    content_type { 'application/json' }
     enabled { true }
-    username { "" }
-    password { "" }
+    username { '' }
+    password { '' }
 
     association :namespace
   end

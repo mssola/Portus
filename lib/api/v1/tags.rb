@@ -8,21 +8,21 @@ module Api
       include PaginationParams
       include OrderingParams
 
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :tags do
         before do
           authorization!(force_admin: false)
         end
 
-        desc "Returns list of tags",
-             tags:     ["tags"],
-             detail:   "This will expose all tags",
+        desc 'Returns list of tags',
+             tags:     ['tags'],
+             detail:   'This will expose all tags',
              is_array: true,
              entity:   Api::Entities::Tags,
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
@@ -37,16 +37,16 @@ module Api
         end
 
         route_param :id, type: Integer, requirements: { id: /.*/ } do
-          desc "Show tag by id",
+          desc 'Show tag by id',
                entity:  Api::Entities::Tags,
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found']
                ]
 
           params do
-            requires :id, type: Integer, documentation: { desc: "Tag ID" }
+            requires :id, type: Integer, documentation: { desc: 'Tag ID' }
           end
 
           get do
@@ -55,13 +55,13 @@ module Api
             present tag, with: Api::Entities::Tags
           end
 
-          desc "Delete tag",
+          desc 'Delete tag',
                params:  Api::Entities::Tags.documentation.slice(:id),
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"],
-                 [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found'],
+                 [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
                ]
 
           delete do

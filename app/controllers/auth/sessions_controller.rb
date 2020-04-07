@@ -3,13 +3,13 @@
 class Auth::SessionsController < Devise::SessionsController
   include SessionFlash
 
-  layout "authentication"
+  layout 'authentication'
 
   # Re-implementing. The logic is: if there is already a user that can log in
   # or LDAP support is enabled, work as usual. Otherwise, redirect always to
   # the signup page.
   def new
-    signup_allowed = APP_CONFIG.disabled?("ldap") && APP_CONFIG.enabled?("signup")
+    signup_allowed = APP_CONFIG.disabled?('ldap') && APP_CONFIG.enabled?('signup')
 
     if User.not_portus.any? || !signup_allowed
       @errors_occurred = flash[:alert].present?
@@ -28,7 +28,7 @@ class Auth::SessionsController < Devise::SessionsController
   def create
     super
 
-    if APP_CONFIG.enabled?("ldap") && first_login?
+    if APP_CONFIG.enabled?('ldap') && first_login?
       session[:first_login] = nil
       session_flash(current_user, nil)
     else

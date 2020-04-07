@@ -17,11 +17,11 @@ module Portus
       # hash with elements for binding to the given LDAP server, plus some
       # optional authentication and encryption options.
       def adapter_options
-        cfg = APP_CONFIG["ldap"]
+        cfg = APP_CONFIG['ldap']
         {
-          host:               cfg["hostname"],
-          port:               cfg["port"],
-          connection_timeout: cfg["timeout"],
+          host:               cfg['hostname'],
+          port:               cfg['port'],
+          connection_timeout: cfg['timeout'],
           encryption:         encryption(cfg)
         }.tap do |options|
           options.merge!(auth_options) if authentication?
@@ -39,16 +39,16 @@ module Portus
       # Returns true if authentication has been enabled in configuration, false
       # otherwise.
       def authentication?
-        APP_CONFIG["ldap"]["authentication"] && APP_CONFIG["ldap"]["authentication"]["enabled"]
+        APP_CONFIG['ldap']['authentication'] && APP_CONFIG['ldap']['authentication']['enabled']
       end
 
       # Returns auth options according to configuration.
       def auth_options
-        cfg = APP_CONFIG["ldap"]
+        cfg = APP_CONFIG['ldap']
         {
           auth: {
-            username: cfg["authentication"]["bind_dn"],
-            password: cfg["authentication"]["password"],
+            username: cfg['authentication']['bind_dn'],
+            password: cfg['authentication']['password'],
             method:   :simple
           }
         }
@@ -68,11 +68,11 @@ module Portus
 
       # Returns the encryption method as a symbol or nil if none was provided.
       def encryption_method(config)
-        method = config["encryption"]["method"]
+        method = config['encryption']['method']
         case method.to_s
-        when "start_tls", "simple_tls"
+        when 'start_tls', 'simple_tls'
           method.to_sym
-        when "starttls"
+        when 'starttls'
           :start_tls
         end
       end
@@ -80,12 +80,12 @@ module Portus
       # Returns the encryption options to be used. If none was specified, then the
       # default parameters will be returned (default CA from the host).
       def encryption_options(config)
-        options = config["encryption"]["options"]
+        options = config['encryption']['options']
         return OpenSSL::SSL::SSLContext::DEFAULT_PARAMS if options.blank? ||
-                                                           options["ca_file"].blank?
+                                                           options['ca_file'].blank?
 
-        { ca_file: options["ca_file"] }.tap do |opt|
-          opt[:ssl_version] = options["ssl_version"] if options["ssl_version"].present?
+        { ca_file: options['ca_file'] }.tap do |opt|
+          opt[:ssl_version] = options['ssl_version'] if options['ssl_version'].present?
         end
       end
     end

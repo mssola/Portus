@@ -11,14 +11,14 @@ class ExploreController < ActionController::Base
   include Headers
   include Pundit
 
-  layout "authentication"
+  layout 'authentication'
 
   # It's both the main page and the page where search results are shown.
   def index
     @current = search_params
 
     if @current
-      repository    = @current.split(":").first
+      repository    = @current.split(':').first
       repositories  = policy_scope(Repository).includes(:stars).search(repository)
       @repositories = Api::Entities::Repositories.represent(repositories, type: :search).to_json
     else
@@ -38,7 +38,7 @@ class ExploreController < ActionController::Base
 
   # Redirect to the root page if this feature is not enabled.
   def feature_enabled
-    redirect_to root_path unless APP_CONFIG.enabled?("anonymous_browsing")
+    redirect_to root_path unless APP_CONFIG.enabled?('anonymous_browsing')
   end
 end
 # rubocop:enable Rails/ApplicationController

@@ -19,7 +19,7 @@ module Registries
     end
 
     def check_reachability!
-      return unless only_params.nil? || only_params.include?("hostname")
+      return unless only_params.nil? || only_params.include?('hostname')
 
       reachable_msg = @registry.reachable?
       return if reachable_msg.blank?

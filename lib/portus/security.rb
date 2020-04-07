@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "portus/security_backends/clair"
-require "portus/security_backends/dummy"
-require "portus/security_backends/zypper"
+require 'portus/security_backends/clair'
+require 'portus/security_backends/dummy'
+require 'portus/security_backends/zypper'
 
 module Portus
   # Security offers methods that are useful for fetching vulnerabilities for the
@@ -31,7 +31,7 @@ module Portus
     # Returns true if security scanning is enabled, false otherwise.
     def self.enabled?
       ::Portus::Security::BACKENDS.any? do |b|
-        APP_CONFIG["security"][b.config_key]["server"].present?
+        APP_CONFIG['security'][b.config_key]['server'].present?
       end
     end
 
@@ -47,7 +47,7 @@ module Portus
       return unless layers
 
       params = {
-        layers:       layers.map { |l| l["digest"] },
+        layers:       layers.map { |l| l['digest'] },
         token:        client.token,
         registry_url: client.base_url
       }
@@ -64,7 +64,7 @@ module Portus
     # occured then nil will be returned and the error will be logged.
     def fetch_layers(rc)
       manifest = rc.manifest(@repo, @tag)
-      manifest.mf["layers"]
+      manifest.mf['layers']
     rescue ::Portus::RequestError, ::Portus::Errors::NotFoundError,
            ::Portus::RegistryClient::ManifestError => e
       Rails.logger.info e.to_s

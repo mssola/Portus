@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/db"
+require 'portus/db'
 
 # See https://github.com/SUSE/Portus/pull/1494 on why we didn't use the
 # `uniqueness` constraint directly.
@@ -14,7 +14,7 @@ class UniqueTagValidator < ActiveModel::EachValidator
     end
 
     # Perform the select query with the proper collation on Mysql's case.
-    collate = ::Portus::Db.mysql? ? "COLLATE utf8_bin " : ""
+    collate = ::Portus::Db.mysql? ? 'COLLATE utf8_bin ' : ''
     tag = Tag.where("name #{collate}= ? AND repository_id = ?", value, record.repository_id)
     return unless tag.any?
 

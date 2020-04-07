@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 bundler_groups = Rails.groups | [:db]
-if Rails.env.test? || Rails.env.development? || ENV["INCLUDE_ASSETS_GROUP"] == "yes"
+if Rails.env.test? || Rails.env.development? || ENV['INCLUDE_ASSETS_GROUP'] == 'yes'
   bundler_groups << :assets
 end
 Bundler.require(*bundler_groups)
@@ -26,14 +26,14 @@ module Portus
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = ENV["TZ"] || "UTC"
+    config.time_zone = ENV['TZ'] || 'UTC'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.autoload_paths << Rails.root.join("lib")
-    config.eager_load_paths << Rails.root.join("lib")
+    config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
     config.exceptions_app = routes
 
     config.generators do |g|
@@ -50,8 +50,8 @@ module Portus
     # Gitlab CE.
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
-        origins APP_CONFIG["machine_fqdn"]["value"]
-        resource "/api/*",
+        origins APP_CONFIG['machine_fqdn']['value']
+        resource '/api/*',
                  credentials: true,
                  headers:     :any,
                  methods:     :any,
@@ -61,8 +61,8 @@ module Portus
 
       # Cross-origin requests must not have the session cookie available
       allow do
-        origins "*"
-        resource "/api/*",
+        origins '*'
+        resource '/api/*',
                  credentials: false, # See the `credentials` in https://github.com/cyu/rack-cors#origin
                  headers:     :any,
                  methods:     :any,

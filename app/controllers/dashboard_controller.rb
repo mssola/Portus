@@ -11,13 +11,13 @@ class DashboardController < ApplicationController
                                  .limit(20)
     end
     @repositories = policy_scope(Repository)
-    @portus_exists = User.where(username: "portus").any?
+    @portus_exists = User.where(username: 'portus').any?
 
     # The personal namespace could not exist, that happens when portus
     # does not have a registry associated yet (right after the initial setup)
     personal_namespace = current_user.namespace
     @personal_repositories = personal_namespace ? personal_namespace.repositories : []
 
-    @stars = current_user.stars.order("updated_at desc")
+    @stars = current_user.stars.order('updated_at desc')
   end
 end

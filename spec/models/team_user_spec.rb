@@ -17,14 +17,14 @@
 #  index_team_users_on_user_id  (user_id)
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 describe TeamUser do
   let!(:user1) { create(:user) }
   let!(:user2) { create(:user) }
   let!(:team)  { create(:team, owners: [user1, user2]) }
 
-  it "does not return disabled team members" do
+  it 'does not return disabled team members' do
     id = team.id
     expect(team.team_users.count).to be 2
     user2.update(enabled: false)
@@ -32,22 +32,22 @@ describe TeamUser do
     expect(team.team_users.enabled.count).to be 1
   end
 
-  it "creates an activity" do
+  it 'creates an activity' do
     tu = team.team_users
     tu.first.create_activity!(:add_member, user1)
-    tu.last.create_activity!(:add_member, user1, this: "activity")
+    tu.last.create_activity!(:add_member, user1, this: 'activity')
 
     activities = PublicActivity::Activity.all
 
     a = activities.first
     expect(a.owner_id).to eq user1.id
-    expect(a.key).to eq "team.add_member"
-    expect(a.parameters[:role]).to eq "owner"
+    expect(a.key).to eq 'team.add_member'
+    expect(a.parameters[:role]).to eq 'owner'
 
     a = activities.last
     expect(a.owner_id).to eq user1.id
-    expect(a.key).to eq "team.add_member"
-    expect(a.parameters[:this]).to eq "activity"
+    expect(a.key).to eq 'team.add_member'
+    expect(a.parameters[:this]).to eq 'activity'
   end
 
   it "checks whether it's the only owner or not" do

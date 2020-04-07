@@ -44,11 +44,11 @@ module Portus
 
     # Parses the @scope_string variable into the needed attributes.
     def parse_scope_string!
-      parts = @scope_string.split(":", 3)
+      parts = @scope_string.split(':', 3)
       @resource_type = parts[0]
       @resource_name = parts[1]
       @actions       = parts[2]
-      @actions       = @actions.split(",") if @actions
+      @actions       = @actions.split(',') if @actions
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "json"
-require_relative "waiter"
+require 'json'
+require_relative 'waiter'
 
 # This runner waits until a registry event related to the given tag (first
 # argument) is marked as done by the background process. This runner will
@@ -43,7 +43,7 @@ class EventWaiter < ::Integration::Helpers::Waiter
 
   # Returns true if the pickfirst argument was given.
   def pick_first?
-    @pick_first == "pickfirst"
+    @pick_first == 'pickfirst'
   end
 end
 

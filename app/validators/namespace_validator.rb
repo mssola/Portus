@@ -10,7 +10,7 @@ class NamespaceValidator < ActiveModel::EachValidator
     return if value.nil?
     return if value.match?(NAME_REGEXP)
 
-    record.errors[attribute] << "can only contain lower case alphanumeric "\
-      "characters, with optional underscores and dashes in the middle."
+    record.errors[attribute] << 'can only contain lower case alphanumeric '\
+      'characters, with optional underscores and dashes in the middle.'
   end
 end

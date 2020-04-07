@@ -5,10 +5,10 @@ resources :namespaces, only: %i[index show] do
     resources :headers, only: %i[create destroy], controller: :webhook_headers
     resources :deliveries, only: [:update], controller: :webhook_deliveries
     member do
-      put "toggle_enabled"
+      put 'toggle_enabled'
     end
   end
 end
 
-get "namespaces/typeahead/:query" => "namespaces#typeahead",
-    as: "namespaces_typeahead", :defaults => { format: "json" }
+get 'namespaces/typeahead/:query' => 'namespaces#typeahead',
+    as: 'namespaces_typeahead', :defaults => { format: 'json' }

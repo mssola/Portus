@@ -11,15 +11,15 @@ module RepositoriesHelper
     user = current_user
 
     content_tag(:ul) do
-      concat content_tag(:li, "You can push images") if can_push?(repository.namespace, user)
-      concat content_tag(:li, "You can pull images") if can_pull?(repository.namespace, user)
+      concat content_tag(:li, 'You can push images') if can_push?(repository.namespace, user)
+      concat content_tag(:li, 'You can pull images') if can_pull?(repository.namespace, user)
 
       if owner?(repository.namespace, user)
-        concat content_tag(:li, "You are an owner of this repository")
+        concat content_tag(:li, 'You are an owner of this repository')
       elsif contributor?(repository.namespace, user)
-        concat content_tag(:li, "You are a contributor in this repository")
+        concat content_tag(:li, 'You are a contributor in this repository')
       elsif viewer?(repository.namespace, user)
-        concat content_tag(:li, "You are a viewer in this repository")
+        concat content_tag(:li, 'You are a viewer in this repository')
       end
     end
   end
@@ -27,13 +27,13 @@ module RepositoriesHelper
   # Renders a push activity, that is, a repository/tag has been pushed.
   def render_push_activity(activity)
     owner = activity_owner(activity)
-    render_repo_activity(activity, activity_action(owner, "pushed"))
+    render_repo_activity(activity, activity_action(owner, 'pushed'))
   end
 
   # Renders a delete activity, that is, a repository/tag has been deleted.
   def render_delete_activity(activity)
     owner = activity_owner(activity)
-    render_repo_activity(activity, activity_action(owner, "deleted"))
+    render_repo_activity(activity, activity_action(owner, 'deleted'))
   end
 
   # Returns if any security module is enabled
@@ -68,7 +68,7 @@ module RepositoriesHelper
     owner = content_tag(:strong, "#{activity_owner(activity)} #{action} ")
 
     namespace = render_namespace(activity)
-    namespace += "/" unless namespace.empty?
+    namespace += '/' unless namespace.empty?
 
     owner + namespace + render_repository(activity)
   end
@@ -83,7 +83,7 @@ module RepositoriesHelper
 
     if tr.nil? || tr.is_a?(Namespace) || tr.is_a?(Registry)
       if activity.parameters[:namespace_name].nil?
-        ""
+        ''
       else
         namespace = Namespace.find_by(id: activity.parameters[:namespace_id])
         tag_or_link(namespace, activity.parameters[:namespace_name])
@@ -116,7 +116,7 @@ module RepositoriesHelper
 
     if tr.nil? || tr.is_a?(Registry)
       if repo_name(activity).nil?
-        ["a repository", nil, ""]
+        ['a repository', nil, '']
       else
         repo = repo_name(activity)
         ns   = Repository.find_by(id: activity.parameters[:repository_id])
@@ -135,7 +135,7 @@ module RepositoriesHelper
   def tag_part(activity)
     if activity.recipient.nil?
       if activity.parameters[:tag_name].nil?
-        ""
+        ''
       else
         ":#{activity.parameters[:tag_name]}"
       end

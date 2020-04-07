@@ -24,7 +24,7 @@
 FactoryBot.define do
   factory :webhook_delivery do
     sequence(:uuid) { |n| "uuid_#{n}" }
-    request_body { "{}" }
+    request_body { '{}' }
     status { 404 }
 
     association :webhook

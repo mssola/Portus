@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require "grape-swagger"
+require 'grape-swagger'
 
-require "api/entities"
-require "api/helpers"
-require "api/v1/pagination_params"
-require "api/v1/ordering_params"
-require "api/v1/application_tokens"
-require "api/v1/health"
-require "api/v1/namespaces"
-require "api/v1/registries"
-require "api/v1/repositories"
-require "api/v1/tags"
-require "api/v1/teams"
-require "api/v1/users"
-require "api/v1/vulnerabilities"
-require "api/version"
+require 'api/entities'
+require 'api/helpers'
+require 'api/v1/pagination_params'
+require 'api/v1/ordering_params'
+require 'api/v1/application_tokens'
+require 'api/v1/health'
+require 'api/v1/namespaces'
+require 'api/v1/registries'
+require 'api/v1/repositories'
+require 'api/v1/tags'
+require 'api/v1/teams'
+require 'api/v1/users'
+require 'api/v1/vulnerabilities'
+require 'api/version'
 
 module Api
   class RootApi < Grape::API
@@ -23,9 +23,9 @@ module Api
     prefix :api
 
     before do
-      header["Access-Control-Allow-Origin"] = "*"
-      header["Access-Control-Request-Method"] = "*"
-      header["Access-Control-Allow-Headers"] = "Content-Type, api_key, Authorization, portus-auth"
+      header['Access-Control-Allow-Origin'] = '*'
+      header['Access-Control-Request-Method'] = '*'
+      header['Access-Control-Allow-Headers'] = 'Content-Type, api_key, Authorization, portus-auth'
     end
 
     ##
@@ -51,7 +51,7 @@ module Api
     end
 
     rescue_from Pundit::NotAuthorizedError do |_|
-      forbidden!("Authorization fails")
+      forbidden!('Authorization fails')
     end
 
     # Own exceptions.
@@ -88,25 +88,25 @@ module Api
     mount ::Api::V1::Vulnerabilities
     mount ::Api::Version
 
-    route :any, "*path" do
+    route :any, '*path' do
       not_found!
     end
 
     add_swagger_documentation \
-      mount_path:           "/openapi-spec",
+      mount_path:           '/openapi-spec',
       security_definitions: {
         api_key: {
-          type: "apiKey",
-          name: "Portus-Auth",
-          in:   "header"
+          type: 'apiKey',
+          name: 'Portus-Auth',
+          in:   'header'
         }
       },
       security:             [api_key: []],
       info:                 {
-        title:         "Portus API",
-        description:   "Portus CRUD API",
-        contact_name:  "Portus authors",
-        contact_email: "portus-dev@googlegroups.com"
+        title:         'Portus API',
+        description:   'Portus CRUD API',
+        contact_name:  'Portus authors',
+        contact_email: 'portus-dev@googlegroups.com'
       }
   end
 end

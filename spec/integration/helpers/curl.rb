@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "uri"
+require 'net/http'
+require 'uri'
 
 ##
 # What we expect from the environment and from passed parameters.
 
-hostname   = ENV["PORTUS_MACHINE_FQDN_VALUE"]
+hostname   = ENV['PORTUS_MACHINE_FQDN_VALUE']
 method     = ARGV[0].downcase
 endpoint   = ARGV[1]
 username   = ARGV[2]
@@ -15,15 +15,15 @@ parameters = ARGV[3]
 ##
 # We can have an :id parameter, let's guess it from the last row.
 
-if endpoint.include?(":id")
-  parts    = endpoint.split("/")
-  idx      = parts.index(":id")
+if endpoint.include?(':id')
+  parts    = endpoint.split('/')
+  idx      = parts.index(':id')
   resource = parts[idx - 1]
   unless resource.nil?
     const = resource.singularize.capitalize.constantize
-    id = const.order("created_at ASC").last.id
+    id = const.order('created_at ASC').last.id
     parts[idx] = id
-    endpoint = parts.join("/")
+    endpoint = parts.join('/')
   end
 end
 
@@ -32,28 +32,28 @@ end
 
 uri = URI.parse("http://#{hostname}:3000#{endpoint}")
 req = Net::HTTP.const_get(method.capitalize).new(uri)
-req["Accept"] = "application/json"
+req['Accept'] = 'application/json'
 
-if method == "post"
+if method == 'post'
   ##
   # Application token
 
   ApplicationToken.delete_all
   user = User.find_by(username: username)
   _, plain = ApplicationToken.create_token(
-    current_user: user, user_id: user.id, params: { application: "integration-test" }
+    current_user: user, user_id: user.id, params: { application: 'integration-test' }
   )
-  req["Portus-Auth"] = "#{username}:#{plain}"
+  req['Portus-Auth'] = "#{username}:#{plain}"
 
   ##
   # Body
 
   if parameters.present?
-    req["Content-Type"] = "application/json"
+    req['Content-Type'] = 'application/json'
     body = {}
-    parameters.split(",").each do |kv|
-      k, v = kv.split("=", 2)
-      first, second = k.split(".", 2)
+    parameters.split(',').each do |kv|
+      k, v = kv.split('=', 2)
+      first, second = k.split('.', 2)
       if second.nil?
         body[first] = v
       else

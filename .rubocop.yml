@@ -84,16 +84,6 @@ Style/Documentation:
 Style/MultipleComparison:
   Enabled: false
 
-# This is a common SUSE configuration value: the performance difference between
-# single and double quotes is no longer there, and so it's better to be
-# consistent and force only double quotes.
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
-# Same as Style/StringLiterals.
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
-
 # There are some false positives (e.g. "module ::Module", in which we want to
 # make sure there are no clashes or misunderstandings). Therefore, we just
 # disable this cop.

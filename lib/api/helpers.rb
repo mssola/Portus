@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "portus/auth_from_token"
-require "api/helpers/errors"
-require "api/helpers/teams"
-require "api/helpers/comments"
-require "api/helpers/webhooks"
-require "api/helpers/namespaces"
-require "api/helpers/repositories"
-require "api/helpers/pagination"
-require "api/helpers/ordering"
+require 'portus/auth_from_token'
+require 'api/helpers/errors'
+require 'api/helpers/teams'
+require 'api/helpers/comments'
+require 'api/helpers/webhooks'
+require 'api/helpers/namespaces'
+require 'api/helpers/repositories'
+require 'api/helpers/pagination'
+require 'api/helpers/ordering'
 
 module Api
   module Helpers
@@ -37,20 +37,20 @@ module Api
     # The `force_admin` option should be used when the endpoints affected by
     # this should only apply to Portus administrators (e.g. user management).
     def authorization!(force_admin: true)
-      return if request.request_method == "OPTIONS"
+      return if request.request_method == 'OPTIONS'
 
       current_user
 
-      unauthorized!("Authentication fails") unless @user
+      unauthorized!('Authentication fails') unless @user
       raise Pundit::NotAuthorizedError if force_admin && !@user.admin
     end
 
     # Authenticate from the warden session if possible.
     def authenticate_from_warden
-      warden = env["warden"]
+      warden = env['warden']
       return unless warden
 
-      env["warden"].authenticate(scope: "user")
+      env['warden'].authenticate(scope: 'user')
     end
 
     # Helper method to make Pundit happy. It will set a `@user` instance

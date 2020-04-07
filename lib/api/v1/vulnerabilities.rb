@@ -5,20 +5,20 @@ module Api
     # Tags implements all the endpoints regarding tags that have not been
     # addressed in other classes.
     class Vulnerabilities < Grape::API
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :vulnerabilities do
         before do
           authorization!(force_admin: true)
         end
 
-        desc "Force re-schedule for all tags",
-             tags:    ["vulnerabilities"],
-             detail:  "Force the security scanner to go through all the tags" \
-                      " again, even if they have been marked as scanned",
+        desc 'Force re-schedule for all tags',
+             tags:    ['vulnerabilities'],
+             detail:  'Force the security scanner to go through all the tags' \
+                      ' again, even if they have been marked as scanned',
              failure: [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         post do
@@ -27,13 +27,13 @@ module Api
         end
 
         route_param :id, type: Integer, requirements: { id: /.*/ } do
-          desc "Force re-schedule for the given tag",
-               tags:    ["vulnerabilities"],
-               detail:  "Force the security scanner to scan again a given tag," \
-                        "even if it was already marked as scanned",
+          desc 'Force re-schedule for the given tag',
+               tags:    ['vulnerabilities'],
+               detail:  'Force the security scanner to scan again a given tag,' \
+                        'even if it was already marked as scanned',
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails']
                ]
 
           post do

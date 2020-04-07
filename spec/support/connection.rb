@@ -26,12 +26,12 @@ if defined?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
         # We don't want to try to reconnect forever.
         portus_retries = portus_retries.nil? ? 0 : portus_retries + 1
         if portus_retries > 1
-          Rails.logger.warn "Too many reconnects attempted..."
+          Rails.logger.warn 'Too many reconnects attempted...'
           raise e
         end
 
         # For now a simple `connect` does the trick...
-        Rails.logger.warn "PostgreSQL connection closed, trying to connect again"
+        Rails.logger.warn 'PostgreSQL connection closed, trying to connect again'
         connect
         retry
       end

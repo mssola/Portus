@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Auth::RegistrationsController < Devise::RegistrationsController
-  layout "authentication", except: :edit
+  layout 'authentication', except: :edit
 
   include CheckLdap
   include SessionFlash
@@ -52,14 +52,14 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    msg = "Profile updated successfully!"
+    msg = 'Profile updated successfully!'
 
     success =
       if password_update?
         succ = current_user.update_with_password(user_params)
         if succ
           bypass_sign_in(current_user)
-          msg += " Remember to login again on the Docker CLI."
+          msg += ' Remember to login again on the Docker CLI.'
         end
         succ
       else
@@ -103,12 +103,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def check_admin
     @admin = User.admins.any?
-    @first_user_admin = APP_CONFIG.enabled?("first_user_admin")
+    @first_user_admin = APP_CONFIG.enabled?('first_user_admin')
   end
 
   # Redirect to the login page if users cannot access the signup page.
   def check_signup
-    redirect_to new_user_session_path unless APP_CONFIG.enabled?("signup")
+    redirect_to new_user_session_path unless APP_CONFIG.enabled?('signup')
   end
 
   def configure_sign_up_params

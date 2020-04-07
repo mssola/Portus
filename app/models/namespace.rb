@@ -47,20 +47,20 @@ class Namespace < ApplicationRecord
   validate :global_namespace_cannot_be_private
   validates :name,
             presence:   true,
-            uniqueness: { scope: "registry_id", case_sensitive: true },
+            uniqueness: { scope: 'registry_id', case_sensitive: true },
             length:     { maximum: MAX_NAME_LENGTH },
             namespace:  true
 
-  scope :not_portus, -> { where.not name: "portus" }
+  scope :not_portus, -> { where.not name: 'portus' }
 
   # Returns true if this namespace belongs to the internal user "portus".
   def portus?
-    name == "portus"
+    name == 'portus'
   end
 
   # Returns true if namespace is orphan (no public team assigned)
   def orphan?
-    !global && team.name.include?("global_team")
+    !global && team.name.include?('global_team')
   end
 
   # global_namespace_cannot_be_private adds an error and returns false if the
@@ -68,7 +68,7 @@ class Namespace < ApplicationRecord
   # true. This function is used to validate the visibility.
   def global_namespace_cannot_be_private
     if global? && visibility_private?
-      errors.add(:visibility, "global namespace cannot be private")
+      errors.add(:visibility, 'global namespace cannot be private')
       return false
     end
     true
@@ -80,8 +80,8 @@ class Namespace < ApplicationRecord
   #   2. The name of the repository itself.
   # If a registry is provided, it will query it for the given repository name.
   def self.get_from_repository_name(repo_name, registry = nil, create_if_missing = false)
-    if repo_name.include?("/")
-      namespace_name, repo_name = repo_name.split("/", 2)
+    if repo_name.include?('/')
+      namespace_name, repo_name = repo_name.split('/', 2)
       namespace = get_non_global_namespace(namespace_name, registry)
       namespace = create_from_name!(namespace_name) if namespace.nil? && create_if_missing
     else
@@ -144,12 +144,12 @@ class Namespace < ApplicationRecord
     str = name[first..last]
 
     # Replace weird characters with underscores.
-    str = str.gsub(/[^[a-z0-9\\.\\-_]]/, "_")
+    str = str.gsub(/[^[a-z0-9\\.\\-_]]/, '_')
 
     # Only one special character is allowed in between of alphanumeric
     # characters. Thus, let's merge multiple appearences into one on each case.
     # After that, the name should be fine, so let's trim it if it's too large.
-    final = str.gsub(/[._\\-]{2,}/, "_")
+    final = str.gsub(/[._\\-]{2,}/, '_')
     name = final[0..MAX_NAME_LENGTH]
 
     return nil if name !~ NAME_REGEXP

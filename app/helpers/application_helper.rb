@@ -4,21 +4,21 @@ module ApplicationHelper
   include ActivitiesHelper
 
   ACTION_ALIASES = {
-    "update" => "edit",
-    "create" => "new"
+    'update' => 'edit',
+    'create' => 'new'
   }.freeze
 
   def app_host
-    request.env["HTTP_HOST"]
+    request.env['HTTP_HOST']
   end
 
   def app_relative_url_root
-    ENV["RAILS_RELATIVE_URL_ROOT"] || ""
+    ENV['RAILS_RELATIVE_URL_ROOT'] || ''
   end
 
   def app_path
     path = File.join(app_host, app_relative_url_root)
-    path.chomp("/")
+    path.chomp('/')
   end
 
   def js_route
@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def js_controller
-    controller.class.name.underscore.gsub("_controller", "")
+    controller.class.name.underscore.gsub('_controller', '')
   end
 
   # Render the user profile picture depending on the gravatar configuration.
@@ -36,7 +36,7 @@ module ApplicationHelper
     if user&.avatar_url.present?
       content_tag :img, nil, src: user.avatar_url
     else
-      content_tag :i, nil, class: "fa fa-user user-picture"
+      content_tag :i, nil, class: 'fa fa-user user-picture'
     end
   end
 
@@ -47,22 +47,22 @@ module ApplicationHelper
 
   # Returns true of signup is enabled.
   def signup_enabled?
-    APP_CONFIG.disabled?("ldap") && APP_CONFIG.enabled?("signup")
+    APP_CONFIG.disabled?('ldap') && APP_CONFIG.enabled?('signup')
   end
 
   # Returns true if the login form should show the "first user admin" alert.
   def show_first_user_alert?
-    User.not_portus.none? && APP_CONFIG.enabled?("first_user_admin") && APP_CONFIG.enabled?("ldap")
+    User.not_portus.none? && APP_CONFIG.enabled?('first_user_admin') && APP_CONFIG.enabled?('ldap')
   end
 
   # Returns pagination limit config
   def pagination_per_page
-    APP_CONFIG["pagination"]["per_page"]
+    APP_CONFIG['pagination']['per_page']
   end
 
   # Returns pagination before after config
   def pagination_before_after
-    APP_CONFIG["pagination"]["before_after"]
+    APP_CONFIG['pagination']['before_after']
   end
 
   # Returns `active` string if current path includes the passed parameter
@@ -70,9 +70,9 @@ module ApplicationHelper
   def active_page?(path_or_bool)
     case path_or_bool
     when String
-      "active" if request.fullpath.include?(path_or_bool)
+      'active' if request.fullpath.include?(path_or_bool)
     when TrueClass
-      "active"
+      'active'
     end
   end
 

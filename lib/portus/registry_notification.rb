@@ -10,7 +10,7 @@ module Portus
     # It filters the event from the registry so the background job can actually
     # handle this request.
     def self.process!(data)
-      data["events"].each do |event|
+      data['events'].each do |event|
         Rails.logger.debug "Filtering event:\n#{JSON.pretty_generate(event)}"
 
         # Skip irrelevant or already-handled events.
@@ -20,7 +20,7 @@ module Portus
         # ::Portus::Background::RegistryEvent. So just create the event on the
         # DB and let the background process fetch this.
         RegistryEvent.create!(
-          event_id: event["id"],
+          event_id: event['id'],
           data:     event.to_json,
           status:   RegistryEvent.statuses[:fresh]
         )
@@ -35,14 +35,14 @@ module Portus
         return false
       end
 
-      action = event["action"]
+      action = event['action']
       unless HANDLED_EVENTS.include?(action)
         Rails.logger.debug "Unsupported '#{action}' event (supported: #{HANDLED_EVENTS})"
         return false
       end
 
-      if RegistryEvent.exists?(event_id: event["id"])
-        Rails.logger.debug "Event is already being processed. Ignoring..."
+      if RegistryEvent.exists?(event_id: event['id'])
+        Rails.logger.debug 'Event is already being processed. Ignoring...'
         false
       else
         true
@@ -52,15 +52,15 @@ module Portus
     # A relevant event is one that contains the "push" action, and that
     # contains a Manifest v1 object in the target.
     def self.relevant?(event)
-      unless event["target"].is_a?(Hash)
-        Rails.logger.debug "Wrong format for event"
+      unless event['target'].is_a?(Hash)
+        Rails.logger.debug 'Wrong format for event'
         return false
       end
 
-      return true if event["action"] == "delete"
+      return true if event['action'] == 'delete'
 
-      mt = event["target"]["mediaType"]
-      if mt.starts_with? "application/vnd.docker.distribution.manifest"
+      mt = event['target']['mediaType']
+      if mt.starts_with? 'application/vnd.docker.distribution.manifest'
         true
       else
         Rails.logger.debug "Unsupported mediaType '#{mt}'"

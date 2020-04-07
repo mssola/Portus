@@ -27,7 +27,7 @@ module Namespaces
       return true if destroyed
 
       full_messages = !namespace.errors.empty? && namespace.errors.full_messages
-      @error = full_messages || "Could not remove namespace"
+      @error = full_messages || 'Could not remove namespace'
       false
     end
 
@@ -37,7 +37,7 @@ module Namespaces
     def personal_namespace?(namespace)
       return false unless User.find_by(namespace: namespace)
 
-      @error = "Cannot remove personal namespace"
+      @error = 'Cannot remove personal namespace'
       true
     end
 

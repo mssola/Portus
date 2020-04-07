@@ -32,11 +32,11 @@ class Repository < ApplicationRecord
   # We don't validate the format because we get that from the registry, and
   # it's guaranteed to be well-formatted there.
   validates :name, presence: true, uniqueness:
-                                     { scope: "namespace_id", case_sensitive: true }
+                                     { scope: 'namespace_id', case_sensitive: true }
 
   search_scope :search do
     attributes :name
-    attributes namespace_name: "namespace.name"
+    attributes namespace_name: 'namespace.name'
   end
 
   # Returns the full name for this repository. What this means is that it
@@ -69,7 +69,7 @@ class Repository < ApplicationRecord
   # Updates the activities related to this repository and adds a new activity
   # regarding the removal of this.
   def delete_by!(actor)
-    logger.tagged("catalog") { logger.info "Removed the image '#{name}'." }
+    logger.tagged('catalog') { logger.info "Removed the image '#{name}'." }
     destroyed = destroy
     create_delete_activities!(actor) if destroyed
     destroyed
@@ -119,7 +119,7 @@ class Repository < ApplicationRecord
 
     # Destroy tags and the repository if it's empty now.
     user = User.find_from_event(event)
-    repo.tags.where(digest: event["target"]["digest"], marked: false).map do |t|
+    repo.tags.where(digest: event['target']['digest'], marked: false).map do |t|
       t.delete_by!(user)
     end
     repo = repo.reload
@@ -170,8 +170,8 @@ class Repository < ApplicationRecord
   #   - digest: The manifest digest
   #   - size:   The tag size
   def self.data_from_event(event, repo)
-    digest = event.try(:[], "target").try(:[], "digest")
-    manifest = OpenStruct.new(id: "", digest: digest, size: nil)
+    digest = event.try(:[], 'target').try(:[], 'digest')
+    manifest = OpenStruct.new(id: '', digest: digest, size: nil)
 
     if digest.present?
       begin
@@ -213,7 +213,7 @@ class Repository < ApplicationRecord
   #
   # Returns the final repository object.
   def self.create_or_update!(repo)
-    repository = Repository.from_catalog(repo["name"], true)
+    repository = Repository.from_catalog(repo['name'], true)
     return unless repository
 
     tags = repository.tags.pluck(:name)
@@ -221,11 +221,11 @@ class Repository < ApplicationRecord
     # Create missing tags and update current ones.
     client = Registry.get.client
     portus = User.portus
-    update_tags(client, repository, portus, repo["tags"] & tags)
-    create_tags(client, repository, portus, repo["tags"] - tags)
+    update_tags(client, repository, portus, repo['tags'] & tags)
+    create_tags(client, repository, portus, repo['tags'] - tags)
 
     # Finally remove the tags that are left and return the repo.
-    to_be_deleted_tags = tags - repo["tags"]
+    to_be_deleted_tags = tags - repo['tags']
     repository.tags.where(name: to_be_deleted_tags).find_each { |t| t.delete_by!(portus) }
     repository.reload
   end
@@ -238,7 +238,7 @@ class Repository < ApplicationRecord
         manifest = client.manifest(repository.full_name, tag)
       rescue ::Portus::RequestError, ::Portus::Errors::NotFoundError,
              ::Portus::RegistryClient::ManifestError => e
-        logger.tagged("catalog") do
+        logger.tagged('catalog') do
           logger.warn "Could not fetch manifest for '#{repository.full_name}' " \
             "with tag '#{tag}': " + e.to_s
         end
@@ -256,7 +256,7 @@ class Repository < ApplicationRecord
 
   # Create new tags by using the Portus user.
   def self.create_tags(client, repository, portus, tags)
-    manifest = OpenStruct.new(id: "", digest: "", size: nil)
+    manifest = OpenStruct.new(id: '', digest: '', size: nil)
 
     tags.each do |tag|
       # Try to fetch the manifest digest of the tag.
@@ -276,7 +276,7 @@ class Repository < ApplicationRecord
         size:       manifest.size
       )
       repository.create_activity(:push, owner: portus, recipient: t)
-      logger.tagged("catalog") { logger.info "Created the tag '#{tag}'." }
+      logger.tagged('catalog') { logger.info "Created the tag '#{tag}'." }
     end
   end
 

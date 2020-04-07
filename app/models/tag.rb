@@ -32,7 +32,7 @@ class Tag < ApplicationRecord
 
   # A tag belongs to a repository and has an author.
   belongs_to :repository
-  belongs_to :author, class_name: "User", foreign_key: "user_id", inverse_of: "tags"
+  belongs_to :author, class_name: 'User', foreign_key: 'user_id', inverse_of: 'tags'
 
   # A tag may have scan results which contain vulnerabilities.
   has_many :scan_results, dependent: :destroy
@@ -55,7 +55,7 @@ class Tag < ApplicationRecord
   def owner
     return author.display_username if author
 
-    username.presence || "someone"
+    username.presence || 'someone'
   end
 
   # Delete all the tags that match the given digest. Call this method if you
@@ -73,7 +73,7 @@ class Tag < ApplicationRecord
     Tag.where(repository: repository, digest: dig).update_all(marked: true)
 
     begin
-      Registry.get.client.delete(repository.full_name, dig, "manifests")
+      Registry.get.client.delete(repository.full_name, dig, 'manifests')
     rescue ::Portus::RequestError, ::Portus::Errors::NotFoundError,
            ::Portus::RegistryClient::RegistryError => e
       Rails.logger.error "Could not delete tag on the registry: #{e.message}"
@@ -89,11 +89,11 @@ class Tag < ApplicationRecord
 
   # Delete this tag and update its activity.
   def delete_by!(actor)
-    logger.tagged("catalog") { logger.info "Removed the tag '#{name}'." }
+    logger.tagged('catalog') { logger.info "Removed the tag '#{name}'." }
 
     # If the tag is no longer there, ignore this call and return early.
     unless Tag.find_by(id: id)
-      logger.tagged("catalog") { logger.info "Ignoring..." }
+      logger.tagged('catalog') { logger.info 'Ignoring...' }
       return
     end
 

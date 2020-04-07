@@ -10,8 +10,8 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # GET /users/auth/:provider/callback. Providers redirect to the endpoint.
   # Callback for Google OAuth2.
   def google_oauth2
-    kind = action_name.tr("_", " ").capitalize
-    flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: kind
+    kind = action_name.tr('_', ' ').capitalize
+    flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: kind
     sign_in_and_redirect @user, event: :authentication
   end
 
@@ -30,16 +30,16 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def github_next(resp)
     # -> gitlab: x-next-page is in headers, and not empty
-    resp.headers.key?("x-next-page") && \
-      resp.headers["x-next-page"].present?
+    resp.headers.key?('x-next-page') && \
+      resp.headers['x-next-page'].present?
   end
 
   def gitlab_next(resp)
     # -> github: Link is in headers
     #            and if we are not on last page, we have a last link
-    resp.headers.key?("Link") && \
-      resp.headers["Link"].include?('rel="last"') && \
-      !resp.headers.key?("x-next-page")
+    resp.headers.key?('Link') && \
+      resp.headers['Link'].include?('rel="last"') && \
+      !resp.headers.key?('x-next-page')
   end
 
   private
@@ -57,20 +57,20 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_session_url, alert: alert
       return
     end
-    @user = User.find_by(email: data.info["email"])
+    @user = User.find_by(email: data.info['email'])
     return if @user
 
-    session["omniauth.auth"] = data.except(:extra)
+    session['omniauth.auth'] = data.except(:extra)
     redirect_to users_oauth_url
   end
 
   # Checks if email's domain match to allowed domain.
   def check_domain
-    domain = APP_CONFIG["oauth"][action_name]["domain"]
+    domain = APP_CONFIG['oauth'][action_name]['domain']
     # If domain is blank then all domains are allowed.
     return true if domain.blank?
 
-    d = omniauth_data.info["email"].match(/(?<=@).*/).to_s
+    d = omniauth_data.info['email'].match(/(?<=@).*/).to_s
     if domain == d
       true
     else
@@ -83,17 +83,17 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # Checks membership of the user. If the user member of the group then return
   # nil otherwise return string message.
   def check_membership
-    conf = APP_CONFIG["oauth"][action_name]
+    conf = APP_CONFIG['oauth'][action_name]
 
     case action_name
-    when "github"
+    when 'github'
       github_member? conf
-    when "gitlab"
-      if conf["group"].present?
+    when 'gitlab'
+      if conf['group'].present?
         # Get user's groups.
-        server = conf.fetch("server", "").presence || "https://gitlab.com"
+        server = conf.fetch('server', '').presence || 'https://gitlab.com'
         is_member = member_of("#{server}/api/v4/groups", per_page: 100) do |g|
-          g["name"] == conf["group"]
+          g['name'] == conf['group']
         end
         "The Gitlab account isn't in allowed group." unless is_member
       end
@@ -102,17 +102,17 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # Checks if the user member of github organization and team.
   def github_member?(conf)
-    if conf["team"].present?
+    if conf['team'].present?
       # Get user's teams.
-      is_member = member_of("https://api.github.com/user/teams") do |t|
-        t["name"] == conf["team"] &&
-          t["organization"]["login"] == conf["organization"]
+      is_member = member_of('https://api.github.com/user/teams') do |t|
+        t['name'] == conf['team'] &&
+          t['organization']['login'] == conf['organization']
       end
       "The Github account isn't in allowed team." unless is_member
-    elsif conf["organization"].present?
+    elsif conf['organization'].present?
       # Get user's organizations.
-      is_member = member_of("https://api.github.com/user/orgs") do |t|
-        t["login"] == conf["organization"]
+      is_member = member_of('https://api.github.com/user/orgs') do |t|
+        t['login'] == conf['organization']
       end
       "The Github account isn't in allowed organization." unless is_member
     end
@@ -123,7 +123,7 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # the number of teams per page in the `per_page` parameter.
   def member_of(url, per_page: nil)
     # Get user's groups.
-    token = omniauth_data.credentials["token"]
+    token = omniauth_data.credentials['token']
     teams = []
     np = 0
     loop do
@@ -141,6 +141,6 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   # Returns the data for the omniauth auth for the current request.
   def omniauth_data
-    request.env["omniauth.auth"]
+    request.env['omniauth.auth']
   end
 end

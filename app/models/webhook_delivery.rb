@@ -25,7 +25,7 @@
 # information regarding both the request and the response.  Webhook deliveries
 # can also be retrigged.
 class WebhookDelivery < ApplicationRecord
-  belongs_to :webhook, inverse_of: "deliveries"
+  belongs_to :webhook, inverse_of: 'deliveries'
 
   validates :uuid, uniqueness: { scope: :webhook_id, case_sensitive: true }
 

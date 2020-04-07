@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -50,8 +50,8 @@ Rails.application.configure do
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise by default. Otherwise, the user might specify its own
   # log level through the `PORTUS_LOG_LEVEL` environment variable.
-  config.log_level = if ENV["PORTUS_LOG_LEVEL"]
-                       ENV["PORTUS_LOG_LEVEL"].to_sym
+  config.log_level = if ENV['PORTUS_LOG_LEVEL']
+                       ENV['PORTUS_LOG_LEVEL'].to_sym
                      else
                        :info
                      end
@@ -86,6 +86,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Run pending migrations
-  require_relative "helpers/migrate"
+  require_relative 'helpers/migrate'
   run_migration!(config)
 end

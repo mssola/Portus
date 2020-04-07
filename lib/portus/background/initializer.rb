@@ -24,7 +24,7 @@ module Portus
 
       # Returns true of the Portus user exists, false otherwise.
       def portus_user_available?
-        User.exists?(username: "portus")
+        User.exists?(username: 'portus')
       rescue StandardError
         # We will ignore any error and skip the initializer. This is done this
         # way because it can get really tricky to catch all the myriad of
@@ -38,7 +38,7 @@ module Portus
         return if password.blank?
 
         portus = User.portus
-        portus&.update_attribute("password", password)
+        portus&.update_attribute('password', password)
       end
 
       # Create the registry as given by the proper environment variables if needed.
@@ -46,9 +46,9 @@ module Portus
         return unless ::Registry.count.zero?
 
         params = {
-          name:     ENV["PORTUS_INIT_REGISTRY_NAME"] || "registry",
-          hostname: ENV["PORTUS_INIT_REGISTRY_HOSTNAME"],
-          use_ssl:  ENV["PORTUS_INIT_REGISTRY_USE_SSL"]
+          name:     ENV['PORTUS_INIT_REGISTRY_NAME'] || 'registry',
+          hostname: ENV['PORTUS_INIT_REGISTRY_HOSTNAME'],
+          use_ssl:  ENV['PORTUS_INIT_REGISTRY_USE_SSL']
         }
         return if params[:hostname].blank? || params[:use_ssl].blank?
 
@@ -62,7 +62,7 @@ module Portus
         svc.execute
         return unless svc.valid?
 
-        Rails.logger.tagged("registry") do
+        Rails.logger.tagged('registry') do
           msg = JSON.pretty_generate(params)
           Rails.logger.info "Registry created with the following parameters:\n#{msg}"
         end

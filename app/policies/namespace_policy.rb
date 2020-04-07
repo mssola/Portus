@@ -17,7 +17,7 @@ class NamespacePolicy
     return true if namespace.visibility_public?
 
     # From now on, all the others require to be logged in.
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     # Logged-in users can pull from a protected namespace even if they are
     # not part of the team.
@@ -34,11 +34,11 @@ class NamespacePolicy
 
   def push?
     # Only logged-in users can push.
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
-    policy = APP_CONFIG["user_permission"]["push_images"]["policy"]
+    policy = APP_CONFIG['user_permission']['push_images']['policy']
     case policy
-    when "allow-personal", "allow-teams", "admin-only"
+    when 'allow-personal', 'allow-teams', 'admin-only'
       user.admin? || push_policy_allow?(policy)
     else
       Rails.logger.warn "Unknown push policy '#{policy}'"
@@ -47,15 +47,15 @@ class NamespacePolicy
   end
 
   def index?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     user.admin? || member?
   end
 
   def create?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
-    (APP_CONFIG.enabled?("user_permission.create_namespace") || user.admin?) && push?
+    (APP_CONFIG.enabled?('user_permission.create_namespace') || user.admin?) && push?
   end
 
   def destroy?
@@ -63,9 +63,9 @@ class NamespacePolicy
   end
 
   def update?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
-    (user.admin? || (APP_CONFIG.enabled?("user_permission.manage_namespace") &&
+    (user.admin? || (APP_CONFIG.enabled?('user_permission.manage_namespace') &&
                      owner?)) && push?
   end
 
@@ -82,17 +82,17 @@ class NamespacePolicy
   alias delete? all?
 
   def change_visibility?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
-    user.admin? || (APP_CONFIG.enabled?("user_permission.change_visibility") &&
+    user.admin? || (APP_CONFIG.enabled?('user_permission.change_visibility') &&
                     !namespace.global? && owner?)
   end
 
   # Only owners and admins can change the team ownership.
   def change_team?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
-    user.admin? || (APP_CONFIG.enabled?("user_permission.manage_namespace") &&
+    user.admin? || (APP_CONFIG.enabled?('user_permission.manage_namespace') &&
                     owner?)
   end
 
@@ -127,8 +127,8 @@ class NamespacePolicy
         scope
           .joins(team: [:team_users])
           .where(
-            "namespaces.visibility = :public OR namespaces.visibility = :protected " \
-            "OR team_users.user_id = :user_id",
+            'namespaces.visibility = :public OR namespaces.visibility = :protected ' \
+            'OR team_users.user_id = :user_id',
             public:    Namespace.visibilities[:visibility_public],
             protected: Namespace.visibilities[:visibility_protected],
             user_id:   user.id
@@ -144,20 +144,20 @@ class NamespacePolicy
   # they only differ on whether we should allow the action for global namespaces
   # or not (which is the parameter to be passed).
   def all_destroy?(force_non_global:)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     delete_enabled?(force_non_global) && (user.admin? || owner? || can_contributor_delete?)
   end
 
   # Returns true if contributors can perform delete operations.
   def can_contributor_delete?
-    APP_CONFIG["delete"]["contributors"] && contributor?
+    APP_CONFIG['delete']['contributors'] && contributor?
   end
 
   # Returns true if delete is enabled and delete is generally allowed for the
   # given namespace.
   def delete_enabled?(force_non_global = false)
-    enabled = APP_CONFIG.enabled?("delete")
+    enabled = APP_CONFIG.enabled?('delete')
     return enabled unless force_non_global
 
     enabled && !@namespace.global?
@@ -166,9 +166,9 @@ class NamespacePolicy
   # Returns true if the given push policy allows the push. This method assumes
   # that the current user is not an admin.
   def push_policy_allow?(policy)
-    if policy == "allow-personal"
+    if policy == 'allow-personal'
       user.namespace.id == namespace.id
-    elsif policy == "allow-teams"
+    elsif policy == 'allow-teams'
       namespace.team.owners.exists?(user.id) ||
         namespace.team.contributors.exists?(user.id)
     else

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-guard :rspec, all_on_start: false, cmd: "bundle exec rspec" do
-  require "guard/rspec/dsl"
+guard :rspec, all_on_start: false, cmd: 'bundle exec rspec' do
+  require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
   rspec = dsl.rspec
   watch(rspec.spec_helper) { rspec.spec_dir }
   watch(rspec.spec_support) { rspec.spec_dir }
   watch(rspec.spec_files)
-  watch("spec/rails_helper.rb") { rspec.spec_dir }
+  watch('spec/rails_helper.rb') { rspec.spec_dir }
   watch(%r{^spec/.+_spec\.rb$})
 
   ruby = dsl.ruby

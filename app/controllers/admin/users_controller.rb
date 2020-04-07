@@ -88,7 +88,7 @@ class Admin::UsersController < Admin::BaseController
     ApplicationToken.create_token(
       current_user: current_user,
       user_id:      user.id,
-      params:       { application: "default" }
+      params:       { application: 'default' }
     )
   end
 

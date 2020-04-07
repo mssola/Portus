@@ -22,14 +22,14 @@ class Api::V2::TokensController < Api::BaseController
   # Returns the token that the docker client should use in order to perform
   # operation into the private registry.
   def show
-    authenticate_user! if request.headers["Authorization"]
+    authenticate_user! if request.headers['Authorization']
     registry = Registry.by_hostname_or_external(params[:service])
 
     auth_scopes = []
     auth_scopes = authorize_scopes(registry) unless registry.nil?
 
     token = Portus::JwtToken.new(params[:account], params[:service], auth_scopes)
-    logger.tagged("jwt_token", "claim") { logger.debug token.claim }
+    logger.tagged('jwt_token', 'claim') { logger.debug token.claim }
     render json: token.encoded_hash
   end
 
@@ -41,7 +41,7 @@ class Api::V2::TokensController < Api::BaseController
   #
   # If no scope was specified, this is a login request and it just returns nil.
   def authorize_scopes(registry)
-    scopes =  Array(Rack::Utils.parse_query(request.query_string)["scope"])
+    scopes =  Array(Rack::Utils.parse_query(request.query_string)['scope'])
     return if scopes.empty?
 
     auth_scopes = {}
@@ -86,20 +86,20 @@ class Api::V2::TokensController < Api::BaseController
 
   # Returns true if the given item matches the given action.
   def match_action(action, item)
-    action = "*" if action == "all"
+    action = '*' if action == 'all'
     action == item
   end
 
   # From the given scope string, try to fetch a scope handler class for it.
   # Scope handlers are defined in "app/models/*/auth_scope.rb" files.
   def scope_handler(registry, scope_string)
-    str = scope_string.split(":", 3)
-    raise ScopeNotHandled, "Wrong format for scope string" if str.length != 3
+    str = scope_string.split(':', 3)
+    raise ScopeNotHandled, 'Wrong format for scope string' if str.length != 3
 
     case str[0]
-    when "repository"
+    when 'repository'
       auth_scope = Namespace::AuthScope.new(registry, scope_string)
-    when "registry"
+    when 'registry'
       auth_scope = Registry::AuthScope.new(registry, scope_string)
     else
       raise ScopeNotHandled, "Scope not handled: #{str[0]}"

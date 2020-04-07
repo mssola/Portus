@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe WebhookHeadersController do
   let!(:registry) { create(:registry) }
@@ -18,29 +18,29 @@ RSpec.describe WebhookHeadersController do
     create(
       :namespace,
       team:        team,
-      description: "short test description",
+      description: 'short test description',
       registry:    registry
     )
   end
   let(:webhook) { create(:webhook, namespace: namespace) }
 
-  describe "POST #create" do
-    context "as a namespace owner" do
+  describe 'POST #create' do
+    context 'as a namespace owner' do
       let(:post_params) do
         {
           webhook_id:     webhook.id,
           namespace_id:   namespace.id,
-          webhook_header: { name: "foo", value: "bar" }
+          webhook_header: { name: 'foo', value: 'bar' }
         }
       end
 
-      it "creates a webhook header" do
+      it 'creates a webhook header' do
         sign_in owner
         post namespace_webhook_headers_url(post_params), params: { format: :json }
         expect(response.status).to eq(200)
       end
 
-      it "disallows creating multiple headers with the same name" do
+      it 'disallows creating multiple headers with the same name' do
         sign_in owner
         post namespace_webhook_headers_url(post_params), params: { format: :json }
         post namespace_webhook_headers_url(post_params), params: { format: :json }
@@ -49,12 +49,12 @@ RSpec.describe WebhookHeadersController do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let(:webhook_header) do
-      create(:webhook_header, webhook: webhook, name: "foo", value: "bar")
+      create(:webhook_header, webhook: webhook, name: 'foo', value: 'bar')
     end
 
-    it "allows owner to delete webhook" do
+    it 'allows owner to delete webhook' do
       sign_in owner
       delete namespace_webhook_header_url(
         namespace_id: namespace.id,
@@ -64,7 +64,7 @@ RSpec.describe WebhookHeadersController do
       expect(response.status).to eq(200)
     end
 
-    it "disallows user to delete webhook" do
+    it 'disallows user to delete webhook' do
       sign_in user
       delete namespace_webhook_header_url(
         namespace_id: namespace.id,

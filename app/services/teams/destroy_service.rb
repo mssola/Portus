@@ -25,7 +25,7 @@ module Teams
       return true if destroyed
 
       full_messages = !team.errors.empty? && team.errors.full_messages
-      @error = full_messages || "Could not remove team"
+      @error = full_messages || 'Could not remove team'
       false
     end
 

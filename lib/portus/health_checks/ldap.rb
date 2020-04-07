@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "portus/http_helpers"
-require "portus/ldap/adapter"
-require "portus/ldap/errors"
+require 'portus/http_helpers'
+require 'portus/ldap/adapter'
+require 'portus/ldap/errors'
 
 module Portus
   module HealthChecks
@@ -12,13 +12,13 @@ module Portus
       extend ::Portus::Ldap::Errors
 
       def self.name
-        "ldap"
+        'ldap'
       end
 
       def self.ready
-        if APP_CONFIG.enabled?("ldap")
+        if APP_CONFIG.enabled?('ldap')
           ldap = initialized_adapter
-          ldap.bind ? ["LDAP server is reachable", true] : [error_message(ldap), false]
+          ldap.bind ? ['LDAP server is reachable', true] : [error_message(ldap), false]
         else
           [nil, false]
         end

@@ -29,15 +29,15 @@ module Portus
     def initialize(host, use_ssl = false, username = nil, password = nil)
       @host     = host
       @use_ssl  = use_ssl
-      @base_url = "http#{"s" if @use_ssl}://#{@host}/v2/"
-      @username = username || "portus"
+      @base_url = "http#{'s' if @use_ssl}://#{@host}/v2/"
+      @username = username || 'portus'
       @password = password || Rails.application.secrets.portus_password
     end
 
     # Returns whether the registry is reachable with the given credentials or
     # not. This might raise a RequestError on failure.
     def reachable?
-      res = safe_request("/v2/", "get", false)
+      res = safe_request('/v2/', 'get', false)
 
       # The 'Docker-Distribution-Api-Version' header indicates that we are connected to a
       # Docker Registry endpoint.
@@ -45,7 +45,7 @@ module Portus
       # In order to get a 200, this registry should be created and
       # an authorization requested. The former can be inconvenient, because we
       # might want to test whether the registry is reachable.
-      !res.nil? && res.header.key?("Docker-Distribution-Api-Version") &&
+      !res.nil? && res.header.key?('Docker-Distribution-Api-Version') &&
         (res.code.to_i == 401 || res.code.to_i == 200)
     end
 
@@ -64,21 +64,21 @@ module Portus
     #   - ::Portus::Errors::NotFoundError: the given manifest was not found.
     #   - ::Portus::RegistryClient::ManifestError: there was an unknown problem
     #     with the manifest.
-    def manifest(repository, tag = "latest")
-      res = safe_request("#{repository}/manifests/#{tag}", "get")
+    def manifest(repository, tag = 'latest')
+      res = safe_request("#{repository}/manifests/#{tag}", 'get')
 
       if res.code.to_i == 200
         mf = JSON.parse(res.body)
-        id = mf.try(:[], "config").try(:[], "digest")
-        id = id.split(":").last if id.is_a? String
-        digest = res["Docker-Content-Digest"]
+        id = mf.try(:[], 'config').try(:[], 'digest')
+        id = id.split(':').last if id.is_a? String
+        digest = res['Docker-Content-Digest']
         size = calculate_tag_size(mf)
         OpenStruct.new(id: id, digest: digest, size: size, mf: mf)
       elsif res.code.to_i == 404
         handle_error res, repository: repository, tag: tag
       else
         raise ::Portus::RegistryClient::ManifestError,
-              "Something went wrong while fetching manifest for " \
+              'Something went wrong while fetching manifest for ' \
               "#{repository}:#{tag}:[#{res.code}] - #{res.body}"
       end
     end
@@ -88,9 +88,9 @@ module Portus
     # The json navigation is based on Image Manifest Version 2, Schema 2 that
     # is available at https://docs.docker.com/registry/spec/manifest-v2-2/
     def calculate_tag_size(manifest)
-      layers = manifest["layers"]
-      size = manifest["config"]["size"]
-      layers.each { |layer| size += layer["size"] } if layers.present?
+      layers = manifest['layers']
+      size = manifest['config']['size']
+      layers.each { |layer| size += layer['size'] } if layers.present?
 
       size
     end
@@ -118,7 +118,7 @@ module Portus
     #   - ::Portus::RegistryClient::RegistryError: there was an unknown problem
     #     with the request.
     def catalog
-      res = paged_response("_catalog", "repositories")
+      res = paged_response('_catalog', 'repositories')
       add_tags(res)
     end
 
@@ -133,7 +133,7 @@ module Portus
     #   - ::Portus::RegistryClient::RegistryError: there was an unknown problem
     #     with the request.
     def tags(repository)
-      paged_response("#{repository}/tags/list", "tags")
+      paged_response("#{repository}/tags/list", 'tags')
     end
 
     # Deletes a blob/manifest of the specified image. Returns true if the
@@ -145,15 +145,15 @@ module Portus
     #   - ::Portus::Errors::NotFoundError: the given manifest was not found.
     #   - ::Portus::RegistryClient::RegistryError: there was an unknown problem
     #     with the request.
-    def delete(name, digest, object = "blobs")
-      res = safe_request("#{name}/#{object}/#{digest}", "delete")
+    def delete(name, digest, object = 'blobs')
+      res = safe_request("#{name}/#{object}/#{digest}", 'delete')
       if res.code.to_i == 202
         true
       elsif res.code.to_i == 404 || res.code.to_i == 405
         handle_error res, name: name, digest: digest
       else
         raise ::Portus::RegistryClient::RegistryError,
-              "Something went wrong while deleting blob: " \
+              'Something went wrong while deleting blob: ' \
               "[#{res.code}] - #{res.body}"
       end
     end
@@ -168,7 +168,7 @@ module Portus
     # ::Portus::RegistryClient::RegistryError.
     def paged_response(link, field)
       res = []
-      link += "?n=#{APP_CONFIG["registry"]["catalog_page"]["value"]}"
+      link += "?n=#{APP_CONFIG['registry']['catalog_page']['value']}"
 
       until link.empty?
         page, link = get_page(link)
@@ -190,21 +190,21 @@ module Portus
     def get_page(link)
       res = safe_request(link)
       if res.code.to_i == 200
-        [JSON.parse(res.body), fetch_link(res["link"])]
+        [JSON.parse(res.body), fetch_link(res['link'])]
       elsif res.code.to_i == 404
         handle_error res
       else
         raise ::Portus::RegistryClient::RegistryError,
-              "Something went wrong while fetching the catalog " \
+              'Something went wrong while fetching the catalog ' \
               "Response: [#{res.code}] - #{res.body}"
       end
     end
 
     # Fetch the link to the next catalog page from the given response.
     def fetch_link(header)
-      return "" if header.blank?
+      return '' if header.blank?
 
-      link = header.split(";")[0]
+      link = header.split(';')[0]
       link.strip[1, link.size - 2]
     end
 
@@ -227,7 +227,7 @@ module Portus
           Rails.logger.debug "Could not get tags for repo: #{repo}: #{e.message}."
         end
 
-        result << { "name" => repo, "tags" => ts }
+        result << { 'name' => repo, 'tags' => ts }
       end
       result
     end

@@ -21,11 +21,11 @@
 #  index_webhooks_on_namespace_id  (namespace_id)
 #
 
-require "base64"
-require "typhoeus"
-require "securerandom"
-require "json"
-require "uri"
+require 'base64'
+require 'typhoeus'
+require 'securerandom'
+require 'json'
+require 'uri'
 
 # A Webhook describes a kind of callback to an endpoint defined by an URL.
 # Further parameters are username and password, which are used for basic
@@ -37,13 +37,13 @@ require "uri"
 class Webhook < ApplicationRecord
   include PublicActivity::Common
 
-  enum request_method: { "GET" => 0, "POST" => 1 }
-  enum content_type: { "application/json" => 0, "application/x-www-form-urlencoded" => 1 }
+  enum request_method: { 'GET' => 0, 'POST' => 1 }
+  enum content_type: { 'application/json' => 0, 'application/x-www-form-urlencoded' => 1 }
 
   belongs_to :namespace
 
-  has_many :deliveries, class_name: "WebhookDelivery", dependent: :destroy, inverse_of: "webhook"
-  has_many :headers, class_name: "WebhookHeader", dependent: :destroy, inverse_of: "webhook"
+  has_many :deliveries, class_name: 'WebhookDelivery', dependent: :destroy, inverse_of: 'webhook'
+  has_many :headers, class_name: 'WebhookHeader', dependent: :destroy, inverse_of: 'webhook'
 
   validates :url, presence: true, http: true
 
@@ -55,7 +55,7 @@ class Webhook < ApplicationRecord
     registry = Registry.find_from_event(event)
     return if registry.nil?
 
-    namespace, = Namespace.get_from_repository_name(event["target"]["repository"], registry)
+    namespace, = Namespace.get_from_repository_name(event['target']['repository'], registry)
     return if namespace.nil?
 
     hydra = Typhoeus::Hydra.hydra
@@ -97,7 +97,7 @@ class Webhook < ApplicationRecord
 
   # process_headers returns a hash containing the webhook's headers.
   def process_headers
-    { "Content-Type" => content_type }.tap do |result|
+    { 'Content-Type' => content_type }.tap do |result|
       headers.each do |header|
         result[header.name] = header.value
       end

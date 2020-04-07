@@ -26,8 +26,8 @@ class PublicActivity::ActivityPolicy
 
     def registry_activities(count)
       @scope
-        .where("activities.trackable_type = ? AND activities.trackable_id IN (?)",
-               "Registry", Registry.get&.id)
+        .where('activities.trackable_type = ? AND activities.trackable_id IN (?)',
+               'Registry', Registry.get&.id)
         .order(id: :desc)
         .limit(count)
     end
@@ -35,8 +35,8 @@ class PublicActivity::ActivityPolicy
     # Show Team events only if user is a member of the team
     def team_activities(teams_ids, count)
       @scope
-        .where("activities.trackable_type = ? AND activities.trackable_id IN (?)",
-               "Team", teams_ids)
+        .where('activities.trackable_type = ? AND activities.trackable_id IN (?)',
+               'Team', teams_ids)
         .order(id: :desc)
         .limit(count)
     end
@@ -45,12 +45,12 @@ class PublicActivity::ActivityPolicy
     # the namespace or if the event is a public <-> private switch.
     def namespace_activities(teams_ids, public_visibility, count)
       @scope
-        .joins("INNER JOIN namespaces " \
-               "ON activities.trackable_id = namespaces.id")
-        .where("activities.trackable_type = ? AND " \
-               "(namespaces.team_id IN (?) OR " \
-               "(activities.key = ? AND namespaces.visibility = ?))",
-               "Namespace", teams_ids, "namespace.change_visibility",
+        .joins('INNER JOIN namespaces ' \
+               'ON activities.trackable_id = namespaces.id')
+        .where('activities.trackable_type = ? AND ' \
+               '(namespaces.team_id IN (?) OR ' \
+               '(activities.key = ? AND namespaces.visibility = ?))',
+               'Namespace', teams_ids, 'namespace.change_visibility',
                public_visibility)
         .order(id: :desc)
         .limit(count)
@@ -60,13 +60,13 @@ class PublicActivity::ActivityPolicy
     # a team the user is part of, or tags part of public namespaces.
     def repository_activities(teams_ids, public_visibility, count)
       @scope
-        .joins("INNER JOIN repositories " \
-               "ON activities.trackable_id = repositories.id " \
-               "INNER JOIN namespaces " \
-               "ON namespaces.id = repositories.namespace_id")
-        .where("activities.trackable_type = ? AND " \
-               "(namespaces.team_id IN (?) OR namespaces.visibility = ?)",
-               "Repository", teams_ids, public_visibility)
+        .joins('INNER JOIN repositories ' \
+               'ON activities.trackable_id = repositories.id ' \
+               'INNER JOIN namespaces ' \
+               'ON namespaces.id = repositories.namespace_id')
+        .where('activities.trackable_type = ? AND ' \
+               '(namespaces.team_id IN (?) OR namespaces.visibility = ?)',
+               'Repository', teams_ids, public_visibility)
         .order(id: :desc)
         .limit(count)
     end
@@ -74,9 +74,9 @@ class PublicActivity::ActivityPolicy
     # Show application tokens activities related only to the current user
     def application_token_activities(count)
       @scope
-        .where("activities.trackable_type = ? " \
-               "AND activities.owner_id = ?",
-               "ApplicationToken", @user.id)
+        .where('activities.trackable_type = ? ' \
+               'AND activities.owner_id = ?',
+               'ApplicationToken', @user.id)
         .order(id: :desc)
         .limit(count)
     end
@@ -91,12 +91,12 @@ class PublicActivity::ActivityPolicy
       # the namespace.
       # Note: this works only for existing webhooks
       activities = @scope
-                   .joins("INNER JOIN webhooks ON activities.trackable_id = webhooks.id " \
-                          "INNER JOIN namespaces ON namespaces.id = webhooks.namespace_id " \
-                          "INNER JOIN teams ON teams.id = namespaces.team_id " \
-                          "INNER JOIN team_users ON teams.id = team_users.team_id")
-                   .where("activities.trackable_type = ? AND team_users.user_id = ?",
-                          "Webhook", user.id)
+                   .joins('INNER JOIN webhooks ON activities.trackable_id = webhooks.id ' \
+                          'INNER JOIN namespaces ON namespaces.id = webhooks.namespace_id ' \
+                          'INNER JOIN teams ON teams.id = namespaces.team_id ' \
+                          'INNER JOIN team_users ON teams.id = team_users.team_id')
+                   .where('activities.trackable_type = ? AND team_users.user_id = ?',
+                          'Webhook', user.id)
                    .order(id: :desc)
                    .limit(count)
 
@@ -114,7 +114,7 @@ class PublicActivity::ActivityPolicy
       # there is no (easy) way to match these webhooks with their corresponding
       # namespace.
       @scope
-        .where("activities.trackable_type = ?", "Webhook")
+        .where('activities.trackable_type = ?', 'Webhook')
         .order(id: :desc)
         .limit(count)
         .distinct.find_each do |webhook|

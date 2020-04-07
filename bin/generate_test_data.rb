@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "set"
-require "pty"
+require 'set'
+require 'pty'
 
 module Portus
   # This class is the one responsible for generating new development data.
@@ -10,7 +10,7 @@ module Portus
     NUSERS = 100
 
     # Name of the only user that is not created with a random name.
-    SPECIAL_USER = "admin"
+    SPECIAL_USER = 'admin'
 
     # Teams to be created.
     TEAM_NAMES = %w[
@@ -40,7 +40,7 @@ module Portus
 
         User.create!(
           username: username,
-          password: "12341234",
+          password: '12341234',
           email:    "#{username}@portusexample.com"
         )
         logins << username
@@ -48,8 +48,8 @@ module Portus
 
       User.create!(
         username: SPECIAL_USER,
-        password: "12341234",
-        email:    "admin@portusexample.com",
+        password: '12341234',
+        email:    'admin@portusexample.com',
         admin:    true
       )
     end
@@ -69,7 +69,7 @@ module Portus
         )
 
         rand(2..5).times do
-          name = FFaker::Food.ingredient.downcase.gsub(/[^#{Namespace::NAME_REGEXP}]/, "")
+          name = FFaker::Food.ingredient.downcase.gsub(/[^#{Namespace::NAME_REGEXP}]/, '')
           name += rand(0..1000).to_s
 
           Namespace.create!(
@@ -89,16 +89,16 @@ module Portus
       `docker logout #{hostname}`
       `docker pull library/alpine:latest`
 
-      puts "Pushing images. This could take a while..."
+      puts 'Pushing images. This could take a while...'
 
       namespaces = Namespace.all.sample(rand(User.count..Namespace.count))
       namespaces.each do |n|
-        user = n.global? ? User.find_by(username: "admin") : n.team.owners.first
+        user = n.global? ? User.find_by(username: 'admin') : n.team.owners.first
         name = user.username
 
         s = system("docker login -u #{name} -e #{name}@portusexample.com -p 12341234 #{hostname}")
         unless s
-          puts "Could not log in!"
+          puts 'Could not log in!'
           exit 1
         end
 
@@ -133,29 +133,29 @@ end
 
 hostname = ARGV.first.chomp
 ssl = ARGV.last.chomp.downcase
-ssl = ssl == "y" || ssl == "yes" || ssl == "t" || ssl == "true"
+ssl = ssl == 'y' || ssl == 'yes' || ssl == 't' || ssl == 'true'
 
 unless Rails.env.development?
   puts "You are not allowed to run this in '" + Rails.env + "'."
   exit 0
 end
 
-print "This will effectively wipe out your DB and feed it with some data that "\
+print 'This will effectively wipe out your DB and feed it with some data that '\
   "is useful for development purposes.\nDo you really want to proceed with "\
-  "this? (y/N) "
+  'this? (y/N) '
 opt = $stdin.gets.chomp.downcase
-exit 0 if opt != "y" && opt != "yes"
+exit 0 if opt != 'y' && opt != 'yes'
 
 #
 # Reset the DB.
 #
 
-require "database_cleaner"
+require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 User.create!(
-  username: "portus",
+  username: 'portus',
   password: Rails.application.secrets.portus_password,
-  email:    "portus@portus.com",
+  email:    'portus@portus.com',
   admin:    true
 )
 
@@ -163,9 +163,9 @@ User.create!(
 # Generate test data.
 #
 
-r = Registry.create!(name: "registry", hostname: hostname, use_ssl: ssl)
+r = Registry.create!(name: 'registry', hostname: hostname, use_ssl: ssl)
 unless r.client.reachable?
-  puts "The given registry is not reachable..."
+  puts 'The given registry is not reachable...'
   exit 1
 end
 

@@ -17,7 +17,7 @@
 #  index_webhook_headers_on_webhook_id_and_name  (webhook_id,name) UNIQUE
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe WebhookHeader, type: :model do
   subject { create(:webhook_header, webhook: create(:webhook)) }

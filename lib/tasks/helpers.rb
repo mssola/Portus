@@ -30,7 +30,7 @@ module Tasks
     def self.check_release_number(number)
       return if number.match?(/^(\d)+\.(\d)+\.(\d)+$/)
 
-      puts "Version number should follow the format X.Y.Z"
+      puts 'Version number should follow the format X.Y.Z'
       exit(-2)
     end
 
@@ -58,7 +58,7 @@ module Tasks
     # Prints a message until a proper y/n has been given. It returns true if the
     # answer was positive, false otherwise.
     def self.are_you_sure?(msg)
-      answer = ""
+      answer = ''
       until ::Helpers.yes(answer) || ::Helpers.no?(answer)
         print msg
         answer = $stdin.gets.strip

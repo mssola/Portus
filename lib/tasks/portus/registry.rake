@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "../helpers"
+require_relative '../helpers'
 
 namespace :portus do
-  desc "Create a registry"
+  desc 'Create a registry'
   task :create_registry, %i[name hostname use_ssl external] => :environment do |_, args|
     ::Helpers.check_arguments!(args, 3, 1)
 
     if Registry.any?
-      puts "There is already a registry configured!"
+      puts 'There is already a registry configured!'
       exit(-1)
     end
 

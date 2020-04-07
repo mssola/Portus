@@ -11,12 +11,12 @@
 # The DB is up, now let's define the different background jobs as classes.
 #
 
-require "portus/background/initializer"
-require "portus/background/garbage_collector"
-require "portus/background/ldap"
-require "portus/background/registry"
-require "portus/background/security_scanning"
-require "portus/background/sync"
+require 'portus/background/initializer'
+require 'portus/background/garbage_collector'
+require 'portus/background/ldap'
+require 'portus/background/registry'
+require 'portus/background/security_scanning'
+require 'portus/background/sync'
 
 they = [
   ::Portus::Background::Registry.new,
@@ -26,8 +26,8 @@ they = [
   ::Portus::Background::LDAP.new
 ].select(&:enabled?)
 
-values = they.map { |v| "'#{v}'" }.join(", ")
-Rails.logger.tagged("Initialization") { Rails.logger.info "Running: #{values}" }
+values = they.map { |v| "'#{v}'" }.join(', ')
+Rails.logger.tagged('Initialization') { Rails.logger.info "Running: #{values}" }
 
 #
 # Between each iteration of the main loop there's going to be a sleep time. This
@@ -41,7 +41,7 @@ they.each do |v|
   value = v.sleep_value
   next unless value % SLEEP_VALUE != 0
 
-  Rails.logger.tagged "Initialization" do
+  Rails.logger.tagged 'Initialization' do
     Rails.logger.error "Encountered '#{value}', which is not divisible by '#{SLEEP_VALUE}'"
   end
   exit 1
@@ -70,7 +70,7 @@ loop do
     end
   end
 
-  break if ARGV.first == "--one-shot"
+  break if ARGV.first == '--one-shot'
 
   sleep SLEEP_VALUE
 

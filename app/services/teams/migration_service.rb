@@ -23,7 +23,7 @@ module Teams
       return true if updated
 
       full_messages = !team.errors.empty? && team.errors.full_messages
-      @error = full_messages || "Could not migrate namespaces"
+      @error = full_messages || 'Could not migrate namespaces'
       false
     end
 
@@ -33,7 +33,7 @@ module Teams
     end
 
     def same_team?(team, new_team)
-      @error = "You cannot choose the same team to migrate namespaces" if team.id == new_team.id
+      @error = 'You cannot choose the same team to migrate namespaces' if team.id == new_team.id
       @error.present?
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "waiter"
+require_relative 'waiter'
 
 # This runner waits until the LDAP background task has performed a check.
 class LDAPCheckWaiter < ::Integration::Helpers::Waiter
@@ -15,7 +15,7 @@ class LDAPCheckWaiter < ::Integration::Helpers::Waiter
   def done?
     const = @resource.capitalize.constantize
 
-    if @resource == "user"
+    if @resource == 'user'
       const.not_portus.where(ldap_group_checked: const.ldap_statuses[:unchecked]).none?
     else
       const.where(ldap_group_checked: const.ldap_statuses[:unchecked]).none?

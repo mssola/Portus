@@ -7,15 +7,15 @@ module Api
       include PaginationParams
       include OrderingParams
 
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :namespaces do
         before do
           authorization!(force_admin: false)
         end
 
-        desc "Returns a list of namespaces",
-             tags:     ["namespaces"],
+        desc 'Returns a list of namespaces',
+             tags:     ['namespaces'],
              detail:   "This will expose all accessible namespaces by the user via either team
                         membership or visibility. Keep in mind that if the user is an admin, this
                         will return all the global, personal and other namespaces created by all
@@ -23,8 +23,8 @@ module Api
              is_array: true,
              entity:   Api::Entities::Namespaces,
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
@@ -40,40 +40,40 @@ module Api
                   type:         current_type
         end
 
-        desc "Validates the given namespace",
-             tags:    ["namespaces"],
-             detail:  "Validates the given namespace",
+        desc 'Validates the given namespace',
+             tags:    ['namespaces'],
+             detail:  'Validates the given namespace',
              entity:  Api::Entities::Status,
              failure: [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
-          requires :name, type: String, documentation: { desc: "Name to be checked" }
+          requires :name, type: String, documentation: { desc: 'Name to be checked' }
         end
 
-        get "/validate" do
+        get '/validate' do
           namespace = Namespace.new(name: params[:name], registry: Registry.get)
           valid = namespace.valid?
           obj = { valid: valid, messages: namespace.errors.messages }
           present obj, with: Api::Entities::Status
         end
 
-        desc "Create a namespace",
+        desc 'Create a namespace',
              entity:   Api::Entities::Teams,
-             consumes: ["application/x-www-form-urlencoded", "application/json"],
+             consumes: ['application/x-www-form-urlencoded', 'application/json'],
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ]
 
         params do
-          requires :name, type: String, documentation: { desc: "Namespace name" }
-          requires :team, type: String, documentation: { desc: "Team name" }
-          optional :description, type: String, documentation: { desc: "Team description" }
+          requires :name, type: String, documentation: { desc: 'Namespace name' }
+          requires :team, type: String, documentation: { desc: 'Team name' }
+          optional :description, type: String, documentation: { desc: 'Team description' }
         end
 
         post do
@@ -93,16 +93,16 @@ module Api
         end
 
         # Update namespace with given :id.
-        desc "Update namespace",
+        desc 'Update namespace',
              params:   Api::Entities::Namespaces.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ],
-             consumes: ["application/x-www-form-urlencoded", "application/json"]
+             consumes: ['application/x-www-form-urlencoded', 'application/json']
 
         params do
           requires :namespace, type: Hash do
@@ -121,7 +121,7 @@ module Api
           end
         end
 
-        put ":id" do
+        put ':id' do
           attrs = permitted_params.merge(id: params[:id])
           ns = ::Namespaces::UpdateService.new(current_user, attrs)
           namespace = ns.build
@@ -140,16 +140,16 @@ module Api
           end
         end
 
-        desc "Delete namespace",
+        desc 'Delete namespace',
              params:  Api::Entities::Namespaces.documentation.slice(:id),
              failure: [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
              ]
 
-        delete ":id" do
+        delete ':id' do
           namespace = Namespace.find(params[:id])
           authorize namespace, :destroy?
 
@@ -161,14 +161,14 @@ module Api
 
         route_param :id, type: Integer, requirements: { id: /.*/ } do
           resource :repositories do
-            desc "Returns the list of the repositories for the given namespace",
+            desc 'Returns the list of the repositories for the given namespace',
                  params:   Api::Entities::Namespaces.documentation.slice(:id),
                  is_array: true,
                  entity:   Api::Entities::Repositories,
                  failure:  [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             get do
@@ -180,16 +180,16 @@ module Api
             end
           end
 
-          desc "Show namespaces by id",
+          desc 'Show namespaces by id',
                entity:  Api::Entities::Namespaces,
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found']
                ]
 
           params do
-            requires :id, type: Integer, documentation: { desc: "Namespace ID" }
+            requires :id, type: Integer, documentation: { desc: 'Namespace ID' }
           end
 
           get do

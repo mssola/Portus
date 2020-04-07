@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 describe RepositoriesController do
   let(:user) { create(:user) }
@@ -21,15 +21,15 @@ describe RepositoriesController do
     sign_in user
   end
 
-  describe "GET #show" do
-    it "assigns the requested repository as @repository" do
+  describe 'GET #show' do
+    it 'assigns the requested repository as @repository' do
       get repository_url(visible_repository.to_param)
       expect(assigns(:repository)).to eq(visible_repository)
     end
   end
 
-  describe "POST #toggle_star" do
-    it "Succeeds when calling star" do
+  describe 'POST #toggle_star' do
+    it 'Succeeds when calling star' do
       repository = create(:repository, namespace: public_namespace)
       post toggle_star_repository_url(repository.id), params: { format: :json }
 
@@ -37,7 +37,7 @@ describe RepositoriesController do
       expect(response.status).to eq 200
     end
 
-    it "Succeeds when calling unstar" do
+    it 'Succeeds when calling unstar' do
       repository = create(:repository, :starred, namespace: public_namespace)
       post toggle_star_repository_url(repository.id), params: { format: :json }
 
@@ -45,7 +45,7 @@ describe RepositoriesController do
       expect(response.status).to eq 200
     end
 
-    it "returns 422 when fails to star/unstar" do
+    it 'returns 422 when fails to star/unstar' do
       allow_any_instance_of(Repository).to receive(:toggle_star).and_return(false)
       repository = create(:repository, namespace: public_namespace)
       post toggle_star_repository_url(repository.id), params: { format: :json }

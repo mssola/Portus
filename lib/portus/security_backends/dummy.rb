@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # :nocov:
-require "portus/security_backends/base"
+require 'portus/security_backends/base'
 
 module Portus
   module SecurityBackends
@@ -9,7 +9,7 @@ module Portus
     # is meant to be used only for development/testing purposes.
     class Dummy < ::Portus::SecurityBackends::Base
       # Files stored in `lib/portus/security_backends/fixtures`.
-      DUMMY_FIXTURE = "dummy.json"
+      DUMMY_FIXTURE = 'dummy.json'
 
       # Whether the response from the `vulnerabilities` method should be as
       # "Working in Progress".
@@ -21,12 +21,12 @@ module Portus
       def vulnerabilities(_params)
         return nil if WIP
 
-        path = Rails.root.join("lib", "portus", "security_backends", "fixtures", DUMMY_FIXTURE)
+        path = Rails.root.join('lib', 'portus', 'security_backends', 'fixtures', DUMMY_FIXTURE)
         JSON.parse(File.read(path))
       end
 
       def self.config_key
-        "dummy"
+        'dummy'
       end
     end
   end

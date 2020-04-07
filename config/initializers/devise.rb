@@ -15,13 +15,13 @@ Devise.setup do |config|
   # config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "DeviseMailer"
+  config.mailer = 'DeviseMailer'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -232,7 +232,7 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
-  require_relative "devise/oauth"
+  require_relative 'devise/oauth'
   configure_oauth!(config)
 
   # ==> Warden configuration
@@ -249,7 +249,7 @@ Devise.setup do |config|
   # enabled. By default, the test suite mocks the Portus::Ldap class to make
   # the authenticate! method to fail directly. See the `spec/rails_helper.rb`
   # file.
-  if APP_CONFIG.enabled?("ldap") || Rails.env.test?
+  if APP_CONFIG.enabled?('ldap') || Rails.env.test?
     config.warden do |manager|
       # Let's put LDAP in front of every other strategy.
       manager.default_strategies(scope: :user).unshift :ldap_authenticatable

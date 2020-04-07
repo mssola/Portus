@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "uri"
+require 'uri'
 
 # Validates URLs and transforms them into valid ones if needed.
 class HttpValidator < ActiveModel::EachValidator
@@ -10,9 +10,9 @@ class HttpValidator < ActiveModel::EachValidator
     return if uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
     return if generic_enforce_valid(record, uri, value)
 
-    record.errors[attribute] << "is not a valid URL"
+    record.errors[attribute] << 'is not a valid URL'
   rescue URI::InvalidURIError
-    record.errors[attribute] << "is not a valid URL"
+    record.errors[attribute] << 'is not a valid URL'
   end
 
   # It returns true if the given uri is URI::Generic and the value does not
@@ -22,7 +22,7 @@ class HttpValidator < ActiveModel::EachValidator
     return false unless uri.is_a?(URI::Generic)
 
     if value.match(%r{^\w+://.+}).nil?
-      record.url = "http://" + value
+      record.url = 'http://' + value
       true
     else
       false

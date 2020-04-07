@@ -4,7 +4,7 @@
 # name. With these two things, it will simply issue a delete request to the
 # Registry.
 
-require "portus/registry_client"
+require 'portus/registry_client'
 
 REPOSITORY = ARGV.first.dup
 TAG        = ARGV.last.dup
@@ -13,4 +13,4 @@ RegistryEvent.all.destroy_all
 
 client = Registry.get.client
 manifest = client.manifest(REPOSITORY, TAG)
-client.delete(REPOSITORY, manifest.digest, "manifests")
+client.delete(REPOSITORY, manifest.digest, 'manifests')

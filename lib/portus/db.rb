@@ -33,14 +33,14 @@ module Portus
 
       while (current_status = ::Portus::Db.ping) != status
         if count >= WAIT_TIMEOUT
-          Rails.logger.tagged("Database") do
-            Rails.logger.error "Timeout reached, exiting with error. Check the logs..."
+          Rails.logger.tagged('Database') do
+            Rails.logger.error 'Timeout reached, exiting with error. Check the logs...'
           end
 
           raise ::Portus::Db::TimeoutReachedError, "Timeout reached for '#{status}' status"
         end
 
-        Rails.logger.tagged("Database") { Rails.logger.error "Not ready yet. Waiting..." }
+        Rails.logger.tagged('Database') { Rails.logger.error 'Not ready yet. Waiting...' }
         sleep WAIT_INTERVAL
         count += 5
 
@@ -52,11 +52,11 @@ module Portus
     # trivial, but this gives us a nice way to test this module.
     def self.migrations?
       ActiveRecord::Base.connection
-      return unless ActiveRecord::Base.connection.table_exists? "schema_migrations"
+      return unless ActiveRecord::Base.connection.table_exists? 'schema_migrations'
 
       # If db:migrate:status does not return a migration as "down", then all
       # migrations are up and ready.
-      !`#{bundle} exec rake db:migrate:status`.include?("down")
+      !`#{bundle} exec rake db:migrate:status`.include?('down')
     end
 
     # Returns the proper bundle command. This is important because is some cases
@@ -64,26 +64,26 @@ module Portus
     # might not be in an executable path.
     def self.bundle
       exec = nil
-      ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
-        x = File.join(path, "bundle")
+      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+        x = File.join(path, 'bundle')
         if File.executable?(x) && !File.directory?(x)
           exec = x
           break
         end
       end
 
-      exec ? "bundle" : "portusctl"
+      exec ? 'bundle' : 'portusctl'
     end
 
     # Returns true if the given configured adapter is MariaDB.
     def self.mysql?
-      adapter.blank? || adapter == "mysql2"
+      adapter.blank? || adapter == 'mysql2'
     end
 
     # Returns the string of the currently configured backend, or nil if nothing
     # was set.
     def self.adapter
-      ENV["PORTUS_DB_ADAPTER"]
+      ENV['PORTUS_DB_ADAPTER']
     end
 
     private_class_method :adapter

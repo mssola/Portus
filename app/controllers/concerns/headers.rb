@@ -11,6 +11,6 @@ module Headers
 
   # Adds some default headers.
   def default_headers
-    headers["X-UA-Compatible"] = "IE=edge"
+    headers['X-UA-Compatible'] = 'IE=edge'
   end
 end

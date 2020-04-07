@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/errors"
+require 'portus/errors'
 
 module Portus
   module Background
@@ -25,11 +25,11 @@ module Portus
 
       # Returns true only if LDAP is enabled.
       def enabled?
-        APP_CONFIG.enabled?("ldap") && APP_CONFIG.enabled?("ldap.group_sync")
+        APP_CONFIG.enabled?('ldap') && APP_CONFIG.enabled?('ldap.group_sync')
       end
 
       def execute!
-        Rails.logger.tagged(:ldap) { Rails.logger.info "Starting check..." }
+        Rails.logger.tagged(:ldap) { Rails.logger.info 'Starting check...' }
 
         force_check!
         team_count = execute_team!
@@ -42,7 +42,7 @@ module Portus
       end
 
       def to_s
-        "LDAP synchronization"
+        'LDAP synchronization'
       end
 
       protected
@@ -62,7 +62,7 @@ module Portus
           .where.not(ldap_group_checked: Team.ldap_statuses[:disabled])
           .or(
             Team.where(ldap_group_checked: Team.ldap_statuses[:checked])
-                .where("checked_at < ?", FORCE_CHECK_IN_DAYS.days.ago)
+                .where('checked_at < ?', FORCE_CHECK_IN_DAYS.days.ago)
           ).update_all(ldap_group_checked: Team.ldap_statuses[:unchecked])
       end
 

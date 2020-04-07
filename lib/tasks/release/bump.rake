@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "../helpers"
+require_relative '../helpers'
 
 # Returns the number and the branch from the CLI arguments.
 def get_branch_from_args(args)
   if args.to_hash.empty?
-    puts "Usage: rake release:push[X.Y.Z]"
+    puts 'Usage: rake release:push[X.Y.Z]'
     exit(-1)
   end
 
@@ -30,22 +30,22 @@ namespace :release do
     number, branch = get_branch_from_args(args)
     git_checkout(branch)
 
-    FileUtils.copy("CHANGELOG.md", ".CHANGELOG.md.release.rake")
-    system("$EDITOR CHANGELOG.md")
-    changed = FileUtils.identical?("CHANGELOG.md", ".CHANGELOG.md.release.rake")
-    FileUtils.rm(".CHANGELOG.md.release.rake")
+    FileUtils.copy('CHANGELOG.md', '.CHANGELOG.md.release.rake')
+    system('$EDITOR CHANGELOG.md')
+    changed = FileUtils.identical?('CHANGELOG.md', '.CHANGELOG.md.release.rake')
+    FileUtils.rm('.CHANGELOG.md.release.rake')
 
     unless changed
-      msg = "CHANGELOG.md unchanged. Are you sure you want to continue? (yes/no) "
+      msg = 'CHANGELOG.md unchanged. Are you sure you want to continue? (yes/no) '
       exit(-4) unless ::Helpers.are_you_sure?(msg)
     end
 
-    open("VERSION", "w") { |f| f.write(number) }
+    open('VERSION', 'w') { |f| f.write(number) }
 
     puts "Update VERSION with #{number}"
-    system("git add VERSION CHANGELOG.md")
+    system('git add VERSION CHANGELOG.md')
     system("git commit -m \"Bump version #{number}\"")
     system("git tag #{number} -s")
-    system("git push --tags origin HEAD")
+    system('git push --tags origin HEAD')
   end
 end

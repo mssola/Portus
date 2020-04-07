@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-describe "Gravatar support" do
+describe 'Gravatar support' do
   let!(:registry) { create(:registry) }
   let!(:user) { create(:user) }
 
@@ -10,15 +10,15 @@ describe "Gravatar support" do
     login_as user, scope: :user
   end
 
-  it "If gravatar support is on, there should be an image" do
-    APP_CONFIG["gravatar"] = { "enabled" => true }
+  it 'If gravatar support is on, there should be an image' do
+    APP_CONFIG['gravatar'] = { 'enabled' => true }
     visit root_path
-    expect(page).to have_selector(".user-header img")
+    expect(page).to have_selector('.user-header img')
   end
 
-  it "If gravatar suppor is disabled, there should be an icon" do
-    APP_CONFIG["gravatar"] = { "enabled" => false }
+  it 'If gravatar suppor is disabled, there should be an icon' do
+    APP_CONFIG['gravatar'] = { 'enabled' => false }
     visit root_path
-    expect(page).to have_selector(".user-header .user-picture")
+    expect(page).to have_selector('.user-header .user-picture')
   end
 end

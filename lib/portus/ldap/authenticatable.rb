@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "net/ldap"
-require "devise/strategies/authenticatable"
+require 'net/ldap'
+require 'devise/strategies/authenticatable'
 
-require "portus/ldap/configuration"
-require "portus/ldap/connection"
-require "portus/ldap/errors"
-require "portus/ldap/login"
+require 'portus/ldap/configuration'
+require 'portus/ldap/connection'
+require 'portus/ldap/errors'
+require 'portus/ldap/login'
 
 module Portus
   module Ldap

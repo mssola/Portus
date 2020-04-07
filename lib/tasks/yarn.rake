@@ -4,26 +4,26 @@
 
 namespace :portus do
   namespace :yarn do
-    desc "Ensure Yarn is installed"
+    desc 'Ensure Yarn is installed'
     task available: :environment do
-      unless system("yarn --version", out: File::NULL)
+      unless system('yarn --version', out: File::NULL)
         warn(
-          "Error: Yarn executable was not detected in the system.",
-          "Download Yarn at https://yarnpkg.com/en/docs/install"
+          'Error: Yarn executable was not detected in the system.',
+          'Download Yarn at https://yarnpkg.com/en/docs/install'
         )
         abort
       end
     end
 
-    desc "Ensure Node dependencies are installed"
-    task check: ["yarn:available"] do
-      cmd = "yarn check --ignore-engines"
-      cmd += " --offline" if ENV["PACKAGING"] == "yes"
+    desc 'Ensure Node dependencies are installed'
+    task check: ['yarn:available'] do
+      cmd = 'yarn check --ignore-engines'
+      cmd += ' --offline' if ENV['PACKAGING'] == 'yes'
 
       unless system(cmd, out: File::NULL)
         warn(
-          "Error: You have unmet dependencies. (`yarn check` command failed)",
-          "Run `yarn install` to install missing modules."
+          'Error: You have unmet dependencies. (`yarn check` command failed)',
+          'Run `yarn install` to install missing modules.'
         )
         abort
       end

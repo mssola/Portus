@@ -7,14 +7,14 @@ module Portus
     # but there's something wrong with the configuration (e.g. SSL problem).
     class Registry
       def self.name
-        "registry"
+        'registry'
       end
 
       def self.ready
-        return ["no registry configured", false] unless ::Registry.any?
+        return ['no registry configured', false] unless ::Registry.any?
 
         res = ::Registry.get.client.reachable?
-        ["registry is#{res ? "" : " not"} reachable", res]
+        ["registry is#{res ? '' : ' not'} reachable", res]
       rescue ::Portus::RequestError => e
         [e.to_s, false]
       end

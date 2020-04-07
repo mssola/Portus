@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-describe "TeamUsers::DestroyService" do
+describe 'TeamUsers::DestroyService' do
   let!(:user) { create(:user) }
   let!(:owner) { create(:user) }
   let!(:contributor) { create(:user) }
   let!(:team) { create(:team, owners: [owner], contributors: [contributor]) }
 
-  describe "#execute" do
-    context "with params" do
+  describe '#execute' do
+    context 'with params' do
       subject(:service) { TeamUsers::DestroyService.new(user) }
 
-      it "destroys team user" do
+      it 'destroys team user' do
         tu_contrib = team.team_users.last
 
         expect { service.execute(tu_contrib) }.to change(TeamUser, :count).by(-1)
       end
 
-      it "creates a new activity" do
+      it 'creates a new activity' do
         tu_contrib = team.team_users.last
 
         expect { service.execute(tu_contrib) }.to change(PublicActivity::Activity, :count).by(1)
@@ -37,10 +37,10 @@ describe "TeamUsers::DestroyService" do
       end
     end
 
-    context "without params" do
+    context 'without params' do
       subject(:service) { TeamUsers::DestroyService.new(user) }
 
-      it "returns false" do
+      it 'returns false' do
         expect(service.execute(nil)).to be_falsey
       end
 

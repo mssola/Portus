@@ -9,21 +9,21 @@ module Api
       include PaginationParams
       include OrderingParams
 
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :repositories do
         before do
           authorization!(force_admin: false)
         end
 
-        desc "Returns list of repositories",
-             tags:     ["repositories"],
-             detail:   "This will expose all repositories",
+        desc 'Returns list of repositories',
+             tags:     ['repositories'],
+             detail:   'This will expose all repositories',
              is_array: true,
              entity:   Api::Entities::Repositories,
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
@@ -37,16 +37,16 @@ module Api
         end
 
         # Update team with given :id.
-        desc "Update team",
+        desc 'Update team',
              params:   Api::Entities::Teams.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ],
-             consumes: ["application/x-www-form-urlencoded", "application/json"]
+             consumes: ['application/x-www-form-urlencoded', 'application/json']
 
         params do
           requires :repository, type: Hash do
@@ -56,7 +56,7 @@ module Api
           end
         end
 
-        put ":id" do
+        put ':id' do
           attrs = permitted_params.merge(id: params[:id])
           svc = ::Repositories::UpdateService.new(current_user, attrs)
           repository = svc.build
@@ -74,14 +74,14 @@ module Api
 
         route_param :id, type: String, requirements: { id: /.*/ } do
           resource :tags do
-            desc "Returns the list of the tags for the given repository",
+            desc 'Returns the list of the tags for the given repository',
                  params:   Api::Entities::Repositories.documentation.slice(:id),
                  is_array: true,
                  entity:   Api::Entities::Tags,
                  failure:  [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             get do
@@ -90,17 +90,17 @@ module Api
               present repo.tags, with: Api::Entities::Tags
             end
 
-            desc "Returns the list of the tags for the given repository groupped by digest",
+            desc 'Returns the list of the tags for the given repository groupped by digest',
                  params:   Api::Entities::Repositories.documentation.slice(:id),
                  is_array: true,
                  entity:   Api::Entities::Tags,
                  failure:  [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
-            get "/grouped" do
+            get '/grouped' do
               repo = Repository.find params[:id]
               authorize repo, :show?
 
@@ -112,17 +112,17 @@ module Api
 
             # NOTE: (for v2 ?) the repository ID is ignored...
             route_param :tag_id, type: String, requirements: { tag_id: /.*/ } do
-              desc "Show tag by id",
+              desc 'Show tag by id',
                    entity:  Api::Entities::Tags,
                    failure: [
-                     [401, "Authentication fails"],
-                     [403, "Authorization fails"],
-                     [404, "Not found"]
+                     [401, 'Authentication fails'],
+                     [403, 'Authorization fails'],
+                     [404, 'Not found']
                    ]
 
               params do
                 requires :id, using: Api::Entities::Repositories.documentation.slice(:id)
-                requires :tag_id, type: String, documentation: { desc: "Tag ID" }
+                requires :tag_id, type: String, documentation: { desc: 'Tag ID' }
               end
 
               get do
@@ -133,12 +133,12 @@ module Api
             end
           end
 
-          desc "Show repositories by id",
+          desc 'Show repositories by id',
                entity:  Api::Entities::Repositories,
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found']
                ]
 
           params do
@@ -154,13 +154,13 @@ module Api
                     type:         current_type
           end
 
-          desc "Delete repository",
+          desc 'Delete repository',
                params:  Api::Entities::Repositories.documentation.slice(:id),
                failure: [
-                 [401, "Authentication fails"],
-                 [403, "Authorization fails"],
-                 [404, "Not found"],
-                 [422, "Unprocessable Entity", Api::Entities::ApiErrors]
+                 [401, 'Authentication fails'],
+                 [403, 'Authorization fails'],
+                 [404, 'Not found'],
+                 [422, 'Unprocessable Entity', Api::Entities::ApiErrors]
                ]
 
           delete do

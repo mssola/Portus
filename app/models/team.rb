@@ -73,7 +73,7 @@ class Team < ApplicationRecord
 
   # Returns the main global team
   def self.global
-    find_by(name: "portus_global_team_1")
+    find_by(name: 'portus_global_team_1')
   end
 
   # Returns all teams whose name match the query
@@ -123,7 +123,7 @@ class Team < ApplicationRecord
   # If possible, add the user with the given username into the team. The
   # activity will set the given author as the tracker.
   def add_team_member!(author, username)
-    role = APP_CONFIG["ldap"]["group_sync"]["default_role"]
+    role = APP_CONFIG['ldap']['group_sync']['default_role']
     params = { id: id, role: TeamUser.roles[role], user: username }
 
     team_user = ::TeamUsers::BuildService.new(author, params).execute
@@ -131,7 +131,7 @@ class Team < ApplicationRecord
     return true if team_user.valid? && team_user.persisted?
 
     Rails.logger.tagged(:ldap) do
-      Rails.logger.warn "Could not add team member: #{team_user.errors.full_messages.join(", ")}"
+      Rails.logger.warn "Could not add team member: #{team_user.errors.full_messages.join(', ')}"
     end
     false
   end

@@ -20,8 +20,8 @@ class Namespace::AuthScope < Portus::AuthScope
   # it returns the generic ["all"]. Otherwise it calls this same method from
   # the superclass.
   def scopes
-    if @actions[0] == "*"
-      ["all"]
+    if @actions[0] == '*'
+      ['all']
     else
       super
     end
@@ -34,8 +34,8 @@ class Namespace::AuthScope < Portus::AuthScope
   def parse_scope_string!
     super
 
-    return unless @resource_name.include?("/")
+    return unless @resource_name.include?('/')
 
-    @namespace_name = @resource_name.split("/").first
+    @namespace_name = @resource_name.split('/').first
   end
 end

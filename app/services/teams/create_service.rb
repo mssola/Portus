@@ -20,7 +20,7 @@ module Teams
     end
 
     def owner
-      raise Pundit::NotAuthorizedError, "must be an admin" if cannot_set_owner?
+      raise Pundit::NotAuthorizedError, 'must be an admin' if cannot_set_owner?
 
       if params[:owner_id]
         user = User.find_by(id: params[:owner_id])

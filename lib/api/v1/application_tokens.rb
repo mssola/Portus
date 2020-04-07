@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "api/helpers/application_tokens"
+require 'api/helpers/application_tokens'
 
 module Api
   module V1
     # ApplicationTokens implements all the endpoints regarding application tokens.
     class ApplicationTokens < Grape::API
-      version "v1", using: :path
+      version 'v1', using: :path
 
       helpers ::Api::Helpers::ApplicationTokens
 
@@ -24,9 +24,9 @@ module Api
                    is_array: true,
                    entity:   Api::Entities::ApplicationTokens,
                    failure:  [
-                     [401, "Authentication fails"],
-                     [403, "Authorization fails"],
-                     [404, "Not found"]
+                     [401, 'Authentication fails'],
+                     [403, 'Authorization fails'],
+                     [404, 'Not found']
                    ]
 
               get do
@@ -41,15 +41,15 @@ module Api
                    success:  { code: 200 },
                    entity:   Api::Entities::ApplicationTokens,
                    failure:  [
-                     [400, "Bad request", Api::Entities::ApiErrors],
-                     [401, "Authentication fails"],
-                     [403, "Authorization fails"],
-                     [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+                     [400, 'Bad request', Api::Entities::ApiErrors],
+                     [401, 'Authentication fails'],
+                     [403, 'Authorization fails'],
+                     [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
                    ],
-                   consumes: ["application/x-www-form-urlencoded", "application/json"]
+                   consumes: ['application/x-www-form-urlencoded', 'application/json']
 
               params do
-                requires :application, documentation: { desc: "Application name" }
+                requires :application, documentation: { desc: 'Application name' }
               end
 
               post do
@@ -59,18 +59,18 @@ module Api
           end
 
           resource :application_tokens do
-            desc "Delete application token",
+            desc 'Delete application token',
                  failure: [
-                   [401, "Authentication fails"],
-                   [403, "Authorization fails"],
-                   [404, "Not found"]
+                   [401, 'Authentication fails'],
+                   [403, 'Authorization fails'],
+                   [404, 'Not found']
                  ]
 
             params do
-              requires :id, documentation: { desc: "Token id" }
+              requires :id, documentation: { desc: 'Token id' }
             end
 
-            delete ":id" do
+            delete ':id' do
               token = ApplicationToken.find(params[:id])
 
               authorize token, :destroy?

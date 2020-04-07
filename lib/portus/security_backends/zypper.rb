@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # :nocov:
-require "portus/security_backends/base"
+require 'portus/security_backends/base'
 
 module Portus
   module SecurityBackends
@@ -23,7 +23,7 @@ module Portus
           nil
         else
           msg = error_message(msg)
-          Rails.logger.tagged("zypper") do
+          Rails.logger.tagged('zypper') do
             Rails.logger.debug "Error for '#{@repo}:#{@tag}': #{msg}"
           end
           nil
@@ -31,24 +31,24 @@ module Portus
       end
 
       def self.config_key
-        "zypper"
+        'zypper'
       end
 
       protected
 
       def consume_response(response)
-        security = response["Security"]
+        security = response['Security']
         return [] if security.nil? || security.to_i.zero?
 
         res = []
-        response["List"].each do |issue|
-          res << issue if issue["IsSecurity"]
+        response['List'].each do |issue|
+          res << issue if issue['IsSecurity']
         end
         res
       end
 
       def error_message(msg)
-        msg["Error"] || msg
+        msg['Error'] || msg
       end
     end
   end

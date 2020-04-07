@@ -4,7 +4,7 @@ class TeamPolicy
   attr_reader :user, :team
 
   def initialize(user, team)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     @user = user
     @team = team
@@ -19,16 +19,16 @@ class TeamPolicy
   end
 
   def create?
-    APP_CONFIG.enabled?("user_permission.create_team") || user.admin?
+    APP_CONFIG.enabled?('user_permission.create_team') || user.admin?
   end
 
   def update?
-    (APP_CONFIG.enabled?("user_permission.manage_team") || user.admin?) && !team.hidden? && owner?
+    (APP_CONFIG.enabled?('user_permission.manage_team') || user.admin?) && !team.hidden? && owner?
   end
 
   def destroy?
-    can_contributor_delete = APP_CONFIG["delete"]["contributors"] && contributor?
-    delete_enabled = APP_CONFIG.enabled?("delete")
+    can_contributor_delete = APP_CONFIG['delete']['contributors'] && contributor?
+    delete_enabled = APP_CONFIG.enabled?('delete')
     delete_enabled && !team.hidden? && (user.admin? || owner? || can_contributor_delete)
   end
 

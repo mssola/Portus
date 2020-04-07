@@ -10,10 +10,10 @@ module Portus
     # "username:token". The given token should be a valid application token for
     # the given user.
     def authenticate_user_from_authentication_token!
-      auth = request.headers["Portus-Auth"].presence
+      auth = request.headers['Portus-Auth'].presence
       return if auth.nil?
 
-      username, password = auth.split(":")
+      username, password = auth.split(':')
       user = User.find_by(username: username)
 
       # Sign in when it included in controller.

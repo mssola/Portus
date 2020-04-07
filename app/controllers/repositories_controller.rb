@@ -10,7 +10,7 @@ class RepositoriesController < ApplicationController
   def team_repositories
     @team_repositories = Repository
                          .joins(namespace: { team: :users })
-                         .where("users.id = :user_id", user_id: current_user.id)
+                         .where('users.id = :user_id', user_id: current_user.id)
 
     render json: serialize_repositories(paginate(order(@team_repositories)))
   end
@@ -20,7 +20,7 @@ class RepositoriesController < ApplicationController
     @team_repositories = Repository
                          .joins(namespace: { team: :users })
                          .select(:id)
-                         .where("users.id = :user_id", user_id: current_user.id)
+                         .where('users.id = :user_id', user_id: current_user.id)
     @other_repositories = policy_scope(Repository).where.not(id: @team_repositories.map(&:id))
 
     render json: serialize_repositories(paginate(order(@other_repositories)))

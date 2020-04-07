@@ -21,21 +21,21 @@
 #  index_webhooks_on_namespace_id  (namespace_id)
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Webhook, type: :model do
   subject { create(:webhook, namespace: create(:namespace)) }
 
   let!(:request_methods) { %w[GET POST] }
-  let!(:content_types) { ["application/json", "application/x-www-form-urlencoded"] }
+  let!(:content_types) { ['application/json', 'application/x-www-form-urlencoded'] }
 
   it { is_expected.to have_many(:headers) }
   it { is_expected.to have_many(:deliveries) }
   it { is_expected.to belong_to(:namespace) }
 
-  it { is_expected.to allow_value("example.org").for(:url) }
+  it { is_expected.to allow_value('example.org').for(:url) }
   it { is_expected.not_to allow_value("won't work").for(:url) }
-  it { is_expected.not_to allow_value("ftp:///home/mssola").for(:url) }
+  it { is_expected.not_to allow_value('ftp:///home/mssola').for(:url) }
 
   it { is_expected.to validate_presence_of(:url) }
   it { is_expected.to define_enum_for(:request_method) }
@@ -43,7 +43,7 @@ RSpec.describe Webhook, type: :model do
   it { is_expected.to define_enum_for(:content_type) }
   it { is_expected.to allow_value(*content_types).for(:content_type) }
 
-  describe "push and delete events" do
+  describe 'push and delete events' do
     let!(:registry)  { create(:registry) }
     let!(:owner)     { create(:user) }
     let!(:team)      { create(:team, owners: [owner]) }
@@ -51,27 +51,27 @@ RSpec.describe Webhook, type: :model do
     let!(:repo)      { create(:repository, namespace: namespace) }
     let!(:event) do
       {
-        "request" => { "host" => registry.hostname.to_s },
-        "target"  => { "repository" => "#{namespace.name}/#{repo.name}" }
+        'request' => { 'host' => registry.hostname.to_s },
+        'target'  => { 'repository' => "#{namespace.name}/#{repo.name}" }
       }
     end
 
     before do
-      stub_request(:POST, "username:password@www.example.com")
+      stub_request(:POST, 'username:password@www.example.com')
         .to_return(status: 200)
-      stub_request(:POST, "www.example.com").to_return(status: 200)
+      stub_request(:POST, 'www.example.com').to_return(status: 200)
     end
 
-    context "triggering a webhook" do
+    context 'triggering a webhook' do
       let!(:webhook_noauth) { create(:webhook, namespace: namespace) }
       let!(:webhook_auth) do
-        create(:webhook, namespace: namespace, username: "username", password: "password")
+        create(:webhook, namespace: namespace, username: 'username', password: 'password')
       end
       let!(:webhook_header) do
-        create(:webhook_header, webhook: webhook_auth, name: "foo", value: "bar")
+        create(:webhook_header, webhook: webhook_auth, name: 'foo', value: 'bar')
       end
 
-      it "works when given user credentials" do
+      it 'works when given user credentials' do
         Webhook.handle_push_event(event)
         delivery = WebhookDelivery.find_by(webhook: webhook_auth)
         expect(delivery.status).to eq 200
@@ -83,7 +83,7 @@ RSpec.describe Webhook, type: :model do
         expect(JSON.parse(delivery.request_body)).to eq event
       end
 
-      it "works when providing no user credentials" do
+      it 'works when providing no user credentials' do
         Webhook.handle_push_event(event)
         delivery = WebhookDelivery.find_by(webhook: webhook_noauth)
         expect(delivery.status).to eq 200
@@ -95,14 +95,14 @@ RSpec.describe Webhook, type: :model do
         expect(JSON.parse(delivery.request_body)).to eq event
       end
 
-      it "fails in the given namespace cannot be found" do
-        event["target"]["repository"] = "unknown_namespace/unknown_repo"
+      it 'fails in the given namespace cannot be found' do
+        event['target']['repository'] = 'unknown_namespace/unknown_repo'
         expect(Webhook.handle_push_event(event)).to be nil
         expect(Webhook.handle_delete_event(event)).to be nil
       end
     end
 
-    it "skips disabled webhooks" do
+    it 'skips disabled webhooks' do
       Webhook.handle_push_event(event)
       expect(WebhookDelivery.all).to be_empty
 

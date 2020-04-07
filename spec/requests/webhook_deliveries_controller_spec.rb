@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe WebhookDeliveriesController do
   let!(:registry)         { create(:registry) }
@@ -14,12 +14,12 @@ RSpec.describe WebhookDeliveriesController do
     sign_in owner
   end
 
-  describe "#update" do
+  describe '#update' do
     before do
       allow_any_instance_of(WebhookDelivery).to receive(:retrigger).and_return(true)
     end
 
-    it "retriggers a webhook delivery" do
+    it 'retriggers a webhook delivery' do
       put namespace_webhook_delivery_url(
         webhook_id:   webhook.id,
         id:           webhook_delivery.id,

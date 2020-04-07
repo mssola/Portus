@@ -13,7 +13,7 @@ module SessionFlash
   def session_flash(user, method)
     # First of all we've got a greeting.
     if method.nil?
-      flash[:notice] = "Welcome!"
+      flash[:notice] = 'Welcome!'
     else
       set_flash_message :notice, method unless method.nil?
     end
@@ -26,10 +26,10 @@ module SessionFlash
     ns = user.namespace.name
     str = " Your personal namespace is '#{ns}'"
     str += if user.username == ns
-             "."
+             '.'
            else
-             " (your username was not a valid Docker namespace, " \
-             "so we had to tweak it)."
+             ' (your username was not a valid Docker namespace, ' \
+             'so we had to tweak it).'
            end
     flash[:notice] += str
   end

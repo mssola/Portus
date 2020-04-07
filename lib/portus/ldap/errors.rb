@@ -10,7 +10,7 @@ module Portus
     module Errors
       # logged_error_message! is a shorthand for calling `error_message` and
       # `logged_failure!` in combination.
-      def logged_error_message!(obj, name = "")
+      def logged_error_message!(obj, name = '')
         msg = error_message(obj, name)
         logged_failure!(msg)
       end
@@ -18,7 +18,7 @@ module Portus
       # error_message returns a string containing a more descriptive error
       # message for the given object. You may also want to provide the name of
       # the user which tried to authenticate.
-      def error_message(obj, name = "")
+      def error_message(obj, name = '')
         if name.present? && obj.get_operation_result.code.zero?
           "Could not find user '#{name}'"
         else

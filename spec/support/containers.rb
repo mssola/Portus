@@ -4,6 +4,6 @@
 module Containers
   # Checks whether it's running inside of a Docker container or not
   def self.dockerized?
-    @dockerized ||= File.read("/proc/1/cgroup").include?("docker")
+    @dockerized ||= File.read('/proc/1/cgroup').include?('docker')
   end
 end

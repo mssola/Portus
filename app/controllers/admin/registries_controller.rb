@@ -31,7 +31,7 @@ class Admin::RegistriesController < Admin::BaseController
     svc.execute
 
     if svc.valid?
-      redirect_to admin_registries_path, notice: "Registry was successfully created."
+      redirect_to admin_registries_path, notice: 'Registry was successfully created.'
     elsif svc.reachable?
       flash[:alert] = svc.messages
       redirect_to new_admin_registry_path, alert: svc.messages
@@ -67,11 +67,11 @@ class Admin::RegistriesController < Admin::BaseController
       # NOTE: if we decide to use rails-observers at some point,
       # we can remove this from here and use it in observers
       Rails.cache.delete "registry#{@registry.id}_status"
-      redirect_to admin_registries_path, notice: "Registry updated successfully!"
+      redirect_to admin_registries_path, notice: 'Registry updated successfully!'
     else
       flash[:alert] = svc.messages
       @can_change_hostname = Repository.none?
-      render "edit", status: :unprocessable_entity
+      render 'edit', status: :unprocessable_entity
     end
   end
 
@@ -80,7 +80,7 @@ class Admin::RegistriesController < Admin::BaseController
   # Raises a routing error if there is already a registry in place.
   # NOTE: (mssola) remove this once we support multiple registries.
   def registry_created
-    raise ActionController::RoutingError, "Not found" if Registry.any?
+    raise ActionController::RoutingError, 'Not found' if Registry.any?
   end
 
   # The required/permitted parameters on the create method.

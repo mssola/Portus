@@ -14,7 +14,7 @@ class ErrorsController < ApplicationController
   # Common endpoint for all errors.
   def show
     @status = status_code
-    render @status.to_s, status: @status, layout: "errors"
+    render @status.to_s, status: @status, layout: 'errors'
   end
 
   protected
@@ -23,8 +23,8 @@ class ErrorsController < ApplicationController
   def status_code
     if params[:fixes]
       @fix = fixes
-      exc  = request.env["action_dispatch.exception"]
-      @fix[:database] = exc.class.name.starts_with? "ActiveRecord"
+      exc  = request.env['action_dispatch.exception']
+      @fix[:database] = exc.class.name.starts_with? 'ActiveRecord'
       500
     else
       status = params[:status]

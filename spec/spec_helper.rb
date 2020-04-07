@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 # SimpleCov needs to be at the very top of the file.
-require "simplecov"
+require 'simplecov'
 SimpleCov.minimum_coverage 100
-SimpleCov.start "rails" do
+SimpleCov.start 'rails' do
   # TODO: remove this when this feature is merged in zypper-docker's master branch.
-  add_filter "lib/portus/security_backends/zypper"
+  add_filter 'lib/portus/security_backends/zypper'
 end
 
-require "webmock/rspec"
-require "vcr"
+require 'webmock/rspec'
+require 'vcr'
 
 VCR.configure do |c|
-  c.cassette_library_dir = "spec/vcr_cassettes"
+  c.cassette_library_dir = 'spec/vcr_cassettes'
   c.hook_into :webmock
   c.ignore_localhost = true
 
   # So code coverage reports can be submitted to codeclimate.com
-  c.ignore_hosts "codeclimate.com"
+  c.ignore_hosts 'codeclimate.com'
 
   # To debug when a VCR goes wrong.
-  c.debug_logger = $stdout if ENV["PORTUS_VCR_LOGGER"]
+  c.debug_logger = $stdout if ENV['PORTUS_VCR_LOGGER']
 end
 
 RSpec.configure do |config|
@@ -41,105 +41,105 @@ RSpec.configure do |config|
     APP_CONFIG.clear
 
     # this value affects normal login behavior, reset to default value always.
-    APP_CONFIG["oauth"] = { "local_login" => { "enabled" => true } }
+    APP_CONFIG['oauth'] = { 'local_login' => { 'enabled' => true } }
 
     # this value affects the application controller, we have to make sure
     # it has the default value we expect
-    APP_CONFIG["check_ssl_usage"] = { "enabled" => true }
+    APP_CONFIG['check_ssl_usage'] = { 'enabled' => true }
 
     # Expected to be always available.
-    APP_CONFIG["machine_fqdn"] = { "value" => "portus.test.lan" }
+    APP_CONFIG['machine_fqdn'] = { 'value' => 'portus.test.lan' }
 
     # This value is expected to be always available. The default value will be
     # set
-    APP_CONFIG["registry"] = {
-      "jwt_expiration_time" => { "value" => 5   },
-      "catalog_page"        => { "value" => 100 },
-      "timeout"             => { "value" => 2   },
-      "read_timeout"        => { "value" => 120 }
+    APP_CONFIG['registry'] = {
+      'jwt_expiration_time' => { 'value' => 5   },
+      'catalog_page'        => { 'value' => 100 },
+      'timeout'             => { 'value' => 2   },
+      'read_timeout'        => { 'value' => 120 }
     }
 
-    APP_CONFIG["user_permission"] = {
+    APP_CONFIG['user_permission'] = {
       # This allows non-admins to change the visibility of their personal namespace
-      "change_visibility" => { "enabled" => true },
+      'change_visibility' => { 'enabled' => true },
       # This allows non-admins to modify namespaces
-      "manage_namespace"  => { "enabled" => true },
+      'manage_namespace'  => { 'enabled' => true },
       # This allows non-admins to create namespaces
-      "create_namespace"  => { "enabled" => true },
+      'create_namespace'  => { 'enabled' => true },
       # This allows non-admins to modify webhooks
-      "manage_webhook"    => { "enabled" => true },
+      'manage_webhook'    => { 'enabled' => true },
       # This allows non-admins to create webhooks
-      "create_webhook"    => { "enabled" => true },
+      'create_webhook'    => { 'enabled' => true },
       # This allows non-admins to modify teams
-      "manage_team"       => { "enabled" => true },
+      'manage_team'       => { 'enabled' => true },
       # This allows non-admins to create teams
-      "create_team"       => { "enabled" => true },
+      'create_team'       => { 'enabled' => true },
       # This allows non-admins to push images
-      "push_images"       => { "policy" => "allow-teams" }
+      'push_images'       => { 'policy' => 'allow-teams' }
     }
 
-    APP_CONFIG["security"] = {
-      "clair" => {
-        "server"  => "",
-        "timeout" => 900
-      }, "zypper" => {
-        "server" => ""
-      }, "dummy" => {
-        "server" => ""
+    APP_CONFIG['security'] = {
+      'clair' => {
+        'server'  => '',
+        'timeout' => 900
+      }, 'zypper' => {
+        'server' => ''
+      }, 'dummy' => {
+        'server' => ''
       }
     }
 
-    APP_CONFIG["background"] = {
-      "sync" => { "enabled" => false, "strategy" => "initial" }
+    APP_CONFIG['background'] = {
+      'sync' => { 'enabled' => false, 'strategy' => 'initial' }
     }
 
-    APP_CONFIG["delete"] = {
-      "enabled"           => false,
-      "contributors"      => false,
-      "garbage_collector" => {
-        "enabled"    => false,
-        "older_than" => 30,
-        "tag"        => ""
+    APP_CONFIG['delete'] = {
+      'enabled'           => false,
+      'contributors'      => false,
+      'garbage_collector' => {
+        'enabled'    => false,
+        'older_than' => 30,
+        'tag'        => ''
       }
     }
 
-    APP_CONFIG["pagination"] = {
-      "per_page"     => 10,
-      "before_after" => 2
+    APP_CONFIG['pagination'] = {
+      'per_page'     => 10,
+      'before_after' => 2
     }
 
-    APP_CONFIG["ldap"] = {
-      "enabled"        => false,
-      "hostname"       => "hostname",
-      "port"           => 389,
-      "timeout"        => 5,
-      "encryption"     => {
-        "method"  => "",
-        "options" => {
-          "ca_file"     => "",
-          "ssl_version" => "TLSv1_2"
+    APP_CONFIG['ldap'] = {
+      'enabled'        => false,
+      'hostname'       => 'hostname',
+      'port'           => 389,
+      'timeout'        => 5,
+      'encryption'     => {
+        'method'  => '',
+        'options' => {
+          'ca_file'     => '',
+          'ssl_version' => 'TLSv1_2'
         }
       },
-      "base"           => "ou=users,dc=example,dc=com",
-      "base_admin"     => "",
-      "filter"         => "",
-      "uid"            => "uid",
-      "group_sync"     => {
-        "enabled"      => true,
-        "default_role" => "viewer"
+      'base'           => 'ou=users,dc=example,dc=com',
+      'base_admin'     => '',
+      'filter'         => '',
+      'uid'            => 'uid',
+      'group_sync'     => {
+        'enabled'      => true,
+        'default_role' => 'viewer'
       },
-      "authentication" => {
-        "enabled"  => false,
-        "bind_dn"  => "",
-        "password" => ""
+      'authentication' => {
+        'enabled'  => false,
+        'bind_dn'  => '',
+        'password' => ''
       },
-      "guess_email"    => {
-        "enabled" => false,
-        "attr"    => ""
+      'guess_email'    => {
+        'enabled' => false,
+        'attr'    => ''
       }
     }
 
-    Rails.cache.write("portus-checks", nil)
+    Rails.cache.write('portus-checks', nil)
   end
 
   config.order = :random

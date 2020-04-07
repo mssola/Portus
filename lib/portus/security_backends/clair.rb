@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "portus/security_backends/base"
+require 'portus/security_backends/base'
 
 # Docker images contain quite some empty blobs, and trying to upload them will
 # fail.
-EMPTY_LAYER_SHA = "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+EMPTY_LAYER_SHA = 'sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4'
 
 module Portus
   module SecurityBackends
@@ -33,7 +33,7 @@ module Portus
       end
 
       def self.config_key
-        "clair"
+        'clair'
       end
 
       protected
@@ -46,60 +46,60 @@ module Portus
 
         res = []
         known = []
-        Array(layer["Features"]).each do |f|
-          vulns = f["Vulnerabilities"]
+        Array(layer['Features']).each do |f|
+          vulns = f['Vulnerabilities']
           next if vulns.nil?
 
           vulns.each do |v|
-            name = Hash(v)["Name"]
+            name = Hash(v)['Name']
             next if name.blank? || known.include?(name)
 
-            known << v["Name"]
+            known << v['Name']
             res << v
           end
         end
-        res.sort_by { |el| el["Name"] }
+        res.sort_by { |el| el['Name'] }
       end
 
       # Fetches the layer information from Clair for the given digest as a Hash.
       # If nothing could be extracted, then nil is returned.
       def fetch_layer(digest)
         # Now we fetch the vulnerabilities discovered by clair on that layer.
-        uri, req = get_request("/v1/layers/#{digest}?features=false&vulnerabilities=true", "get")
-        req["Accept"] = "application/json"
+        uri, req = get_request("/v1/layers/#{digest}?features=false&vulnerabilities=true", 'get')
+        req['Accept'] = 'application/json'
         begin
           res = get_response_token(uri, req, clair_timeout)
         rescue *::Portus::Errors::NET => e
-          Rails.logger.tagged("clair.get") { Rails.logger.debug e.message }
+          Rails.logger.tagged('clair.get') { Rails.logger.debug e.message }
           return
         end
 
         # Parse the given response and return the result.
         if res.code.to_i == 200
           msg = JSON.parse(res.body)
-          Rails.logger.tagged("clair.get") { Rails.logger.debug msg }
-          msg["Layer"]
+          Rails.logger.tagged('clair.get') { Rails.logger.debug msg }
+          msg['Layer']
         else
-          handle_response(res, digest, "clair.get")
+          handle_response(res, digest, 'clair.get')
         end
       end
 
       # Post the layer pointed by the given index to Clair.
       def post_layer(index)
-        parent = index.positive? ? @layers.fetch(index - 1) : ""
+        parent = index.positive? ? @layers.fetch(index - 1) : ''
         digest = @layers.fetch(index)
 
-        uri, req = get_request("/v1/layers", "post")
+        uri, req = get_request('/v1/layers', 'post')
         req.body = layer_body(digest, parent).to_json
 
         begin
           res = get_response_token(uri, req, clair_timeout)
         rescue *::Portus::Errors::NET => e
-          Rails.logger.tagged("clair.post") { Rails.logger.debug e.message }
+          Rails.logger.tagged('clair.post') { Rails.logger.debug e.message }
           return
         end
 
-        handle_response(res, digest, "clair.post")
+        handle_response(res, digest, 'clair.post')
       end
 
       # Returns a hash that has to be used as the body of a POST request. This
@@ -110,15 +110,15 @@ module Portus
         path = URI.join(@registry_url.to_s, "/v2/#{@repo}/blobs/#{digest}").to_s
 
         {
-          "Layer" => {
-            "Name"             => digest,
-            "NamespaceName"    => "",
-            "Path"             => path,
-            "Headers"          => { "Authorization" => "Bearer #{@token}" },
-            "ParentName"       => parent,
-            "Format"           => "Docker",
-            "IndexedByVersion" => 0,
-            "Features"         => []
+          'Layer' => {
+            'Name'             => digest,
+            'NamespaceName'    => '',
+            'Path'             => path,
+            'Headers'          => { 'Authorization' => "Bearer #{@token}" },
+            'ParentName'       => parent,
+            'Format'           => 'Docker',
+            'IndexedByVersion' => 0,
+            'Features'         => []
           }
         }
       end
@@ -141,12 +141,12 @@ module Portus
 
       # Returns a proper error message for the given JSON response.
       def error_message(msg)
-        msg["Error"] && msg["Error"]["Message"] ? msg["Error"]["Message"] : msg
+        msg['Error'] && msg['Error']['Message'] ? msg['Error']['Message'] : msg
       end
 
       # Returns the integer value of timeouts for HTTP requests.
       def clair_timeout
-        APP_CONFIG["security"]["clair"]["timeout"]
+        APP_CONFIG['security']['clair']['timeout']
       end
     end
   end

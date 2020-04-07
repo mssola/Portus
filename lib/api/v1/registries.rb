@@ -4,38 +4,38 @@ module Api
   module V1
     # Registries implements all the endpoints regarding registries.
     class Registries < Grape::API
-      version "v1", using: :path
+      version 'v1', using: :path
 
       resource :registries do
         before do
           authorization!(force_admin: true)
         end
 
-        desc "Returns a list of registries",
-             tags:     ["registries"],
-             detail:   "This will expose all accessible registries",
+        desc 'Returns a list of registries',
+             tags:     ['registries'],
+             detail:   'This will expose all accessible registries',
              is_array: true,
              entity:   Api::Entities::Registries,
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         get do
           present Registry.all, with: Api::Entities::Registries
         end
 
-        desc "Create a registry",
-             tags:     ["registries"],
-             detail:   "Allow users to create a registry. " \
-                       "This will only work if no registry works yet",
+        desc 'Create a registry',
+             tags:     ['registries'],
+             detail:   'Allow users to create a registry. ' \
+                       'This will only work if no registry works yet',
              entity:   Api::Entities::Registries,
-             consumes: ["application/x-www-form-urlencoded", "application/json"],
+             consumes: ['application/x-www-form-urlencoded', 'application/json'],
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ]
 
         params do
@@ -62,17 +62,17 @@ module Api
           end
         end
 
-        desc "Update registry",
+        desc 'Update registry',
              params:   Api::Entities::Registries.documentation.slice(:id),
              failure:  [
-               [400, "Bad request", Api::Entities::ApiErrors],
-               [401, "Authentication fails"],
-               [403, "Authorization fails"],
-               [404, "Not found"],
-               [422, "Unprocessable Entity", Api::Entities::FullApiErrors]
+               [400, 'Bad request', Api::Entities::ApiErrors],
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails'],
+               [404, 'Not found'],
+               [422, 'Unprocessable Entity', Api::Entities::FullApiErrors]
              ],
              entity:   Api::Entities::Registries,
-             consumes: ["application/x-www-form-urlencoded", "application/json"]
+             consumes: ['application/x-www-form-urlencoded', 'application/json']
 
         params do
           requires :registry, type: Hash do
@@ -84,7 +84,7 @@ module Api
           end
         end
 
-        put ":id" do
+        put ':id' do
           attrs = declared(params, include_missing: false)[:registry].merge(id: params[:id])
           svc = ::Registries::UpdateService.new(current_user, attrs)
           obj = svc.execute
@@ -96,17 +96,17 @@ module Api
           end
         end
 
-        desc "Validates the given registry",
-             tags:     ["registries"],
-             detail:   "Besides containing the usual Status object, it adds the reachable " \
-                       "validation to the `hostname` field in the `messages` hash. This " \
-                       "validation returns a string containing the error as given by the " \
-                       "registry. If empty then everything went well",
+        desc 'Validates the given registry',
+             tags:     ['registries'],
+             detail:   'Besides containing the usual Status object, it adds the reachable ' \
+                       'validation to the `hostname` field in the `messages` hash. This ' \
+                       'validation returns a string containing the error as given by the ' \
+                       'registry. If empty then everything went well',
              entity:   Api::Entities::Status,
-             consumes: ["application/x-www-form-urlencoded", "application/json"],
+             consumes: ['application/x-www-form-urlencoded', 'application/json'],
              failure:  [
-               [401, "Authentication fails"],
-               [403, "Authorization fails"]
+               [401, 'Authentication fails'],
+               [403, 'Authorization fails']
              ]
 
         params do
@@ -119,11 +119,11 @@ module Api
           requires :use_ssl,
                    using: Api::Entities::Registries.documentation.slice(:use_ssl)
           optional :only,
-                   documentation: { desc: "Restrict which parameters are to be validated" },
+                   documentation: { desc: 'Restrict which parameters are to be validated' },
                    type:          Array[String]
         end
 
-        get "/validate" do
+        get '/validate' do
           validation = ::Registries::ValidateService.new(permitted_params).execute
           present validation, with: Api::Entities::Status
         end

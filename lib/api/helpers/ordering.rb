@@ -12,7 +12,7 @@ module Api
       private
 
       def sanitized_order
-        params[:sort_order] == "asc" ? :asc : :desc
+        params[:sort_order] == 'asc' ? :asc : :desc
       end
 
       def sanitized_attr(relation)

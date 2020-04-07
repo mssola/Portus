@@ -2,7 +2,7 @@
 
 # :nocov:
 
-require "pty"
+require 'pty'
 
 module ::Portus
   class Cmd

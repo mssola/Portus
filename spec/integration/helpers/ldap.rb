@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/ldap/authenticatable"
+require 'portus/ldap/authenticatable'
 
 ##
 # Define a class that mocks stuff like `params` and exit methods.
@@ -35,25 +35,25 @@ end
 
 originals = {}
 
-ARGV[2].to_s.split(";").each do |env|
-  k, val = env.split("=", 2)
+ARGV[2].to_s.split(';').each do |env|
+  k, val = env.split('=', 2)
 
-  *key, last = k.split(":")
-  hsh = APP_CONFIG["ldap"]
+  *key, last = k.split(':')
+  hsh = APP_CONFIG['ldap']
   key.each { |ke| hsh = hsh[ke] }
 
   originals[k] = hsh[last].dup
   hsh[last] = val
 end
 
-puts "APP_CONFIG for LDAP: #{APP_CONFIG["ldap"]}"
+puts "APP_CONFIG for LDAP: #{APP_CONFIG['ldap']}"
 
 # Regardless of what happens in the end, set the APP_CONFIG to the original
 # values.
 at_exit do
   originals.each do |k, v|
-    *key, last = k.split(":")
-    hsh = APP_CONFIG["ldap"]
+    *key, last = k.split(':')
+    hsh = APP_CONFIG['ldap']
     key.each { |ke| hsh = hsh[ke] }
     hsh[last] = v
   end

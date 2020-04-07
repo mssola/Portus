@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-describe "TeamUsers::UpdateService" do
+describe 'TeamUsers::UpdateService' do
   let!(:user) { create(:user) }
   let!(:admin) { create(:admin) }
   let!(:owner) { create(:user) }
   let!(:contributor) { create(:user) }
   let!(:team) { create(:team, owners: [owner], contributors: [contributor]) }
 
-  describe "#execute" do
-    context "with params" do
-      subject(:service) { TeamUsers::UpdateService.new(user, role: "viewer") }
+  describe '#execute' do
+    context 'with params' do
+      subject(:service) { TeamUsers::UpdateService.new(user, role: 'viewer') }
 
-      it "updates team user" do
+      it 'updates team user' do
         tu_contrib = team.team_users.last
 
         service.execute(tu_contrib)
 
-        expect(tu_contrib.role).to eq("viewer")
+        expect(tu_contrib.role).to eq('viewer')
       end
 
-      it "creates a new activity" do
+      it 'creates a new activity' do
         tu_contrib = team.team_users.last
 
         expect { service.execute(tu_contrib) }.to change(PublicActivity::Activity, :count).by(1)
@@ -54,10 +54,10 @@ describe "TeamUsers::UpdateService" do
       end
     end
 
-    context "without params" do
+    context 'without params' do
       subject(:service) { TeamUsers::UpdateService.new(user) }
 
-      it "returns false" do
+      it 'returns false' do
         expect(service.execute(nil)).to be_falsey
       end
 

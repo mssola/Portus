@@ -11,7 +11,7 @@ class Registry::AuthScope < Portus::AuthScope
   end
 
   def scopes
-    catalog? ? ["all"] : []
+    catalog? ? ['all'] : []
   end
 
   private
@@ -19,6 +19,6 @@ class Registry::AuthScope < Portus::AuthScope
   # Returns true if the given scope string corresponds to the /v2/_catalog
   # endpoint.
   def catalog?
-    @resource_name == "catalog" && @actions[0] == "*"
+    @resource_name == 'catalog' && @actions[0] == '*'
   end
 end

@@ -57,7 +57,7 @@ class User < ApplicationRecord
                             ],
                             authentication_keys: [:username]]
 
-  enabled_devise_modules.delete(:validatable) if APP_CONFIG.enabled?("ldap")
+  enabled_devise_modules.delete(:validatable) if APP_CONFIG.enabled?('ldap')
   devise(*enabled_devise_modules)
 
   APPLICATION_TOKENS_MAX = 5
@@ -81,7 +81,7 @@ class User < ApplicationRecord
   has_many :tags, dependent: :nullify
   has_many :comments, dependent: :destroy
 
-  scope :not_portus, -> { where.not(username: "portus") }
+  scope :not_portus, -> { where.not(username: 'portus') }
   scope :enabled,    -> { not_portus.where(enabled: true) }
   scope :admins,     -> { not_portus.where(enabled: true, admin: true) }
 
@@ -93,16 +93,16 @@ class User < ApplicationRecord
   def self.create_portus_user!
     User.skip_portus_validation = true
     User.create!(
-      username: "portus",
+      username: 'portus',
       password: Rails.application.secrets.portus_password,
-      email:    "portus@portus.com",
+      email:    'portus@portus.com',
       admin:    true
     )
   end
 
   # Returns portus user
   def self.portus
-    find_by(username: "portus")
+    find_by(username: 'portus')
   end
 
   # Creates a user and sets this password as an empty string. This way we don't
@@ -122,7 +122,7 @@ class User < ApplicationRecord
       user = User.create(params.merge(password: SecureRandom.hex(16)))
 
       if user.persisted?
-        created = user.update(encrypted_password: "")
+        created = user.update(encrypted_password: '')
         user.destroy unless created
       end
     end
@@ -133,15 +133,15 @@ class User < ApplicationRecord
   # false. Right now, only users that were created from LDAP cannot login
   # outside of the LDAP context.
   def login_allowed?
-    return true if APP_CONFIG.enabled?("ldap")
+    return true if APP_CONFIG.enabled?('ldap')
 
-    encrypted_password != ""
+    encrypted_password != ''
   end
 
   # Special method used by Devise to require an email on signup. This is always
   # true except for LDAP.
   def email_required?
-    !(APP_CONFIG.enabled?("ldap") && email.blank?)
+    !(APP_CONFIG.enabled?('ldap') && email.blank?)
   end
 
   # Adds an error if the user to be updated is the portus one. This is a
@@ -161,7 +161,7 @@ class User < ApplicationRecord
 
     return unless portus? || portus?(username_before_last_save)
 
-    errors.add(:username, "cannot be updated")
+    errors.add(:username, 'cannot be updated')
   end
 
   # It adds an error if the username clashes with either a namespace or a team.
@@ -176,17 +176,17 @@ class User < ApplicationRecord
   # as an alternative to the value of `username`.
   def portus?(field = nil)
     f = field.nil? ? username : field
-    f == "portus"
+    f == 'portus'
   end
 
   # Returns avatar url if gravatar is enabled and email not blank
   def avatar_url
-    GravatarImageTag.gravatar_url(email) if APP_CONFIG.enabled?("gravatar") && email.present?
+    GravatarImageTag.gravatar_url(email) if APP_CONFIG.enabled?('gravatar') && email.present?
   end
 
   # Returns the username to be displayed.
   def display_username
-    return username unless APP_CONFIG.enabled?("display_name")
+    return username unless APP_CONFIG.enabled?('display_name')
 
     display_name.presence || username
   end
@@ -216,13 +216,13 @@ class User < ApplicationRecord
     # Skipping validation on purpose, so after creating the portus hidden user,
     # a namespace can be assigned to it even if updates are forbidden
     # afterwards.
-    update_attribute("namespace", namespace)
+    update_attribute('namespace', namespace)
   end
 
   # Find the user that can be guessed from the given push event.
   def self.find_from_event(event)
-    actor = User.find_by(username: event["actor"]["name"])
-    logger.error "Cannot find user #{event["actor"]["name"]}" if actor.nil?
+    actor = User.find_by(username: event['actor']['name'])
+    logger.error "Cannot find user #{event['actor']['name']}" if actor.nil?
     actor
   end
 
@@ -260,9 +260,9 @@ class User < ApplicationRecord
   # The flashy message to be shown for disabled users that try to login.
   def inactive_message
     if login_allowed?
-      "Sorry, this account has been disabled."
+      'Sorry, this account has been disabled.'
     else
-      "This user can only login through an LDAP server."
+      'This user can only login through an LDAP server.'
     end
   end
 
@@ -312,8 +312,8 @@ class User < ApplicationRecord
   #   params - hash with :username and :display_name
   #   data   - hash from oauth provider. We use info: {:email}, :provider and :uid.
   def self.create_from_oauth(params, data)
-    params.merge! data["info"].slice("email")
-    params.merge! data.slice("provider", "uid")
+    params.merge! data['info'].slice('email')
+    params.merge! data.slice('provider', 'uid')
     params[:password] = Devise.friendly_token[0, 20]
     User.create params
   end
@@ -329,7 +329,7 @@ class User < ApplicationRecord
 
     num = 1
     while user && num < 999
-      suggest_username = "#{username}_#{num.to_s.rjust(2, "0")}"
+      suggest_username = "#{username}_#{num.to_s.rjust(2, '0')}"
       user = User.find_by(username: suggest_username)
       num += 1
     end
@@ -375,7 +375,7 @@ class User < ApplicationRecord
 
   # Get username from provider's data.
   def extract_username(data)
-    data["nickname"] || data["username"] || data["email"]&.match(/^[^@]*/).to_s
+    data['nickname'] || data['username'] || data['email']&.match(/^[^@]*/).to_s
   end
 
   # Returns whether the given user can be disabled or not. The following rules

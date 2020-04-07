@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-ENV["RAILS_ENV"] ||= "test"
-ENV["NODE_ENV"]  ||= "test"
+ENV['RAILS_ENV'] ||= 'test'
+ENV['NODE_ENV']  ||= 'test'
 
-require "spec_helper"
-require File.expand_path("../config/environment", __dir__)
-require "rspec/rails"
-require "pundit/rspec"
+require 'spec_helper'
+require File.expand_path('../config/environment', __dir__)
+require 'rspec/rails'
+require 'pundit/rspec'
 
 Capybara.server = :puma, { Silent: true }
 
@@ -15,12 +15,12 @@ ActiveRecord::Migration.maintain_test_schema!
 
 # All the configuration that is specific for a gem (or set of related gems) has
 # been pushed into individual files inside the `spec/support` directory.
-Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 # Keep the original value of the PORTUS_DB_ADAPTER env. variable.
-CONFIGURED_DB_ADAPTER = ENV["PORTUS_DB_ADAPTER"]
+CONFIGURED_DB_ADAPTER = ENV['PORTUS_DB_ADAPTER']
 
-require "shoulda/matchers"
+require 'shoulda/matchers'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

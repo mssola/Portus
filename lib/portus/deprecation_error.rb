@@ -5,7 +5,7 @@ module Portus
   # in the latest version and we want to provide migration instructions
   class DeprecationError < StandardError
     def to_s
-      "[DEPRECATED] " + super
+      '[DEPRECATED] ' + super
     end
   end
 end

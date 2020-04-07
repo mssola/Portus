@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "portus/health_checks/db"
-require "portus/health_checks/clair"
-require "portus/health_checks/ldap"
-require "portus/health_checks/registry"
+require 'portus/health_checks/db'
+require 'portus/health_checks/clair'
+require 'portus/health_checks/ldap'
+require 'portus/health_checks/registry'
 
 module Portus
   # Health contains methods for checking the status of the different relevant

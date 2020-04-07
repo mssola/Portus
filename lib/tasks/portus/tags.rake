@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../helpers"
+require_relative '../helpers'
 
 # Returns the tags to be updated. It accepts the `force` argument in which it
 # will force the update to all tags.
@@ -12,7 +12,7 @@ def tags_to_update(force)
          end
 
   if tags.empty?
-    puts "There are no tags to be updated."
+    puts 'There are no tags to be updated.'
     exit 0
   else
     puts "Updating a total of #{tags.size} tags..."
@@ -32,14 +32,14 @@ def warn_user!
 
   HERE
 
-  return if ENV["PORTUS_FORCE_DIGEST_UPDATE"]
+  return if ENV['PORTUS_FORCE_DIGEST_UPDATE']
 
-  msg = "Are you sure that you want to proceed with this ? (y/n) "
+  msg = 'Are you sure that you want to proceed with this ? (y/n) '
   exit 0 unless ::Helpers.are_you_sure?(msg)
 end
 
 namespace :portus do
-  desc "Update the manifest digest of tags"
+  desc 'Update the manifest digest of tags'
   task :update_tags, [:update] => [:environment] do |_, args|
     warn_user!
 

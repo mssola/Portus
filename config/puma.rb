@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 # Set CConfig straight.
-ENV["CCONFIG_PREFIX"] = "PORTUS"
+ENV['CCONFIG_PREFIX'] = 'PORTUS'
 
 # Workers and connections.
-threads 1, ENV.fetch("PORTUS_PUMA_MAX_THREADS") { 4 }.to_i
-workers ENV.fetch("PORTUS_PUMA_WORKERS") { 4 }.to_i
+threads 1, ENV.fetch('PORTUS_PUMA_MAX_THREADS') { 4 }.to_i
+workers ENV.fetch('PORTUS_PUMA_WORKERS') { 4 }.to_i
 
 # We can bind in three different ways:
 #
@@ -16,31 +16,31 @@ workers ENV.fetch("PORTUS_PUMA_WORKERS") { 4 }.to_i
 #     purposes inside of a container.
 #  3. UNIX socket. This is the default and it's good for development purposes if
 #     you are not using a container setup.
-if ENV["PORTUS_PUMA_HOST"] && ENV["PORTUS_PUMA_USE_UNIX_SOCKET"] != "true"
-  if ENV["PORTUS_PUMA_TLS_KEY"]
-    host, port = ENV["PORTUS_PUMA_HOST"].split(":")
-    port ||= "3000"
+if ENV['PORTUS_PUMA_HOST'] && ENV['PORTUS_PUMA_USE_UNIX_SOCKET'] != 'true'
+  if ENV['PORTUS_PUMA_TLS_KEY']
+    host, port = ENV['PORTUS_PUMA_HOST'].split(':')
+    port ||= '3000'
     ssl_bind host, port,
-             key:  ENV["PORTUS_PUMA_TLS_KEY"],
-             cert: ENV["PORTUS_PUMA_TLS_CERT"]
+             key:  ENV['PORTUS_PUMA_TLS_KEY'],
+             cert: ENV['PORTUS_PUMA_TLS_CERT']
   else
-    bind "tcp://#{ENV["PORTUS_PUMA_HOST"]}"
+    bind "tcp://#{ENV['PORTUS_PUMA_HOST']}"
   end
 else
-  bind "unix://#{File.join(Dir.pwd, "tmp/sockets/puma.sock")}"
+  bind "unix://#{File.join(Dir.pwd, 'tmp/sockets/puma.sock')}"
 end
 
 # Specifies the `environment` that Puma will run in.
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Daemon config. It will save the pid to tmp/pids/puma.pid. All the output
 # from both stdout and stderr will be redirected to logs/puma.log.
 #
 # You should not set this when running in a Docker container.
-if ENV["PORTUS_PUMA_DAEMONIZE"] == "yes"
-  log_file = File.join(Dir.pwd, "log/puma.log")
+if ENV['PORTUS_PUMA_DAEMONIZE'] == 'yes'
+  log_file = File.join(Dir.pwd, 'log/puma.log')
   stdout_redirect log_file, log_file, true
-  pidfile File.join(Dir.pwd, "tmp/pids/puma.pid")
+  pidfile File.join(Dir.pwd, 'tmp/pids/puma.pid')
   daemonize
 end
 

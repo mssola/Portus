@@ -15,48 +15,48 @@
 #  index_application_tokens_on_user_id  (user_id)
 #
 
-require "rails_helper"
+require 'rails_helper'
 
 describe ApplicationToken do
-  context "validator" do
+  context 'validator' do
     let(:user) { create(:user) }
 
-    it "checks for the uniqueness of application" do
-      create(:application_token, application: "test", user: user)
+    it 'checks for the uniqueness of application' do
+      create(:application_token, application: 'test', user: user)
       expect do
         described_class.create!(
-          application: "test",
-          token_hash:  "hash",
-          token_salt:  "salt",
+          application: 'test',
+          token_hash:  'hash',
+          token_salt:  'salt',
           user:        user
         )
       end.to raise_error(ActiveRecord::RecordInvalid, /Application has already been taken/)
     end
 
-    it "allows the same application name to be reaused by different users" do
-      create(:application_token, application: "test", user: user)
+    it 'allows the same application name to be reaused by different users' do
+      create(:application_token, application: 'test', user: user)
 
       user2 = create(:user)
       expect do
         described_class.create!(
-          application: "test",
-          token_hash:  "hash",
-          token_salt:  "salt",
+          application: 'test',
+          token_hash:  'hash',
+          token_salt:  'salt',
           user:        user2
         )
       end.not_to raise_error
     end
 
-    it "checks for the number of tokens created by an user" do
+    it 'checks for the number of tokens created by an user' do
       User::APPLICATION_TOKENS_MAX.times do
         create(:application_token, user: user)
       end
 
       expect do
         described_class.create!(
-          application: "test",
-          token_hash:  "hash",
-          token_salt:  "salt",
+          application: 'test',
+          token_hash:  'hash',
+          token_salt:  'salt',
           user:        user
         )
       end.to raise_error(

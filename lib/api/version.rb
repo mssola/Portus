@@ -8,12 +8,12 @@ module Api
       authorization!(force_admin: false)
     end
 
-    desc "Fetch the version of Portus",
+    desc 'Fetch the version of Portus',
          entity: Api::Entities::Version,
-         tags:   ["version"],
-         detail: "Returns the version of Portus and the supported API versions"
+         tags:   ['version'],
+         detail: 'Returns the version of Portus and the supported API versions'
 
-    get "/version" do
+    get '/version' do
       version = ::Version.from_file
       git = if ::Version.git?
               if ::Version::TAG.present?
@@ -23,7 +23,7 @@ module Api
               end
             end
 
-      obj = { "api-versions": ["v1"], git: git, version: version }
+      obj = { "api-versions": ['v1'], git: git, version: version }
       present obj, with: Api::Entities::Version, type: current_type
     end
   end

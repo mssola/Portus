@@ -15,7 +15,7 @@ module Repositories
 
       unless destroyed
         full_messages = !repository.errors.empty? && repository.errors.full_messages
-        @error = full_messages || "Could not remove repository"
+        @error = full_messages || 'Could not remove repository'
       end
 
       destroyed
@@ -35,7 +35,7 @@ module Repositories
 
       destroyed_tags = repository.reload.tags.none?
       unless destroyed_tags
-        remaining_tags = repository.tags.pluck(:name).join(", ")
+        remaining_tags = repository.tags.pluck(:name).join(', ')
         @error = "Could not remove repository: could not remove #{remaining_tags} tag(s)"
       end
 

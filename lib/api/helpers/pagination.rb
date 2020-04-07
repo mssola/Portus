@@ -18,20 +18,20 @@ module Api
       private
 
       def add_pagination_headers(paginated_data)
-        header "X-Per-Page",    APP_CONFIG["pagination"]["per_page"]
-        header "X-Page",        paginated_data.current_page.to_s
-        header "X-Next-Page",   paginated_data.next_page.to_s
-        header "X-Prev-Page",   paginated_data.prev_page.to_s
-        header "X-Total",       paginated_data.total_count.to_s
-        header "X-Total-Pages", total_pages(paginated_data).to_s
+        header 'X-Per-Page',    APP_CONFIG['pagination']['per_page']
+        header 'X-Page',        paginated_data.current_page.to_s
+        header 'X-Next-Page',   paginated_data.next_page.to_s
+        header 'X-Prev-Page',   paginated_data.prev_page.to_s
+        header 'X-Total',       paginated_data.total_count.to_s
+        header 'X-Total-Pages', total_pages(paginated_data).to_s
 
         return if params[:action] && params[:controller]
 
-        header "Link", pagination_links(paginated_data)
+        header 'Link', pagination_links(paginated_data)
       end
 
       def pagination_links(paginated_data)
-        request_url = request.url.split("?").first
+        request_url = request.url.split('?').first
         request_params = params.clone
         request_params[:per_page] = paginated_data.limit_value
 
@@ -49,7 +49,7 @@ module Api
         request_params[:page] = total_pages(paginated_data)
         links << %(<#{request_url}?#{request_params.to_query}>; rel="last")
 
-        links.join(", ")
+        links.join(', ')
       end
 
       def total_pages(paginated_data)

@@ -13,13 +13,13 @@ module Portus
     def self.message_from_exception(klass)
       case klass
       when SocketError, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
-        "connection refused"
+        'connection refused'
       when Errno::ECONNRESET
-        "connection reset"
+        'connection reset'
       when OpenSSL::SSL::SSLError, Net::HTTPBadResponse
-        "could not stablish connection: SSL error"
+        'could not stablish connection: SSL error'
       when Errno::ETIMEDOUT, Net::OpenTimeout
-        "connection timed out"
+        'connection timed out'
       end
     end
 

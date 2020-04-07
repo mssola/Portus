@@ -24,23 +24,23 @@ def db(param)
 end
 
 # Database Environment Variables have changed.
-if db("host") || db("username") || db("password") || db("database")
-  raise Portus::DeprecationError, "The database configuration has been extended. With this " \
-  "extension the Environment Variable Names have been changed. Instead of starting with " \
+if db('host') || db('username') || db('password') || db('database')
+  raise Portus::DeprecationError, 'The database configuration has been extended. With this ' \
+  'extension the Environment Variable Names have been changed. Instead of starting with ' \
   "'PORTUS_PRODUCTION_' they now start with 'PORTUS_DB_'. Please consolidate " \
-  "config/database.yml for further details."
+  'config/database.yml for further details.'
 end
 
 if Rails.env.production?
   # Mandatory environment variables for production.
-  mandatory_secret!("SECRET_KEY_BASE", Rails.application.secrets.secret_key_base)
-  mandatory_secret!("KEY_PATH", Rails.application.secrets.encryption_private_key_path)
-  mandatory_secret!("PASSWORD", Rails.application.secrets.portus_password)
+  mandatory_secret!('SECRET_KEY_BASE', Rails.application.secrets.secret_key_base)
+  mandatory_secret!('KEY_PATH', Rails.application.secrets.encryption_private_key_path)
+  mandatory_secret!('PASSWORD', Rails.application.secrets.portus_password)
 
   # Strongly recommended environment variables for production.
-  if ENV["PORTUS_MACHINE_FQDN_VALUE"].blank?
-    if APP_CONFIG["machine_fqdn"]["value"] == APP_CONFIG.default_of("machine_fqdn.value")
-      Rails.logger.warn "You have not changed the FQDN configuration. Are you sure about this?"
+  if ENV['PORTUS_MACHINE_FQDN_VALUE'].blank?
+    if APP_CONFIG['machine_fqdn']['value'] == APP_CONFIG.default_of('machine_fqdn.value')
+      Rails.logger.warn 'You have not changed the FQDN configuration. Are you sure about this?'
     end
   end
 end

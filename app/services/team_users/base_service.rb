@@ -10,9 +10,9 @@ module TeamUsers
     # the team through either the update or the destroy methods.
     def owners_remaining?(team_user)
       return true unless team_user.only_owner?
-      return true unless params[:role].nil? || params[:role] != "owner"
+      return true unless params[:role].nil? || params[:role] != 'owner'
 
-      @message = "Cannot remove the only owner of the team"
+      @message = 'Cannot remove the only owner of the team'
       false
     end
   end

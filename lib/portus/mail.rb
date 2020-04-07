@@ -18,19 +18,19 @@ module Portus
       # check_email_configuration! raises a ::Portus::Mail::ConfigurationError
       # when any of the relevant emails is badly formatted.
       def check_email_configuration!
-        check_email!("from")
-        check_email!("reply_to") if @config["reply_to"].present?
+        check_email!('from')
+        check_email!('reply_to') if @config['reply_to'].present?
       end
 
       # Returns a hash with the SMTP settings to be used by the mailer.
       def smtp_settings
-        smtp = @config["smtp"]
-        return unless smtp["enabled"]
+        smtp = @config['smtp']
+        return unless smtp['enabled']
 
         {
-          address: smtp["address"],
-          port:    smtp["port"],
-          domain:  smtp["domain"]
+          address: smtp['address'],
+          port:    smtp['port'],
+          domain:  smtp['domain']
         }.merge(ssl_settings).merge(authentication_settings)
       end
 
@@ -39,8 +39,8 @@ module Portus
       # Returns the SMTP settings around SSL.
       def ssl_settings
         {
-          enable_starttls_auto: @config["smtp"]["enable_starttls_auto"],
-          openssl_verify_mode:  @config["smtp"]["openssl_verify_mode"]
+          enable_starttls_auto: @config['smtp']['enable_starttls_auto'],
+          openssl_verify_mode:  @config['smtp']['openssl_verify_mode']
         }.merge(ssl_tls).merge(ca)
       end
 
@@ -48,9 +48,9 @@ module Portus
       # specifies it. It returns an empty hash when no SSL/TLS has been
       # configured.
       def ssl_tls
-        if @config["smtp"]["ssl_tls"] == "ssl"
+        if @config['smtp']['ssl_tls'] == 'ssl'
           { ssl: true }
-        elsif @config["smtp"]["ssl_tls"] == "tls"
+        elsif @config['smtp']['ssl_tls'] == 'tls'
           { tls: true }
         else
           {}
@@ -61,8 +61,8 @@ module Portus
       # in the configuration.
       def ca
         {}.tap do |hsh|
-          hsh[:ca_path] = @config["smtp"]["ca_path"] if @config["smtp"]["ca_path"]
-          hsh[:ca_file] = @config["smtp"]["ca_file"] if @config["smtp"]["ca_file"]
+          hsh[:ca_path] = @config['smtp']['ca_path'] if @config['smtp']['ca_path']
+          hsh[:ca_file] = @config['smtp']['ca_file'] if @config['smtp']['ca_file']
         end
       end
 
@@ -70,12 +70,12 @@ module Portus
       # configuration. It returns an empty hash if the `user_name` field has
       # been left blank.
       def authentication_settings
-        return {} if @config["smtp"]["user_name"].blank?
+        return {} if @config['smtp']['user_name'].blank?
 
         {
-          user_name:      @config["smtp"]["user_name"],
-          password:       @config["smtp"]["password"],
-          authentication: @config["smtp"]["authentication"]
+          user_name:      @config['smtp']['user_name'],
+          password:       @config['smtp']['password'],
+          authentication: @config['smtp']['authentication']
         }
       end
 

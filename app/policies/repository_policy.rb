@@ -19,17 +19,17 @@ class RepositoryPolicy
   end
 
   def update?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     user.admin? || owner?
   end
 
   # Returns true if the repository can be destroyed.
   def destroy?
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
     is_contributor         = namespace.team.contributors.exists?(user.id)
-    can_contributor_delete = APP_CONFIG["delete"]["contributors"] && is_contributor
+    can_contributor_delete = APP_CONFIG['delete']['contributors'] && is_contributor
     delete_enabled? && (@user.admin? || owner? || can_contributor_delete)
   end
 
@@ -49,7 +49,7 @@ class RepositoryPolicy
       if user.nil?
         @scope
           .joins(namespace: { team: :users })
-          .where("namespaces.visibility = :namespace_visibility",
+          .where('namespaces.visibility = :namespace_visibility',
                  namespace_visibility: Namespace.visibilities[:visibility_public])
           .distinct
       elsif user.admin?
@@ -59,8 +59,8 @@ class RepositoryPolicy
         # the repository belongs to the current_user
         @scope
           .joins(namespace: { team: :users })
-          .where("namespaces.visibility = :namespace_visibility OR " \
-                 "users.id = :user_id",
+          .where('namespaces.visibility = :namespace_visibility OR ' \
+                 'users.id = :user_id',
                  namespace_visibility: Namespace.visibilities[:visibility_public],
                  user_id:              @user.id)
           .distinct
@@ -72,6 +72,6 @@ class RepositoryPolicy
 
   # Returns true if delete is enabled
   def delete_enabled?
-    APP_CONFIG.enabled?("delete")
+    APP_CONFIG.enabled?('delete')
   end
 end

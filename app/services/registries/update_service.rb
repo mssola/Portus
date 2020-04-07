@@ -31,7 +31,7 @@ module Registries
       return if Repository.none? || params[:hostname].blank?
 
       @valid = false
-      @messages[:hostname] = ["Registry is not empty, cannot change hostname"]
+      @messages[:hostname] = ['Registry is not empty, cannot change hostname']
     end
   end
 end

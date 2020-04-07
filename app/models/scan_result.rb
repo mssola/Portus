@@ -49,7 +49,7 @@ class ScanResult < ApplicationRecord
       results.each do |v|
         break if v.blank?
 
-        vo = Vulnerability.find_or_create_by!(name: v["Name"])
+        vo = Vulnerability.find_or_create_by!(name: v['Name'])
         vo.add_extra_values!(obj: v, sc: scanner)
         ScanResult.create(tag: tag, vulnerability: vo)
       end

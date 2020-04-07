@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "portus/migrate"
+require 'portus/migrate'
 
 module Portus
   # This class implements the JSON Web Token as expected by the registry. Read
@@ -21,9 +21,9 @@ module Portus
     # Returns a hash containing the encoded token, ready to be sent as a JSON
     # response.
     def encoded_hash
-      headers = { "kid" => JwtToken.kid(private_key) }
+      headers = { 'kid' => JwtToken.kid(private_key) }
       {
-        token:      JWT.encode(claim.deep_stringify_keys, private_key, "RS256", headers),
+        token:      JWT.encode(claim.deep_stringify_keys, private_key, 'RS256', headers),
         expires_in: expiration_time,
         issued_at:  Time.zone.at(issued_at).to_datetime.rfc3339
       }.freeze
@@ -33,7 +33,7 @@ module Portus
     # specification.
     def claim
       @claim ||= {}.tap do |hash|
-        hash[:iss]    = APP_CONFIG["machine_fqdn"]["value"]
+        hash[:iss]    = APP_CONFIG['machine_fqdn']['value']
         hash[:sub]    = @account
         hash[:aud]    = @service
         hash[:iat]    = issued_at
@@ -59,16 +59,16 @@ module Portus
       sha256 = Digest::SHA256.new
       sha256.update(private_key.public_key.to_der)
       payload = StringIO.new(sha256.digest).read(30)
-      Base32.encode(payload).split("").each_slice(4).each_with_object([]) do |slice, mem|
+      Base32.encode(payload).split('').each_slice(4).each_with_object([]) do |slice, mem|
         mem << slice.join
-      end.join(":")
+      end.join(':')
     end
 
     protected
 
     # The expiration time to be added to the current token.
     def expiration_time
-      APP_CONFIG["registry"]["jwt_expiration_time"]["value"].to_i.minutes
+      APP_CONFIG['registry']['jwt_expiration_time']['value'].to_i.minutes
     end
 
     # Returns an array with the authorized actions hash.

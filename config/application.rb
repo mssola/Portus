@@ -36,6 +36,10 @@ module Portus
     config.eager_load_paths << Rails.root.join('lib')
     config.exceptions_app = routes
 
+    # Tell zeitwerk to ignore the app/frontend directory, since no ruby files
+    # are going to be placed there.
+    Rails.autoloaders.main.ignore(Rails.root.join('app/frontend'))
+
     config.generators do |g|
       g.template_engine :slim
       g.test_framework :rspec

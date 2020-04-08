@@ -1,21 +1,21 @@
 // Bootstrap
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/transition';
+import '@bootstrapjs/transition';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/tab';
+import '@bootstrapjs/tab';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/tooltip';
+import '@bootstrapjs/tooltip';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/popover';
+import '@bootstrapjs/popover';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/dropdown';
+import '@bootstrapjs/dropdown';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/button';
+import '@bootstrapjs/button';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/collapse';
+import '@bootstrapjs/collapse';
 
 // Life it up
-import '@portus-vendor/lifeitup_layout';
+import '@portus-vendor/javascripts/lifeitup_layout';
 
 // misc
 import '@portus/plugins';
@@ -33,5 +33,6 @@ import '@portus/modules/webhooks';
 
 import '@portus/globals/globals';
 
-// Let webpack know about our images.
+// Let webpack know about stylesheets and images.
 require.context('../images', true);
+import '../stylesheets/application.scss'

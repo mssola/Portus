@@ -50,6 +50,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@rails/webpacker": "4.2.2",
     "bootstrap-sass": "^3.4.1",
     "core-js": "^3.6.4",

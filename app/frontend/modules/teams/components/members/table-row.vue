@@ -19,10 +19,10 @@
 
     <td v-if="canManage">
       <button class="btn btn-default edit-member-btn" @click.prevent="enterEditMode" v-if="!editing">
-        <i class="fa fa-pencil fa-lg"></i>
+        <i class="fa fa-pencil-alt fa-lg"></i>
       </button>
       <button class="btn btn-default edit-member-btn" @click.prevent="leaveEditMode" v-if="editing">
-        <i class="fa fa-close fa-lg"></i>
+        <i class="fa fa-times fa-lg"></i>
       </button>
     </td>
     <td v-if="canManage">

@@ -8,14 +8,14 @@ export const fadeIn = function ($el) {
 };
 
 // openCloseIcon toggles the state of the given icon with the
-// 'fa-pencil'/'fa-close' classes.
+// 'fa-pencil-alt'/'fa-times' classes.
 export const openCloseIcon = function (icon) {
-  if (icon.hasClass('fa-close')) {
-    icon.removeClass('fa-close');
-    icon.addClass('fa-pencil');
+  if (icon.hasClass('fa-times')) {
+    icon.removeClass('fa-times');
+    icon.addClass('fa-pencil-alt');
   } else {
-    icon.removeClass('fa-pencil');
-    icon.addClass('fa-close');
+    icon.removeClass('fa-pencil-alt');
+    icon.addClass('fa-times');
   }
 };
 

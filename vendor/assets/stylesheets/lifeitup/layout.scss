@@ -1,3 +1,5 @@
+@import '@bootstrapcss/_type';
+
 body, html {
   height: 100%;
   -webkit-font-smoothing: antialiased;
@@ -11,7 +13,6 @@ body {
   font-size: $body-text-size;
 }
 body.login {
-  background: asset-url("../images/layout/bg-login.jpg") no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

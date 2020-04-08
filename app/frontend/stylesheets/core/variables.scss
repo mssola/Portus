@@ -1,5 +1,5 @@
-@import 'bootstrap/variables';
-@import 'lifeitup/variables';
+@import '@bootstrapcss/_variables';
+@import '@portus-vendor/stylesheets/lifeitup/variables';
 
 //Overriding Lifeitup colours
 //main colours
@@ -46,9 +46,8 @@ $header-user-bg:       $second-colour;
 
 
 
-$body-bg:              image-url('layout/bg.png') $gray-lighter;
-
-$top-bg-panel-company: image-url('layout/company-panel-bg.jpg');
+$body-bg:              url('../images/layout/bg.png') $gray-lighter;
+$top-bg-panel-company: url('../images/layout/company-panel-bg.jpg');
 
 
 // overview

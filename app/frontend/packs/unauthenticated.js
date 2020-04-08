@@ -1,6 +1,6 @@
 // Bootstrap
 // eslint-disable-next-line import/no-extraneous-dependencies
-import '@bootstrap/tooltip';
+import '@bootstrapjs/tooltip';
 
 // Alert
 import Vue from 'vue';
@@ -17,5 +17,6 @@ import '@portus/globals/bootstrap';
 
 Vue.use(Alert);
 
-// Let webpack know about our images.
+// Let webpack know about stylesheets and images.
 require.context('../images', true);
+import '../stylesheets/application.scss'

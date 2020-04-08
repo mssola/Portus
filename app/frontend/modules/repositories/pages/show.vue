@@ -43,9 +43,9 @@
       </div>
 
       <div slot="heading-right">
-        <toggle-link text="Edit description" :state="state" state-key="descriptionFormVisible" class="toggle-link-edit-description" false-icon="fa-pencil" true-icon="fa-close" v-if="state.currentTab == 'overview' && !!repository.description_md"></toggle-link>
+        <toggle-link text="Edit description" :state="state" state-key="descriptionFormVisible" class="toggle-link-edit-description" false-icon="fa-pencil-alt" true-icon="fa-times" v-if="state.currentTab == 'overview' && !!repository.description_md"></toggle-link>
         <delete-tag-action :state="state" v-if="state.currentTab == 'tags'"></delete-tag-action>
-        <toggle-link text="Write comment" :state="state" state-key="commentFormVisible" class="toggle-link-new-comment" false-icon="fa-comment" true-icon="fa-close" v-if="state.currentTab == 'comments'"></toggle-link>
+        <toggle-link text="Write comment" :state="state" state-key="commentFormVisible" class="toggle-link-new-comment" false-icon="fa-comment" true-icon="fa-times" v-if="state.currentTab == 'comments'"></toggle-link>
       </div>
 
       <div slot="body" class="tab-content">

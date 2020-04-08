@@ -18,7 +18,7 @@
     </h5>
 
     <div slot="heading-right" v-if="webhook.updatable">
-      <toggle-link text="Edit webhook" :state="state" state-key="editFormVisible" class="toggle-link-edit-webhook" true-icon="fa-close" false-icon="fa-pencil"></toggle-link>
+      <toggle-link text="Edit webhook" :state="state" state-key="editFormVisible" class="toggle-link-edit-webhook" true-icon="fa-times" false-icon="fa-pencil-alt"></toggle-link>
     </div>
 
     <div slot="body">

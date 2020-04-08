@@ -1,0 +1,51 @@
+// Vendored fonts and styles.
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+@import "@portus-vendor/stylesheets/bootstrap-typeahead";
+@import "@portus-vendor/stylesheets/vue-multiselect";
+
+// Vendored fonts
+@import "@portus-vendor/stylesheets/raleway";
+@import "@portus-vendor/stylesheets/pacifico";
+
+// Core libraries.
+@import 'core/mixins';
+@import 'core/variables';
+
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '@bootstrap-sass/stylesheets/_bootstrap';
+
+@import '@portus-vendor/stylesheets/lifeitup/lifeitup';
+
+// Portus
+@import 'includes/alignment';
+@import 'includes/forms';
+@import 'includes/labels';
+@import 'includes/modals';
+@import 'includes/panels';
+@import 'includes/types';
+
+@import 'pages/comments';
+@import 'pages/dashboard';
+@import 'pages/explore';
+@import 'pages/registries';
+@import 'pages/repositories';
+@import 'pages/search';
+
+@import 'components/webhooks/edit-form';
+@import 'components/repositories/overview';
+@import 'components/namespaces/info';
+@import 'components/layout';
+@import 'components/pagination';
+@import 'components/buttons';
+@import 'components/tables';
+@import 'components/responsive-utilities';
+@import 'components/activities';
+@import 'components/vue-multiselect';
+@import 'components/errors';
+@import 'components/vulnerabilities/table';
+@import 'components/vulnerabilities/severities';
+@import 'components/vulnerabilities/summary';
+@import 'components/images';

@@ -9,7 +9,6 @@ gem 'rails', git: 'https://github.com/rails/rails.git', branch: '6-0-stable'
 gem 'active_record_union'
 gem 'base32'
 gem 'devise'
-gem 'font-awesome-rails'
 gem 'grape', '~> 1.3'
 gem 'grape-entity'
 gem 'grape-swagger'
@@ -65,17 +64,10 @@ gem 'ice_nine'
 gem 'minitest'
 gem 'multi_json'
 gem 'rails-dom-testing'
-gem 'sprockets', '~> 3'
-gem 'sprockets-rails'
 gem 'temple'
 
 ##
 # The following groups will *not* be included on the production installation.
-
-group :assets do
-  gem 'bootstrap-sass'
-  gem 'uglifier'
-end
 
 group :development do
   gem 'annotate'

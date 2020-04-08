@@ -3,5 +3,6 @@
 // requires the modularization of stylesheets, which is a rather daunting task
 // at the moment.
 
-// Let webpack know about our images.
+// Let webpack know about stylesheets and images.
 require.context('../images', true);
+import '../stylesheets/application.scss'

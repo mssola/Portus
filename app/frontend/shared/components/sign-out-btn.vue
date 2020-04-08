@@ -8,7 +8,7 @@
        rel="nofollow"
        href="#"
        v-bind="$attrs"
-       @click.prevent="onClick"><i class="fa fa-sign-out"></i></a>
+       @click.prevent="onClick"><i class="fa fa-sign-out-alt"></i></a>
     <form method="post" :action="href" class="hidden" ref="form">
       <input name="_method" value="delete" type="hidden" />
       <input name="authenticity_token" :value="csrfToken" type="hidden" />

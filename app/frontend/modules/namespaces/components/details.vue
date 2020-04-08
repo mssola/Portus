@@ -14,7 +14,7 @@
     </h5>
 
     <div slot="heading-right">
-      <toggle-link text="Edit" :state="state" state-key="editFormVisible" class="toggle-link-edit-namespace" false-icon="fa-pencil" true-icon="fa-close" v-if="namespace.updatable"></toggle-link>
+      <toggle-link text="Edit" :state="state" state-key="editFormVisible" class="toggle-link-edit-namespace" false-icon="fa-pencil-alt" true-icon="fa-times" v-if="namespace.updatable"></toggle-link>
       <button class="btn btn-default btn-sm toggle-transfer-modal" @click="openTransferModal" v-if="!state.isSpecialNamespace && !state.editFormVisible">
         <i class="fa fa-exchange"></i> Transfer
       </button>

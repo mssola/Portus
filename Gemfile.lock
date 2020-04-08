@@ -177,8 +177,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffaker (2.14.0)
     ffi (1.12.2)
-    font-awesome-rails (4.7.0.5)
-      railties (>= 3.2, < 6.1)
     formatador (0.2.5)
     git-review (2.0.0)
       gli (~> 2.8.0)
@@ -563,7 +561,6 @@ DEPENDENCIES
   ethon
   factory_bot_rails
   ffaker
-  font-awesome-rails
   git-review
   git_validation_task (~> 1.1.0)
   grape (~> 1.3)
@@ -617,8 +614,6 @@ DEPENDENCIES
   shoulda
   simplecov
   slim
-  sprockets (~> 3)
-  sprockets-rails
   temple
   timecop
   typhoeus

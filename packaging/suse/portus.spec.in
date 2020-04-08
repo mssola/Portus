@@ -132,7 +132,7 @@ gem.%{rb_suffix} install --no-document --install-dir vendor/bundle/ruby/%{portus
 
 # Compile assets
 PORTUS_SECRET_KEY_BASE="ap" PORTUS_KEY_PATH="ap" PORTUS_PASSWORD="ap" \
-  INCLUDE_ASSETS_GROUP=yes RAILS_ENV=production NODE_ENV=production \
+  RAILS_ENV=production NODE_ENV=production \
   ./bin/bundle exec rake assets:precompile
 
 # Install the final gems (i.e. exclude the `assets` group from the final

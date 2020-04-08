@@ -57,7 +57,7 @@ export default {
         return 'fa fa-check fa-lg text-success';
       }
 
-      return 'fa fa-close fa-lg text-danger';
+      return 'fa fa-times fa-lg text-danger';
     },
 
     updatedAt() {

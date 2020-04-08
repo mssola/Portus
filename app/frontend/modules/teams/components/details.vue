@@ -14,7 +14,7 @@
     </h5>
 
     <div slot="heading-right" v-if="team.updatable">
-      <toggle-link text="Edit" :state="state" state-key="editFormVisible" class="toggle-link-edit-team" true-icon="fa-close" false-icon="fa-pencil"></toggle-link>
+      <toggle-link text="Edit" :state="state" state-key="editFormVisible" class="toggle-link-edit-team" true-icon="fa-times" false-icon="fa-pencil-alt"></toggle-link>
       <button class="btn btn-danger btn-sm toggle-delete-modal" @click="openDeleteModal" v-if="team.destroyable">
         <i class="fa fa-trash"></i> Delete
       </button>

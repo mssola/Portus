@@ -133,7 +133,7 @@ gem.%{rb_suffix} install --no-document --install-dir vendor/bundle/ruby/%{portus
 # Compile assets
 PORTUS_SECRET_KEY_BASE="ap" PORTUS_KEY_PATH="ap" PORTUS_PASSWORD="ap" \
   RAILS_ENV=production NODE_ENV=production \
-  ./bin/bundle exec rake assets:precompile
+  ./bin/bundle exec rake webpacker:compile
 
 # Install the final gems (i.e. exclude the `assets` group from the final
 # bundle). Unfortunately, bundler does not have a way to remove gems from a

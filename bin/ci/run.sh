@@ -82,7 +82,7 @@ if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
     bundle exec rails r bin/schema_check.rb
 
     # Compile assets
-    NODE_ENV=development bundle exec rake assets:precompile
+    NODE_ENV=development bundle exec rake webpacker:compile
 
     # Ruby tests
     __database restart

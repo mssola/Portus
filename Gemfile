@@ -8,15 +8,23 @@ gem 'rails', git: 'https://github.com/rails/rails.git', branch: '6-0-stable'
 
 gem 'active_record_union'
 gem 'base32'
+gem 'bcrypt'
+gem 'cconfig', '~> 1.3.0'
 gem 'devise'
+gem 'ethon'
+gem 'git_validation_task', '~> 1.1.0'
 gem 'grape', '~> 1.3'
 gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-swagger-entity'
 gem 'gravatar_image_tag'
 gem 'hashie-forbidden_attributes'
+gem 'i18n'
+gem 'ice_nine'
 gem 'jwt'
 gem 'kaminari'
+gem 'minitest'
+gem 'multi_json'
 gem 'net-ldap'
 gem 'omniauth-github'
 gem 'omniauth-gitlab'
@@ -25,46 +33,22 @@ gem 'omniauth-openid'
 gem 'omniauth-rails_csrf_protection', '~> 0.1.2'
 gem 'omniauth_openid_connect'
 gem 'public_activity', '~> 1.6.3'
+gem 'puma'
 gem 'pundit'
+gem 'rack-cors'
+gem 'rails-dom-testing'
 gem 'redcarpet'
 gem 'ruby-openid', '~> 2.9.2'
-gem 'sassc-rails'
+gem 'ruby_checker', '~> 1.1.0'
 gem 'search_cop'
 gem 'slim'
+gem 'temple'
+gem 'typhoeus'
 gem 'webpacker'
-
-gem 'rack-cors'
 
 # Supported DBs
 gem 'mysql2', group: :db
 gem 'pg', group: :db
-
-# Pinning these specific versions because that's what we have on OBS.
-gem 'ethon'
-gem 'typhoeus'
-
-# Used to store application tokens.
-gem 'bcrypt'
-
-# If the deployment is done through Puma, include it in the bundle.
-gem 'puma'
-
-# Configuration management
-gem 'cconfig', '~> 1.3.0'
-
-# Check the version of ruby being used.
-gem 'ruby_checker', '~> 1.1.0'
-
-# Check the version of ruby being used.
-gem 'git_validation_task', '~> 1.1.0'
-
-# Pinning some versions
-gem 'i18n'
-gem 'ice_nine'
-gem 'minitest'
-gem 'multi_json'
-gem 'rails-dom-testing'
-gem 'temple'
 
 ##
 # The following groups will *not* be included on the production installation.

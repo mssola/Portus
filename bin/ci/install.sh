@@ -7,17 +7,13 @@ if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
   # ugly otherwise.
   set +x
   source ~/.nvm/nvm.sh
-  nvm install stable
-  nvm use stable
+  nvm install 10.19.0
+  nvm use 10.19.0
   set -x
 
   # Install Yarn
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  sudo apt-get update
-  sudo apt-get install yarn
-  yarn --version
-  yarn install
+  sudo rm $(which yarn)
+  npm install -g yarn@1.22.4
 
   # Intall Go, which is needed for git-validation
   eval "$(curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | GIMME_GO_VERSION=1.10.2 bash)"

@@ -15,8 +15,8 @@ import '@portus/modules/users/unauthenticated';
 
 import '@portus/globals/bootstrap';
 
+import '../stylesheets/application.scss';
+
 Vue.use(Alert);
 
-// Let webpack know about stylesheets and images.
 require.context('../images', true);
-import '../stylesheets/application.scss'

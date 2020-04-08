@@ -16,6 +16,7 @@ if [ "$PORTUS_CI" = "unit" ] || [ "$PORTUS_CI" = "all" ]; then
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update
   sudo apt-get install yarn
+  yarn --version
   yarn install
 
   # Intall Go, which is needed for git-validation

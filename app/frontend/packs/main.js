@@ -31,8 +31,9 @@ import '@portus/modules/tags';
 import '@portus/modules/teams';
 import '@portus/modules/webhooks';
 
+import '@portus/globals/bootstrap';
 import '@portus/globals/globals';
 
-// Let webpack know about stylesheets and images.
+import '../stylesheets/application.scss';
+
 require.context('../images', true);
-import '../stylesheets/application.scss'

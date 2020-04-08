@@ -1,6 +1,2 @@
-javascript:
-  window.API_URL = '//#{app_path}';
-  window.PAGINATION = {
-    perPage: #{pagination_per_page},
-    beforeAfter: #{pagination_before_after}
-  };
+script id="portus-client-config" type="text/json"
+  = Base64.encode64({ apiUrl: "//#{app_path}", pagination: { perPage: pagination_per_page, beforeAfter: "#{pagination_before_after}" } }.to_json)

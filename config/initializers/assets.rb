@@ -1,4 +1,10 @@
 # frozen_string_literal: true
 
-Rails.application.config.assets.version = '1.0'
-Rails.application.config.assets.precompile += %w[*.woff2]
+##
+# Fill up our knowledge of assets packs so it can later be used when rendering
+# the main layout.
+
+require 'portus/assets_packs'
+
+PORTUS_ASSETS_PACKS = ::Portus::AssetsPacks.new
+PORTUS_ASSETS_PACKS.fill_up_entries!

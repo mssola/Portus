@@ -29,7 +29,7 @@ html
     meta content="#205683" name="theme-color"
 
     = render "shared/config"
-    = javascript_pack_tag("main", defer: true)
+    = javascript_pack_tag(pack_for_current_controller, defer: true)
     = yield :js_header
 
   body data-controller="#{js_controller}" data-route="#{js_route}" class="#{'is-admin' if current_user.admin?}" data-disable-effects="#{Rails.env.test?}"

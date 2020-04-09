@@ -31,6 +31,17 @@ module ApplicationHelper
     controller.class.name.underscore.gsub('_controller', '')
   end
 
+  # Returns the javascript pack to be used for the current controller. If the
+  # current controller has no assigned pack, then the generic 'main' pack is
+  # returned.
+  #
+  # This method must *not* be used outside of the 'application' layout, since
+  # the implementation will consciously ignore the packs for controllers that
+  # use that layout.
+  def pack_for_current_controller
+    PORTUS_ASSETS_PACKS.pack_for(js_controller)
+  end
+
   # Render the user profile picture depending on the gravatar configuration.
   def user_image_tag(user)
     if user&.avatar_url.present?

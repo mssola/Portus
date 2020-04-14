@@ -6,11 +6,10 @@ module RegistriesHelper
     error = registry.reachable?
     msg   = error.empty? ? 'Reachable' : error
     time  = Time.now.getlocal.to_s(:rfc822)
-    icon  = 'chain'
-    icon += '-broken' unless error.empty?
+    icon  = error.empty? ? 'link' : 'unlink'
 
     title = "#{msg} - Checked at #{time}"
 
-    content_tag :i, '', class: "fa fa-lg fa-#{icon}", title: title
+    content_tag :i, '', class: "fas fa-lg fa-#{icon}", title: title
   end
 end

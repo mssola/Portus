@@ -39,7 +39,8 @@ module ApplicationHelper
   # the implementation will consciously ignore the packs for controllers that
   # use that layout.
   def pack_for_current_controller
-    PORTUS_ASSETS_PACKS.pack_for(js_controller)
+    controller = js_controller.gsub('/', '-')
+    PORTUS_ASSETS_PACKS.pack_for(controller)
   end
 
   # Render the user profile picture depending on the gravatar configuration.

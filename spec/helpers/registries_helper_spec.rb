@@ -6,18 +6,18 @@ RSpec.describe RegistriesHelper, type: :helper do
   let!(:registry) { create(:registry) }
 
   describe '#registry_status_icon' do
-    it 'renders with chain icon if reachable' do
+    it 'renders with link icon if reachable' do
       allow(registry).to receive(:reachable?).and_return('')
 
       html = helper.registry_status_icon(registry)
-      expect(html).to include('<i class="fa fa-lg fa-chain" title="Reachable')
+      expect(html).to include('<i class="fas fa-lg fa-link" title="Reachable')
     end
 
-    it 'renders with chain-broken icon if unreachable' do
+    it 'renders with unlink icon if unreachable' do
       allow(registry).to receive(:reachable?).and_return('Something')
 
       html = helper.registry_status_icon(registry)
-      expect(html).to include('<i class="fa fa-lg fa-chain-broken" title="Something')
+      expect(html).to include('<i class="fas fa-lg fa-unlink" title="Something')
     end
   end
 end

@@ -4,6 +4,7 @@ import '@bootstrapjs/popover';
 // Global stuff.
 import '@portus-vendor/javascripts/lifeitup_layout';
 import '@portus/plugins';
+import '@portus/globals/bootstrap';
 import '@portus/globals/globals';
 
 // Relevant stuff for namespaces.

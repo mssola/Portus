@@ -1,0 +1,32 @@
+// Font awesome.
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+// Core libraries.
+@import 'core/mixins';
+@import 'core/variables';
+
+// Bootstrap and Life it up.
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '@bootstrap-sass/stylesheets/_bootstrap';
+
+// Portus vendor.
+@import "@portus-vendor/stylesheets/bootstrap-typeahead";
+@import '@portus-vendor/stylesheets/lifeitup/lifeitup';
+
+// Application includes.
+@import 'includes/alignment';
+@import 'includes/forms';
+@import 'includes/labels';
+@import 'includes/modals';
+
+// Pages
+@import 'pages/registries';
+
+// Components to be loaded.
+@import 'components/layout';
+@import 'components/buttons';
+@import 'components/tables';
+@import 'components/responsive-utilities';
+@import 'components/images';

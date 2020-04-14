@@ -15,7 +15,7 @@ import '@portus/modules/users/unauthenticated';
 
 import '@portus/globals/bootstrap';
 
-import '../stylesheets/application.scss';
+import '../stylesheets/unauthenticated.scss';
 
 Vue.use(Alert);
 

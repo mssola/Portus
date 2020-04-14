@@ -17,7 +17,11 @@
 </template>
 
 <script>
+
 import NamespacesTable from './table';
+import LoadingIcon from '@portus/shared/components/loading-icon'
+import ToggleLink from '@portus/shared/components/toggle-link'
+import Panel from '@portus/shared/components/panel'
 
 import NamespacesStore from '../store';
 
@@ -32,6 +36,9 @@ export default {
 
   components: {
     NamespacesTable,
+    LoadingIcon,
+    ToggleLink,
+    Panel,
   },
 };
 </script>

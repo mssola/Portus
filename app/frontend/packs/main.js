@@ -26,7 +26,6 @@ import '@portus/modules/admin/registries';
 import '@portus/modules/users';
 import '@portus/modules/dashboard';
 import '@portus/modules/repositories';
-import '@portus/modules/namespaces';
 import '@portus/modules/tags';
 import '@portus/modules/teams';
 import '@portus/modules/webhooks';

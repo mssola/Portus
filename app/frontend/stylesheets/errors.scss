@@ -1,0 +1,21 @@
+// Font awesome.
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+
+// Vendored fonts
+@import "@portus-vendor/stylesheets/pacifico";
+
+// Core libraries.
+@import 'core/mixins';
+@import 'core/variables';
+
+// Bootstrap and Life it up.
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '@bootstrap-sass/stylesheets/_bootstrap';
+
+// Portus vendor.
+@import '@portus-vendor/stylesheets/lifeitup/lifeitup';
+
+// Components.
+@import 'components/errors';

@@ -122,14 +122,6 @@ body:not([class*="login"]) {
   }
 }
 
-.error-fixes {
-  background: rgba(255,255,255,0.3);
-  color: $third-colour;
-  border-radius: 4px;
-  margin-top: 2em;
-  padding: 2em;
-}
-
 @media (max-width: $screen-sm-max) {
   .center-panel {
     margin-top: 2em

@@ -3,6 +3,6 @@
 // requires the modularization of stylesheets, which is a rather daunting task
 // at the moment.
 
-import '../stylesheets/application.scss';
+import '../stylesheets/errors.scss';
 
 require.context('../images', true);

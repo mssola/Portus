@@ -25,7 +25,6 @@ import '@portus/globals/polyfill';
 import '@portus/modules/dashboard';
 import '@portus/modules/repositories';
 import '@portus/modules/tags';
-import '@portus/modules/teams';
 import '@portus/modules/webhooks';
 
 import '@portus/globals/bootstrap';

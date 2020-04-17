@@ -1,24 +1,21 @@
-// Vendored fonts and styles.
+// Font awesome.
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
-
-@import "@portus-vendor/stylesheets/bootstrap-typeahead";
-@import "@portus-vendor/stylesheets/vue-multiselect";
-
-// Vendored fonts
-@import "@portus-vendor/stylesheets/raleway";
 
 // Core libraries.
 @import 'core/mixins';
 @import 'core/variables';
 
+// Bootstrap and Life it up.
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import '@bootstrap-sass/stylesheets/_bootstrap';
 
+// Portus vendor.
+@import "@portus-vendor/stylesheets/bootstrap-typeahead";
 @import '@portus-vendor/stylesheets/lifeitup/lifeitup';
 
-// Portus
+// Application includes.
 @import 'includes/alignment';
 @import 'includes/forms';
 @import 'includes/labels';
@@ -26,21 +23,13 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import 'includes/panels';
 @import 'includes/types';
 
-@import 'pages/comments';
-@import 'pages/dashboard';
-@import 'pages/repositories';
-@import 'pages/search';
+// Pages
+@import 'pages/registries';
 
-@import 'components/webhooks/edit-form';
-@import 'components/repositories/overview';
+// Components to be loaded.
 @import 'components/layout';
-@import 'components/pagination';
 @import 'components/buttons';
 @import 'components/tables';
 @import 'components/responsive-utilities';
-@import 'components/activities';
-@import 'components/vue-multiselect';
-@import 'components/vulnerabilities/table';
-@import 'components/vulnerabilities/severities';
-@import 'components/vulnerabilities/summary';
 @import 'components/images';
+@import 'components/pagination';

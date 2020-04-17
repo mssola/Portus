@@ -22,7 +22,6 @@ import '@portus/plugins';
 import '@portus/globals/polyfill';
 
 // modules
-import '@portus/modules/users';
 import '@portus/modules/dashboard';
 import '@portus/modules/repositories';
 import '@portus/modules/tags';

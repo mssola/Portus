@@ -11,6 +11,9 @@ module Portus
     # fall inside of the 'application' view layout.
     RESERVED_PACKS = ['unauthenticated.js', 'errors.js'].freeze
 
+    # A hash of synonims and their matching pack.
+    SYNONIMS = { 'auth-registrations' => 'users', 'admin-users' => 'users' }.freeze
+
     # Pack to be used whenever there is no pack for the given controller.
     DEFAULT_PACK = 'main'
 
@@ -38,6 +41,9 @@ module Portus
     # found, then the DEFAULT_PACK is returned.
     def pack_for(name)
       return name if @entries.include?(name)
+
+      syn = SYNONIMS[name]
+      return syn if syn
 
       DEFAULT_PACK
     end

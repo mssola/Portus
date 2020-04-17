@@ -43,6 +43,11 @@ describe ::Portus::AssetsPacksMock do
     expect(subject.pack_for('namespaces')).to eq 'namespaces'
   end
 
+  it 'returns valid packs for a synonim' do
+    expect(subject.pack_for('auth-registrations')).to eq 'users'
+    expect(subject.pack_for('admin-users')).to eq 'users'
+  end
+
   it 'returns the main pack for unknown controllers' do
     expect(subject.pack_for('wubalubadubdub')).to eq subject.default_pack
   end

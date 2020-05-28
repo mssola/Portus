@@ -25,6 +25,8 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   alias gitlab google_oauth2
   # Callback for Bitbucket.
   alias bitbucket google_oauth2
+  # Callback for Cloudfoundry UAA.
+  alias cloudfoundry google_oauth2
 
   protected
 

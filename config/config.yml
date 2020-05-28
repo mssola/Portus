@@ -222,6 +222,28 @@ oauth:
      # If a domain (e.g. mycompany.com) is set, then only signups with email from this domain are allowed.
     domain: ""
 
+  # Cloudfoundry UAA support.
+  # Callback url: <host>/users/auth/cloudfoundry/callback
+  cloudfoundry:
+    enabled: false
+
+    # Application credentials.
+    id: ""
+    secret: ""
+
+    # Auth and Token urls and redirect URI.
+    auth_server_url: ""
+    token_server_url: ""
+    redirect_uri: ""
+
+    # Authentication scope.
+    scope: ""
+
+    # SSL configuration.
+    skip_ssl_validation: false
+    ssl_ca_file: ""
+    ssl_cert_store: ""
+
   # Gitlab authentication support.
   # Callback url: <host>/users/auth/gitlab/callback
   gitlab:

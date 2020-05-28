@@ -18,6 +18,21 @@ def google_oauth2_fetch_options
   options
 end
 
+def cloudfoundry_fetch_options
+  # If a redirect_uri has not been setup, use the same one as the defined FQDN.
+  if APP_CONFIG['oauth']['cloudfoundry']['redirect_uri'].blank?
+    fqdn = APP_CONFIG['machine_fqdn']['value']
+    fqdn = "https://#{fqdn}" unless fqdn.start_with?('http')
+    APP_CONFIG['oauth']['cloudfoundry']['redirect_uri'] = fqdn
+  end
+
+  # Return every option that has been configured by the user and exclude
+  # internal stuff.
+  APP_CONFIG['oauth']['cloudfoundry'].select do |k, v|
+    !%w[enabled id secret].include?(k) && v.present?
+  end
+end
+
 def open_id_fetch_options
   require 'openid/store/filesystem'
 
@@ -94,7 +109,8 @@ def configure_oauth!(config)
     { backend: :openid_connect },
     { backend: :github, id: 'client_id', secret: 'client_secret' },
     { backend: :gitlab, id: 'application_id', secret: 'secret' },
-    { backend: :bitbucket, id: 'key', secret: 'secret' }
+    { backend: :bitbucket, id: 'key', secret: 'secret' },
+    { backend: :cloudfoundry, id: 'id', secret: 'secret' }
   ].each do |b|
     if b[:id]
       id = APP_CONFIG['oauth'][b[:backend].to_s][b[:id]]

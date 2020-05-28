@@ -37,3 +37,9 @@
       = link_to user_bitbucket_omniauth_authorize_path, class: 'btn btn-primary btn-block btn-lg', method: :post do
         i.fab.fa-bitbucket
         '&nbsp;Bitbucket
+
+  - if APP_CONFIG.enabled? "oauth.cloudfoundry"
+    .col-xs-12.col-sm-6
+      = link_to user_cloudfoundry_omniauth_authorize_path, class: 'btn btn-primary btn-block btn-lg', method: :post do
+        i.fab
+        '&nbsp;Cloudfoundry

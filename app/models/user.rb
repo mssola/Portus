@@ -54,6 +54,7 @@ class User < ApplicationRecord
                               github
                               gitlab
                               bitbucket
+                              cloudfoundry
                             ],
                             authentication_keys: [:username]]
 
